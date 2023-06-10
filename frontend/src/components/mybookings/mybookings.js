@@ -12,10 +12,21 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Bookings() {
+const people = [
+  {
+    no: '01',
+    name: 'John Alexander',
+    role: 'Electrician',
+    date: '2023-01-23',
+    time: '11:00',
+    rate: '15',
+    status: false,
+  },
+]
+
+export default function MyBookings() {
 
   return (
-    
     <div>
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
@@ -146,92 +157,71 @@ export default function Bookings() {
         )}
       </Disclosure>
 
-      <form className="max-w-sm bg-white py-10 m-auto" action="/MyBookings" method="GET">
-        <div class="mx-8">
-          <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">Service Booking</h2>
-          <p className="mt-2 text-m leading-6 text-gray-600">
-            Electrician
-          </p>
+      <div class="container">
+        <h5 class="mt-5 mb-4">My Bookings</h5>
 
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-max">
-            <div className="sm:col-span-4 ">
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Name
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md ring-1 ring-gray-300">
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    autoComplete="username"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    value={"John Anderson"}
-                    disabled
-                  />
-                </div>
+        <div class="row">
+          <div class="col-12 mb-3 mb-lg-5">
+            <div class="overflow-hidden card table-nowrap table-card">
+              <div class="card-header d-flex align-items-center">
+                <h6 class="mb-0" className="items-start">Jimmy Anderson</h6>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table mb-0">
+                  <thead class="small text-uppercase bg-body text-muted">
+                    <tr>
+                      <th>No.</th>
+                      <th>Name</th>
+                      <th>Role</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Status</th>
+                      <th>Cancel</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {people.map((person) => (
+                      <tr class="align-middle">
+                        <td>{person.no}</td>
+                        <td class="h6 mb-0 lh-1">{person.name}</td>
+                        <td>{person.role}</td>
+                        <td>{person.date}</td>
+                        <td>{person.time}</td>
+                        <td>
+                          {person.status==false ?
+                          <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-500 py-1 text-sm font-medium text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                              <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                            </svg>
+                            <span>Pending</span>
+                          </button> : 
+                          <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 py-1 text-sm font-medium text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                            <span>Approved</span>
+                          </button>}
+                        </td>
+                        <td class="text-end">
+                          <button 
+                          type="submit"           
+                          class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                          Cancel
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
-
-            <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="date" className="block text-sm font-medium leading-6 text-gray-900">
-                Date
-              </label>
-              <div className="mt-2">
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label htmlFor="time" className="block text-sm font-medium leading-6 text-gray-900">
-                Time
-              </label>
-              <div className="mt-2">
-                <input
-                  type="time"
-                  name="time"
-                  id="time"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-4">
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Notes
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md ring-1 ring-gray-300">
-                  <textarea
-                    type="textarea"
-                    name="notes"
-                    id="notes"                   
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 flex items-center justify-center gap-x-6">
-            <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-              Confirm
-            </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   )
 }
