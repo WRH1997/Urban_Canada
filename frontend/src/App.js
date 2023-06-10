@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import axios from 'axios';
+import Booking from "./components/booking/booking";
+import MyBookings from "./components/mybookings/mybookings";
 
 function App() {
+
+  axios.interceptors.request.use(config => {
+        config.headers['Origin'] = 'http://localhost:3001';
+        return config;
+      });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+      <Routes>
+      <Route exact path="/" element={<Booking />} />
+      <Route path="/MyBookings" element={<MyBookings />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
 export default App;
