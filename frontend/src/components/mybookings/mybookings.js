@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../mybookings/mybookings.css';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
