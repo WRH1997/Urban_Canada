@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Bookings', href: '#', current: false },
+  { name: 'Dashboard', href: '/', current: false },
+  { name: 'Bookings', href: '#', current: true },
 ]
 
 function classNames(...classes) {
@@ -79,7 +79,7 @@ export default function MyBookings() {
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl">
-              <div className="relative flex h-16 items-center justify-between">
+              <div className="relative flex h-20 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
 
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
