@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
+    "@mui/joy": "^5.0.0-alpha.84",
+    "@mui/material": "^5.13.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -12,6 +16,7 @@
     "bootstrap": "^5.2.3",
     "dayjs": "^1.11.7",
     "mdb-react-ui-kit": "^6.1.0",
+    "nodemon": "^2.0.22",
     "react": "^18.2.0",
     "react-datetime-picker": "^5.2.0",
     "react-day-time-picker": "^1.0.0",
@@ -25,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "devStart": "nodemon index.js"
   },
   "eslintConfig": {
     "extends": [
