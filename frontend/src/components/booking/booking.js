@@ -6,7 +6,7 @@ export default function Bookings() {
   return (
     
     <div>
-      <Header/>
+      <Header currentPage="/" />
       <form className="max-w-sm bg-white py-10 m-auto" action="/MyBookings" method="GET">
         <div class="mx-8">
           <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">Service Booking</h2>
