@@ -1,19 +1,24 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import Booking from "./components/booking/booking";
 import MyBookings from "./components/mybookings/mybookings";
+import Login from "./components/login/Login";
+import Signup from "./components/signup/Signup";
+import Contact from "./components/contact/contact";
 
 function App() {
-
-  axios.interceptors.request.use(config => {
-        config.headers['Origin'] = 'http://localhost:3001';
-        return config;
-      });
+  axios.interceptors.request.use((config) => {
+    config.headers["Origin"] = "http://localhost:3001";
+    return config;
+  });
   return (
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-      <Route exact path="/" element={<Booking />} />
-      <Route path="/MyBookings" element={<MyBookings />} />
+        <Route exact path="/" element={<Login />} />
+        <Route path="/MyBookings" element={<MyBookings />} />
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/booking" element={<Booking />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
       </Routes>
     </BrowserRouter>
   );
