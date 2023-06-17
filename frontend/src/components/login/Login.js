@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Signup from "../signup/Signup";
 import { Link } from "react-router-dom";
-import Bookings from "../booking/booking";
+import Header from "../header/header";
 
 export default function Login() {
   const [inputEmailValue, setInputEmailValue] = React.useState("");
@@ -35,32 +34,35 @@ export default function Login() {
     }
   };
   return (
-    <div align="center">
-      <h1>Login Page</h1>
-      <TextField
-        id="outlined-basic"
-        required
-        label="Email"
-        variant="outlined"
-        onChange={handleEmailChange}
-      />
-      <br></br>
-      <br></br>
-      <TextField
-        required
-        label="Password"
-        type="password"
-        onChange={handlePasswordChange}
-      />
-      <br></br>
-      <br></br>
-      <Button variant="contained" onClick={handleLogin}>
-        Log in
-      </Button>
-      &nbsp;&nbsp;
-      <Link to="/signup">
-        <Button variant="contained">New User? Sign up</Button>
-      </Link>
+    <div>  
+      <Header currentPage="/login"  />
+      <div align="center">
+        <h1>Login Page</h1>
+        <TextField
+          id="outlined-basic"
+          required
+          label="Email"
+          variant="outlined"
+          onChange={handleEmailChange}
+        />
+        <br></br>
+        <br></br>
+        <TextField
+          required
+          label="Password"
+          type="password"
+          onChange={handlePasswordChange}
+        />
+        <br></br>
+        <br></br>
+        <Button variant="contained" onClick={handleLogin}>
+          Log in
+        </Button>
+        &nbsp;&nbsp;
+        <Link to="/signup">
+          <Button variant="contained">New User? Sign up</Button>
+        </Link>
+      </div>
     </div>
   );
 }
