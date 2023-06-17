@@ -47,7 +47,7 @@ export default function Header(props) {
                         <a href="#" class="mr-1 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">About</a>
                     </li>
                     <li>
-                        <a href="#" class="mr-1 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">FAQ</a>
+                        <a href="/faq" class="mr-1 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">FAQ</a>
                     </li>
                     <li>
                         <a href="#" class="hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">Contact Us</a>
