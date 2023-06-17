@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import Header from "../header/header";
 import './landing.css';
 
 const LandingPage = () => {
@@ -42,28 +43,31 @@ const LandingPage = () => {
     }
 
     return(
-        <div class='landing-page'>
-            <h2 class='website-name'>[WEBSITE NAME]</h2>
-            <i><span class='tagline'>[WEBSITE TAGLINE]</span></i>
-            <br></br>
-            <center>
-            <div class='landing-auth'>
-                <h4>Sign In</h4>
-                <div class='hl'></div>
-                <form class='landing-sign-in' onSubmit={SignIn}>
-                    <label for='username' class='landing-lbl'>Username: </label>
-                    <input type='text' name='username' class='username' onChange={updateStates} value={data.username}></input>
-                    <br></br><br></br>
-                    <label for='password' class='landing-lbl'>Password: </label>
-                    <input type='password' class='password' name='password' value={data.password} onChange={updateStates}></input>
-                    <br></br><br></br>
-                    <button type='submit' class='landing-submit'>Confirm</button>
-                </form>
-                Don't have an account?
+        <div>
+            <Header currentPage="/"  />
+            <div class='landing-page'>
+                <h2 class='website-name'>[WEBSITE NAME]</h2>
+                <i><span class='tagline'>[WEBSITE TAGLINE]</span></i>
                 <br></br>
-                <Link to='/signup'>Click here to register</Link>
+                <center>
+                <div class='landing-auth'>
+                    <h4>Sign In</h4>
+                    <div class='hl'></div>
+                    <form class='landing-sign-in' onSubmit={SignIn}>
+                        <label for='username' class='landing-lbl'>Username: </label>
+                        <input type='text' name='username' class='username' onChange={updateStates} value={data.username}></input>
+                        <br></br><br></br>
+                        <label for='password' class='landing-lbl'>Password: </label>
+                        <input type='password' class='password' name='password' value={data.password} onChange={updateStates}></input>
+                        <br></br><br></br>
+                        <button type='submit' class='landing-submit'>Confirm</button>
+                    </form>
+                    Don't have an account?
+                    <br></br>
+                    <Link to='/signup'>Click here to register</Link>
+                </div>
+                </center>
             </div>
-            </center>
         </div>
     );
 }

@@ -4,7 +4,7 @@ import Header from "../header/header";
 export default function Bookings() {
   return (
     <div>
-      <Header currentPage="/booking" />
+      <Header currentPage="/booking"  />
       <form
         className="max-w-sm bg-white py-10 m-auto"
         action="/MyBookings"
