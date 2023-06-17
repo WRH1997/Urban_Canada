@@ -4,9 +4,14 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/logo.png';
 import icon from '../../assets/icon.jpg';
 
-const navigation = [
-  { name: 'Service Booking', href: '/', current: true },
-  { name: 'My Bookings', href: '/MyBookings', current: false },
+const guestNavigation = [
+  { name: 'Home', href: '/'},
+  { name: 'Login/SignUp', href: '/login'},
+];
+
+const userNavigation = [
+  { name: 'Service Booking', href: '/booking'},
+  { name: 'My Bookings', href: '/MyBookings'},
 ]
 
 function classNames(...classes) {
@@ -16,6 +21,9 @@ function classNames(...classes) {
 export default function Header(props) {
 
   const { currentPage } = props;
+  const { isLoggedIn } = props;
+
+  const navigation = isLoggedIn ? userNavigation : guestNavigation;
 
   const updatedNavigation = navigation.map((item) => {
     if (item.href === currentPage) {

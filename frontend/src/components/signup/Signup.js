@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import Header from "../header/header";
 import Login from "../login/Login";
 import { Box } from "@mui/material";
 
@@ -157,6 +158,8 @@ export default function Signup() {
     }
   };
   return (
+    <div>  
+    <Header currentPage="/login"  />
     <Box
       sx={{
         display: "flex",
@@ -308,5 +311,6 @@ export default function Signup() {
         <Button variant="contained">Alredy have an account? Log in</Button>
       </Link>
     </Box>
+    </div>
   );
 }
