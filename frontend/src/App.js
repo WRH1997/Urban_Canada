@@ -5,6 +5,7 @@ import MyBookings from "./components/mybookings/mybookings";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import Contact from "./components/contact/contact";
+import LandingPage from "./components/landingpage/landing"
 
 function App() {
   axios.interceptors.request.use((config) => {
@@ -14,7 +15,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Login />} />
+        <Route exact path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/MyBookings" element={<MyBookings />} />
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/booking" element={<Booking />}></Route>
