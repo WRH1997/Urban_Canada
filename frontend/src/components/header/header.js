@@ -7,6 +7,8 @@ import icon from '../../assets/icon.jpg';
 const guestNavigation = [
   { name: 'Home', href: '/'},
   { name: 'Login/SignUp', href: '/login'},
+  { name: 'Service Booking', href: '/booking'},
+  { name: 'My Bookings', href: '/MyBookings'},
 ];
 
 const userNavigation = [
@@ -38,7 +40,7 @@ export default function Header(props) {
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-full mx-6">
+            <div className="mx-auto max-w-full mx-5">
               <div className="relative flex h-20 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
 
@@ -112,16 +114,6 @@ export default function Header(props) {
                               className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                             >
                               Your Profile
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                            >
-                              Settings
                             </a>
                           )}
                         </Menu.Item>

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import Header from "../header/header";
+import Footer from "../footer/footer";
 import './landing.css';
 
 const LandingPage = () => {
@@ -68,6 +69,7 @@ const LandingPage = () => {
                 </div>
                 </center>
             </div>
+            <Footer/>
         </div>
     );
 }
