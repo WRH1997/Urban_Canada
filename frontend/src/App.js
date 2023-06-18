@@ -8,6 +8,12 @@ import Contact from "./components/contact/contact";
 import LandingPage from "./components/landingpage/landing";
 import FAQ from "./components/faq/faq";
 
+// Admin pages
+import { DashboardPage } from "./components/admin/pages/DashboardPage"
+import VendorRequestPage from "./components/admin/pages/VendorRequestPage"
+import VendorsPage from "./components/admin/pages/VendorsPage"
+import CustomersPage from "./components/admin/pages/CustomersPage"
+
 function App() {
   axios.interceptors.request.use((config) => {
     config.headers["Origin"] = "http://localhost:3001";
@@ -23,6 +29,12 @@ function App() {
         <Route path="/booking" element={<Booking />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/faq" element={<FAQ />}></Route>
+        {/* Admin routes start */}
+        <Route exact path="/admin/dashboard" Component={DashboardPage} />
+        <Route exact path="/admin/vendor-request" Component={VendorRequestPage} />
+        <Route exact path="/admin/vendors" Component={VendorsPage} />
+        <Route exact path="/admin/customers" Component={CustomersPage} />
+        {/* Admin routes end */}
       </Routes>
     </BrowserRouter>
   );
