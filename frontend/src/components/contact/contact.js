@@ -5,6 +5,8 @@ import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import FormHelperText from "@mui/joy/FormHelperText";
 import { Box } from "@mui/material";
+import Header from "../header/header";
+import Footer from "../footer/footer";
 
 export default function Contact() {
   const [inputFirstNameValue, setInputFirstNameValue] = React.useState("");
@@ -103,6 +105,8 @@ export default function Contact() {
     }
   };
   return (
+    <div>
+    <Header/>
     <Box
       sx={{
         display: "flex",
@@ -185,5 +189,7 @@ export default function Contact() {
         Submit
       </Button>
     </Box>
+    <Footer/>
+    </div>
   );
 }

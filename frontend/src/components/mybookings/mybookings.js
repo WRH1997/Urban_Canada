@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../header/header';
 import Footer from "../footer/footer";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
 
 const people = [

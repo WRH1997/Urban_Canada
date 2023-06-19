@@ -38,7 +38,7 @@ export default function Login() {
     <div>  
       <Header currentPage="/login"  />
 
-      {/* <div align="center">
+      <div align="center">
         <h1>Login Page</h1>
         <TextField
           id="outlined-basic"
@@ -64,19 +64,19 @@ export default function Login() {
         <Link to="/signup">
           <Button variant="contained">New User? Sign up</Button>
         </Link>
-      </div> */}
+      </div>
 
-      <form
+      {/* <form
         className="max-w-sm bg-white py-10 m-auto"
         action="/MyBookings"
         method="GET"
       >
-        <div class="mx-14 ml-0">
-          <h2 className="text-base font-semibold leading-7 text-3xl text-gray-900">
+        <div class="mx-14 ml-0 my-20">
+          <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
             Login
           </h2>
 
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-max">
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-max">
             <div className="sm:col-span-4 ">
               <label
                 htmlFor="username"
@@ -136,7 +136,7 @@ export default function Login() {
             </a>
           </div>
         </div>
-      </form>
+      </form> */}
       
       <Footer/>
     </div>
