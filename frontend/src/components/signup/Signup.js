@@ -11,6 +11,7 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
+import Footer from "../footer/footer";
 import Login from "../login/Login";
 import { Box } from "@mui/material";
 
@@ -311,6 +312,7 @@ export default function Signup() {
         <Button variant="contained">Alredy have an account? Log in</Button>
       </Link>
     </Box>
+    <Footer/>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../header/header';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from "../footer/footer";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
 
 const people = [
@@ -140,6 +141,7 @@ export default function MyBookings() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }
