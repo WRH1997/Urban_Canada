@@ -8,7 +8,7 @@ import Header from '../header/header';
 import Footer from "../footer/footer";
 
 export const ServiceDashboardPage = () => (
-  <body>
+  <body class='servicedashbod'>
   <Header currentPage='/ServiceDashboardPage'/>
   <div class='cont'>
       <div class='filter-box'>
@@ -17,22 +17,22 @@ export const ServiceDashboardPage = () => (
         <img src={down2} class="down2" alt="X" />
         <hr></hr>
         <form class='filter-form'>
-          <input type="checkbox" id="cat1" name="cat1"></input>
+          <input type="checkbox" id="cat1" name="cat1" class='serverdashinput'></input>
           <label for="cat1">Category 1</label>
           <br></br>
-          <input type="checkbox" id="cat2" name="cat2"></input>
+          <input type="checkbox" id="cat2" name="cat2" class='serverdashinput'></input>
           <label for="cat2">Category 2</label>
           <br></br>
-          <input type="checkbox" id="cat3" name="cat3"></input>
+          <input type="checkbox" id="cat3" name="cat3" class='serverdashinput'></input>
           <label for="cat1">Category 3</label>
           <br></br>
-          <input type="checkbox" id="cat4" name="cat4"></input>
+          <input type="checkbox" id="cat4" name="cat4" class='serverdashinput'></input>
           <label for="cat1">Category 4</label>
           <br></br>
-          <input type="checkbox" id="cat5" name="cat5"></input>
+          <input type="checkbox" id="cat5" name="cat5" class='serverdashinput'></input>
           <label for="cat5">Category 5</label>
           <br></br>
-          <input type="checkbox" id="cat6" name="cat6"></input>
+          <input type="checkbox" id="cat6" name="cat6" class='serverdashinput'></input>
           <label for="cat6">Category 6</label>
           <br></br>
           <button class='filter-btn'>
@@ -196,7 +196,7 @@ export const ServiceDashboardPage = () => (
 );
 
 export const ServiceDashboardPage2 = () => (
-    <body>
+    <body class='servicedashbod'>
      <Header/>
     <div class='cont'>
         <div class='filter-box'>
@@ -205,22 +205,22 @@ export const ServiceDashboardPage2 = () => (
           <img src={down2} class="down2" alt="X" />
           <hr></hr>
           <form class='filter-form'>
-            <input type="checkbox" id="cat1" name="cat1"></input>
+            <input type="checkbox" id="cat1" name="cat1" class='serverdashinput'></input>
             <label for="cat1">Category 1</label>
             <br></br>
-            <input type="checkbox" id="cat2" name="cat2"></input>
+            <input type="checkbox" id="cat2" name="cat2" class='serverdashinput'></input>
             <label for="cat2">Category 2</label>
             <br></br>
-            <input type="checkbox" id="cat3" name="cat3"></input>
+            <input type="checkbox" id="cat3" name="cat3" class='serverdashinput'></input>
             <label for="cat1">Category 3</label>
             <br></br>
-            <input type="checkbox" id="cat4" name="cat4"></input>
+            <input type="checkbox" id="cat4" name="cat4" class='serverdashinput'></input>
             <label for="cat1">Category 4</label>
             <br></br>
-            <input type="checkbox" id="cat5" name="cat5"></input>
+            <input type="checkbox" id="cat5" name="cat5" class='serverdashinput'></input>
             <label for="cat5">Category 5</label>
             <br></br>
-            <input type="checkbox" id="cat6" name="cat6"></input>
+            <input type="checkbox" id="cat6" name="cat6" class='serverdashinput'></input>
             <label for="cat6">Category 6</label>
             <br></br>
             <button class='filter-btn'>
@@ -309,7 +309,7 @@ export const ServiceDashboardPage2 = () => (
 
   export const ServiceDashErr2 = () => {
     return(
-      <body>
+      <body class='servicedashbod'>
         <center>
         <div class='err-box'>
           <br></br><br></br>
@@ -326,7 +326,7 @@ export const ServiceDashboardPage2 = () => (
 
   export const ServiceDashErr3 = () => {
     return(
-      <body>
+      <body class='servicedashbod'>
         <center>
         <div class='err-box'>
           <br></br><br></br>
@@ -343,7 +343,7 @@ export const ServiceDashboardPage2 = () => (
 
   export const ServiceDashErr4 = () => {
     return(
-      <body>
+      <body class='servicedashbod'>
         <center>
         <div class='err-box'>
           <br></br><br></br>
@@ -360,11 +360,11 @@ export const ServiceDashboardPage2 = () => (
 
   export const ServiceDashErr5 = () => {
     return(
-      <body>
+      <body class='servicedashbod'>
         <center>
         <div class='err-box'>
           <br></br><br></br>
-          <h1>Home/Landing Page Outside of Scope of this Feature</h1>
+          <h1 class='sdh1'>Home/Landing Page Outside of Scope of this Feature</h1>
           <br></br>
           <button class="back-btn">
             <Link to="/ServiceDashboardPage" class="back-link">Back</Link>
