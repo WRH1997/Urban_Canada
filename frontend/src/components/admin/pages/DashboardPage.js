@@ -6,7 +6,7 @@ import Header from '../components/Header'
 import SidebarNav from '../components/SidebarNav'
 import { ProSidebarProvider } from 'react-pro-sidebar'
 import '../admin.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const DashboardPage = () => {
   return (
