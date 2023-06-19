@@ -4,31 +4,12 @@ import prof from './assets/prof.png'
 import down from './assets/down.png';
 import down2 from './assets/down2.png';
 import servImg from './assets/service.jpeg';
+import Header from '../header/header';
+import Footer from "../footer/footer";
 
 export const ServiceDashboardPage = () => (
   <body>
-    {/*header start*/}
-  <div class='top-nav'>
-    <div class='top-block'>
-      <span><Link to="/ServiceDashErr5" class='top-link'>Home</Link></span>
-    </div>
-    <div class='top-block'>
-      <span><Link to="/ServiceDashboardPage" class='top-link'>Services</Link></span>
-    </div>
-    <div class='top-block'>
-      <span><Link to="/ServiceDashErr4" class='top-link'>Bookings</Link></span>
-    </div>
-    <div class='search'>
-      <input type="text" class='search-bar' placeholder="Search" name="search"></input>
-      <button type="submit">Search</button>
-    </div>
-    <div class='user'>
-    <img src={prof} class="prof" alt="X" />
-    <label class='uname'>User Account</label>
-    <img src={down} class="down" alt="X" />
-    </div>
-  </div>
-  {/*header end*/}
+  <Header currentPage='/ServiceDashboardPage'/>
   <div class='cont'>
       <div class='filter-box'>
         <label class='filter-lbl'>Filters</label>
@@ -210,33 +191,13 @@ export const ServiceDashboardPage = () => (
         </div></center>
       </div>
   </div>
+  <Footer/>
 </body>
 );
 
 export const ServiceDashboardPage2 = () => (
     <body>
-      {/*header start*/}
-    <div class='top-nav'>
-    <div class='top-block'>
-        <span><Link to="/ServiceDashErr5" class='top-link'>Home</Link></span>
-      </div>
-      <div class='top-block'>
-        <span><Link to="/ServiceDashboardPage" class='top-link'>Services</Link></span>
-      </div>
-      <div class='top-block'>
-        <span><Link to="/ServiceDashErr4" class='top-link'>Bookings</Link></span>
-      </div>
-      <div class='search'>
-        <input type="text" class='search-bar' placeholder="Search" name="search"></input>
-        <button type="submit">Search</button>
-      </div>
-      <div class='user'>
-      <img src={prof} class="prof" alt="X" />
-      <label class='uname'>User Account</label>
-      <img src={down} class="down" alt="X" />
-    </div>
-    </div>
-    {/*header end*/}
+     <Header/>
     <div class='cont'>
         <div class='filter-box'>
           <label class='filter-lbl'>Filters</label>
@@ -325,6 +286,7 @@ export const ServiceDashboardPage2 = () => (
           </div></center>
         </div>
     </div>
+    <Footer/>
   </body>
   );
 
