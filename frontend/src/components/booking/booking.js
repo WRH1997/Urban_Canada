@@ -5,7 +5,7 @@ import Footer from "../footer/footer";
 export default function Bookings() {
   return (
     <div>
-      <Header currentPage="/booking"  />
+      <Header currentPage="/booking"/>
       <form
         className="max-w-sm bg-white py-10 m-auto"
         action="/MyBookings"
@@ -25,8 +25,7 @@ export default function Bookings() {
               >
                 Name
               </label>
-              <div className="mt-2">
-                <div className="flex rounded-md ring-1 ring-gray-300">
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
                   <input
                     type="text"
                     name="username"
@@ -36,7 +35,6 @@ export default function Bookings() {
                     value={"John Anderson"}
                     disabled
                   />
-                </div>
               </div>
             </div>
 
@@ -47,7 +45,7 @@ export default function Bookings() {
               >
                 Date
               </label>
-              <div className="mt-2">
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
                 <input
                   type="date"
                   name="date"
@@ -65,7 +63,7 @@ export default function Bookings() {
               >
                 Time
               </label>
-              <div className="mt-2">
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
                 <input
                   type="time"
                   name="time"

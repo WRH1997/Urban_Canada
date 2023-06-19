@@ -308,7 +308,7 @@ export default function Signup() {
         Sign up
       </Button>
       <br></br>
-      <Link to="/">
+      <Link to="/login">
         <Button variant="contained">Alredy have an account? Log in</Button>
       </Link>
     </Box>
