@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
+import { display } from "@mui/system";
 
 const links = [
     { name: 'Open roles', href: '#' },
@@ -9,10 +10,10 @@ const links = [
     { name: 'Meet our leadership', href: '#' },
   ]
   const stats = [
-    { name: 'Offices worldwide', value: '12' },
-    { name: 'Full-time colleagues', value: '300+' },
-    { name: 'Hours per week', value: '40' },
-    { name: 'Paid time off', value: 'Unlimited' },
+    { name: 'Service Provides', value: '200+' },
+    { name: 'Satisfied Customers', value: '1300+' },
+    { name: 'Cities', value: '40' },
+    { name: 'Services', value: '15' },
   ]
 
 export default function Landing() {
@@ -20,7 +21,7 @@ export default function Landing() {
   return (
     <div>
       <Header currentPage="/"/>
-      <div className="relative isolate overflow-hidden bg-gray-900 h-screen sm:py-32">
+      <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32" style={{height: "100vh"}}>
         <div
           className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
           aria-hidden="true"
@@ -54,25 +55,25 @@ export default function Landing() {
             </p>
           </div>
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
+            {/* <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
               {links.map((link) => (
                 <a key={link.name} href={link.href}>
                   {link.name} <span aria-hidden="true">&rarr;</span>
                 </a>
               ))}
-            </div>
-            <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
+            </div> */}
+            <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4" style={{backgroundColor: "#fff", padding: "2rem", borderRadius: "5px"}}>
               {stats.map((stat) => (
-                <div key={stat.name} className="flex flex-col-reverse">
-                  <dt className="text-base leading-7 text-gray-300">{stat.name}</dt>
-                  <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{stat.value}</dd>
+                <div key={stat.name} className="flex flex-col-reverse justify-content-center align-items-center">
+                  <dt className="text-base leading-7 text-gray-800">{stat.name}</dt>
+                  <dd className="text-2xl font-bold leading-9 tracking-tight text-gray" style={{alignContent: "center"}}>{stat.value}</dd>
                 </div>
               ))}
-            </dl>
+            </dl> 
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
