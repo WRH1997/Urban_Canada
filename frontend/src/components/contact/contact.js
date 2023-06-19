@@ -115,7 +115,7 @@ export default function Contact() {
         paddingTop: 10,
       }}
     >
-      <h1>Contact us</h1>
+      <h1 style={{color: '#2d3748'}}>Contact us</h1>
       <br></br>
       <Box sx={{}}>
         <Box
@@ -182,6 +182,7 @@ export default function Contact() {
       </Box>
       <br></br>
       <Button
+        style={{backgroundColor: "#2d3748"}}
         variant="contained"
         onClick={handleSubmit}
         sx={{ marginTop: "10px" }}
