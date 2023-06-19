@@ -21,66 +21,66 @@ const FaqPage = () => {
   const providerData = [
     {
       id: 11,
-      option: "How can I see who has booked My service?",
-      answer: 'You need to Login via our Login page . Then select "Service Request" option from navigation bar at the top. You will be able to see the list of request along with sepecific message.',
+      option: "How to check my service bookings?",
+      answer: 'Upon successful login, select "Service Request" option from navigation bar at the top. The list of request along with sepecific message will be displayed.',
     },
     {
       id: 12,
-      option: "How can I accept requests?",
-      answer: '"Login > Service Request >" Here you will see the list of request, On the right side there will be button "Accept". After the acceptance email will be sent to customer about the acceptance which includes your contact details from your profile.',
+      option: "How to accept requests?",
+      answer: 'In the list of requests, there will be button "Accept" to accept request. After the acceptance, an email will be sent to customer about the acceptance which includes your contact details you mentioned in your profile.',
     },
     {
       id: 13,
-      option: "What after the approval?",
-      answer: 'You details will be sent automatically to customer with your contact details and the customer will contact you for further medium of communication. That\'s all.',
+      option: "What's next after approval?",
+      answer: "Customer's contact details will be shared with you and you should send an email to customer for further communication.",
     },
     {
       id: 14,
-      option: "How can I cancel approved request?",
-      answer: 'It is very simple go to "Login > Service Request >" Here you will see the list of request, On the right side there will be button "Cancel". After the cancellation email will be sent to customer about the cancellation with small message which includes reason from your profile.',
+      option: "How to cancel approved request?",
+      answer: "In the 'Service Request' tab, a 'Cancel' button is provided alongside the list of request. After the cancellation, an email will be sent to customer about it.",
     },
     {
       id: 15,
-      option: "What if some gave you a wrong feedback without using your service?",
-      answer: 'Contact admin via Contact us page you will find this option at the bottom footer section on the right side.',
+      option: "What if you got false feedback without using your service?",
+      answer: 'You can contact admin through Contact Us page, it will be reviewed and further action will be taken to resolve the issue.',
     }
 ];
 
   const faqData = [
     {
       id: 1,
-      question: 'What we are?',
-      answer: 'This is simple platform for prople to book various types of services offered by electrician , Painter, Decoreters, Caretaker etc. ',
+      question: 'Who are we?',
+      answer: 'A simple platform for people to book unique type of services offered by various service providers.',
     },
     {
       id: 2,
-      question: 'Who will provide the service?',
-      answer: 'Service provider will have their profile created on our platform other people can book the services.',
+      question: 'Who provides the service?',
+      answer: 'Service provider with their profile on our platform will provide the service and you can book the services.',
     },
     {
       id: 3,
-      question: 'How can i book the serivce?',
-      answer: 'You need to Login via our Login page in order to book the services. Then select the Service Booking option from navigation bar at the top. Enter the relevant details like time and date and what needs to be done by service provider.',
+      question: 'How to book the service?',
+      answer: 'Upon successful login, select the Service option from navigation bar at the top, and select the appropriate service from the list and then proceed for booking by entering the relevant details like date, time and additional comments, if any.',
     },
     {
       id: 4,
-      question: 'How would I know my service status?',
-      answer: 'You need to Login via our Login page in order to book the services. Then select the Service My Booking from navigation bar at the top. You will be able to see the list of serivices that you have requested for along with the status of it.',
+      question: 'How to check the service status?',
+      answer: 'Upon successful booking of the service, you will be redirected to the my bookings page or else you can select the option My Booking from navigation bar at the top. You will be able to see the list of services requested along with its status.',
     },
     {
       id: 5,
-      question: 'What is the next step after the approval?',
-      answer: 'Service provider will contact you via email on approval withing 24 hours.',
+      question: "What's next after approval?",
+      answer: 'Service provider will contact you via email on approval.',
     },
     {
       id: 6,
-      question: 'I want to give feedback on the service, I had received, where can i write it?',
-      answer: '"Login > MyBooking" Here you will see the list of booked serivce. On the right side of each booked service you will find the feedback button. Click on that and You will be redirected to Form. You need to submit the form. You will be able to see updated comments on Rating Page along with your review.',
+      question: 'How to provide feedback about service?',
+      answer: 'In my bookings page, there is an option to provide feedback in the list of bookings. On the right side of each booked service you will find the feedback button. Clicking on that will redirect to feedback form. Upon successful submission of form, you will be able to see updated comments on Rating Page along with your review.',
     },
     {
       id: 7,
-      question: "How can I cancel approved request?",
-      answer: 'It is very simple go to "Login > My Booking >" Here you will see the list of request, On the right side there will be button "Cancel". After the cancellation email will be sent to service provider about the cancellation with small message which includes reason',
+      question: "How to cancel approved service?",
+      answer: 'In my bookings page, select "Cancel" for whichever service you want to cancel.',
     },
     
     // Add more FAQ items as needed
@@ -100,7 +100,7 @@ const FaqPage = () => {
     <div className="container mx-auto py-8">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-2xl font-bold mb-4">Frequently Asked Questions</h1>
-        <h2 className="text-2xl font-bold">Consumer</h2>
+        <h2 className="text-xl font-bold">Consumer</h2>
 
         {faqData.map((faq) => (
           <div key={faq.id} className="mb-4">
@@ -112,13 +112,13 @@ const FaqPage = () => {
               <span>{expandedId === faq.id ? '-' : '+'}</span>
             </button>
             {expandedId === faq.id && (
-              <div className="mt-2 p-4 bg-gray-100 rounded-lg">
+              <div className="mt-2 px-4 py-2 bg-gray-100 rounded-lg">
                 <p>{faq.answer}</p>
               </div>
             )}
           </div>
         ))}
-        <h2 className="text-2xl font-bold">Service Provider</h2>
+        <h2 className="text-xl font-bold">Service Provider</h2>
         {providerData.map((faq) => (
           <div key={faq.id} className="mb-4">
             <button
@@ -129,7 +129,7 @@ const FaqPage = () => {
               <span>{expandedId === faq.id ? '-' : '+'}</span>
             </button>
             {expandedId === faq.id && (
-              <div className="mt-2 p-4 bg-gray-100 rounded-lg">
+              <div className="mt-2 px-4 py-2 bg-gray-100 rounded-lg">
                 <p>{faq.answer}</p>
               </div>
             )}
