@@ -35,7 +35,7 @@ export const ServiceDashboardPage = () => (
           <input type="checkbox" id="cat6" name="cat6" class='serverdashinput'></input>
           <label for="cat6">Category 6</label>
           <br></br>
-          <button class='filter-btn'>
+          <button class='filter-btn-sd'>
             <Link to="/ServiceDashErr1" class='filter-link'>Apply Filter</Link>
           </button>
         </form>
@@ -223,7 +223,7 @@ export const ServiceDashboardPage2 = () => (
             <input type="checkbox" id="cat6" name="cat6" class='serverdashinput'></input>
             <label for="cat6">Category 6</label>
             <br></br>
-            <button class='filter-btn'>
+            <button class='filter-btn-sd'>
               <Link to="/ServiceDashErr1" class='filter-link'>Apply Filter</Link>
             </button>
           </form>
