@@ -31,7 +31,9 @@
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-simple-maps": "^3.0.0",
+    "react-slick": "^0.29.0",
     "react-tailwindcss-datepicker": "^1.6.1",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
