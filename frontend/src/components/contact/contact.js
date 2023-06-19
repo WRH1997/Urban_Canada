@@ -35,7 +35,7 @@ export default function Contact() {
     var emailValidRegex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    var containsNumbersRegex = /[0-9]/g;
+    var containsNumbersRegex = /^[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/;
 
     let flag = false;
 
@@ -44,7 +44,7 @@ export default function Contact() {
       flag = true;
     } else {
       if (inputFirstNameValue.match(containsNumbersRegex)) {
-        setFirstNameError("First Name cannot have numbers");
+        setFirstNameError("First Name must have letters only");
         flag = true;
       } else {
         setFirstNameError("");
@@ -56,7 +56,7 @@ export default function Contact() {
       flag = true;
     } else {
       if (inputLastNameValue.match(containsNumbersRegex)) {
-        setLastNameError("Last Name cannot have numbers");
+        setLastNameError("Last Name must have letters only");
         flag = true;
       } else {
         setLastNameError("");
