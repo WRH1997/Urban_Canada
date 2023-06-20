@@ -168,7 +168,7 @@ export default function Signup() {
         alignItems: "center",
       }}
     >
-      <h1>Create your account</h1>
+      <h1 className="my-10" style={{fontSize: "35px"}}>Register</h1>
       <Box sx={{}}>
         <Box
           sx={{
@@ -301,15 +301,15 @@ export default function Signup() {
         <br></br>
       </Box>
       <Button
+        style={{backgroundColor: "#2d3748"}}
         variant="contained"
         onClick={handleSignUp}
-        sx={{ marginBottom: "10px" }}
       >
         Sign up
       </Button>
       <br></br>
-      <Link to="/login">
-        <Button variant="contained">Alredy have an account? Log in</Button>
+      <Link to="/login" className="text-gray-800 no-underline">
+        <p variant="contained">Alredy have an account? Log in</p>
       </Link>
     </Box>
     <Footer/>

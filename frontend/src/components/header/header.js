@@ -8,8 +8,8 @@ const guestNavigation = [
   { name: 'Home', href: '/'},
   // { name: 'Login/SignUp', href: '/login'},
   // { name: 'Services', href: '/ServiceDashboardPage'},
-  { name: 'Service Booking', href: '/booking'},
-  { name: 'My Bookings', href: '/MyBookings'},
+  // { name: 'Service Booking', href: '/booking'},
+  // { name: 'My Bookings', href: '/MyBookings'},
 ];
 
 const userNavigation = [

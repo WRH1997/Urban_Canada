@@ -115,7 +115,7 @@ export default function Contact() {
         paddingTop: 10,
       }}
     >
-      <h1 style={{color: '#2d3748'}}>Contact us</h1>
+      <h1 style={{color: '#2d3748', fontSize: "35px"}}>Contact us</h1>
       <br></br>
       <Box sx={{}}>
         <Box
