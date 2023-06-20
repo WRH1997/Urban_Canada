@@ -1,5 +1,5 @@
 .features-card {
-    font-size: 24px;
+    font-size: 22px;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@
 
 .feature-list {
     list-style-type: circle;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .feature-list-li {

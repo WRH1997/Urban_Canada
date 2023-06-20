@@ -5,8 +5,10 @@ import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import FormHelperText from "@mui/joy/FormHelperText";
 import { Box } from "@mui/material";
+import { red } from '@mui/material/colors';
 import Header from "../header/header";
 import Footer from "../footer/footer";
+const color = red[500];
 
 export default function Contact() {
   const [inputFirstNameValue, setInputFirstNameValue] = React.useState("");
@@ -112,10 +114,11 @@ export default function Contact() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        paddingTop: 10,
+        marginY: 20,
+        marginX: 5,
       }}
     >
-      <h1 style={{color: '#2d3748'}}>Contact us</h1>
+      <h1 style={{color: '#2d3748', fontSize: "35px"}}>Contact us</h1>
       <br></br>
       <Box sx={{}}>
         <Box
@@ -125,6 +128,7 @@ export default function Contact() {
         >
           <TextField
             id="outlined-basic"
+            color="grey"
             error={firstNameError && firstNameError.length ? true : false}
             required
             label="First Name"
@@ -135,6 +139,7 @@ export default function Contact() {
           &nbsp;&nbsp;
           <TextField
             id="outlined-basic"
+            color="grey"
             error={lastNameError && lastNameError.length ? true : false}
             required
             label="Last Name"
@@ -146,6 +151,7 @@ export default function Contact() {
         <br></br>
         <TextField
           id="outlined-basic"
+          color="grey"
           error={emailError && emailError.length ? true : false}
           required
           label="Email"
@@ -168,6 +174,7 @@ export default function Contact() {
             multiline
             rows={3}
             fullwidth
+            color="grey"
             error={queryError && queryError.length ? true : false}
             required
             placeholder="Enter your query here"
