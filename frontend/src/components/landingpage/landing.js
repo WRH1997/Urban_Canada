@@ -53,7 +53,7 @@ export default function Landing() {
           <div className="col-9 mx-auto lg:mx-0 md:py-4">
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Urban Canada</h2>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-            A modern service marketplace to empower vendors and satisfy clients
+            A modern service marketplace to empower vendors and satisfy clients.
             </p>
           </div>
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none justify-content-center col-9">
@@ -79,31 +79,30 @@ export default function Landing() {
         <div className="col-lg-6 col-12 p-3" style={{display: "flex", justifyContent: "center"}}>
           <img src={illustration} atl="Who are we?" />
         </div>
-        <div className="col-lg-6 col-12 p-3" style={{fontSize: "24px"}}>
+        <div className="col-lg-6 col-12 p-3 my-4" style={{fontSize: "22px"}}>
             Urban Canada is your portal to a modern service marketplace. Whether you're someone trying to find a service near you or a service vendor looking to attract clients, our platform expedites and simplifies the process of connecting the right clients to the right service vendors!
         </div>
       </section>
 
       <section className="col-12 p-4 d-flex flex-wrap " style={{backgroundColor: "#fff"}}>
-        <div className="col-12 d-flex align-items-center justify-content-center" style={{fontSize: "32px"}}>Features</div>
+        <div className="col-12 d-flex align-items-center justify-content-center" style={{fontSize: "30px"}}>Features</div>
         <div className="col-12 d-flex flex-wrap flex-row align-items-start">
           <div className="col-lg-6 col-12 p-3 features-card">
             <div className="p-3">Clients</div>
             <ul className="feature-list">
-              <li className="feature-list-li">Browse Hundreds of Verified Service Postings</li>
-              <li className="feature-list-li">Find the Services Your Looking For Using Our Robust Service Filtering and Searching Features</li>
-              <li className="feature-list-li">Quickly Book Your Next Service Within Minutes</li>
-              <li className="feature-list-li">Easily Contact Vendors and Site Admins to Resolve Issues and Disputes</li>
-              <li className="feature-list-li">View What Others Are Saying About a Service or Leave Your Own Feedback About A Service</li>
+              <li className="feature-list-li">Browse hundreds of verified service postings.</li>
+              <li className="feature-list-li">Find the services you are looking for, using our robust service filtering and searching features.</li>
+              <li className="feature-list-li">Easily contact vendors and site admins to resolve issues and disputes.</li>
+              <li className="feature-list-li">View what others say about a service or leave your feedback about a service.</li>
             </ul>
           </div>
           <div className="col-lg-6 col-12 p-3 features-card">
             <div className="p-3">Providers</div>
             <ul className="feature-list">
-              <li className="feature-list-li">Have Your Service Listings Viewed by A Large and Established User Base</li>
-              <li className="feature-list-li">Manage Multiple Listings and Bookings From a Centralized Dashboard</li>
-              <li className="feature-list-li">Approve, Decline, or Cancel Services Clients Have Booked Through a Dedicated Management Dashboard</li>
-              <li className="feature-list-li">Tag and Categorize Your Service Listings to Increase its Exposure to Your Target Audience"</li>
+              <li className="feature-list-li">Have your service listings viewed by a large and established user base.</li>
+              <li className="feature-list-li">Manage multiple listings and bookings from a centralized dashboard.</li>
+              <li className="feature-list-li">Approve, Decline, or Cancel services booked by clients through management dashboard.</li>
+              <li className="feature-list-li">Tag and categorize your services to increase its exposure to your target audience.</li>
             </ul>
           </div>
         </div>
@@ -113,7 +112,7 @@ export default function Landing() {
         <div class="p-4">
           <div class="sm:flex sm:items-center sm:justify-between">
             <div class="flex items-center sm:mb-0">
-              <img src={logo} class="h-7 mr-3" alt="Logo" />
+              <img src={logo} class="h-10 mr-3" alt="Logo" />
               <span class="self-center text-lg font-semibold whitespace-nowrap text-gray-800">Urban Canada</span>
             </div>
             <ul class="flex absolute right-2 flex-wrap items-center mb-6 text-sm font-medium text-gray-800 sm:mb-0 dark:text-gray-400">

@@ -39,7 +39,7 @@ export default function Login() {
       <Header currentPage="/login"  />
 
       <div align="center">
-        <h1>Login Page</h1>
+        <h1 className="my-10" style={{fontSize: "35px"}}>Login</h1>
         <TextField
           id="outlined-basic"
           required
@@ -57,12 +57,13 @@ export default function Login() {
         />
         <br></br>
         <br></br>
-        <Button variant="contained" onClick={handleLogin}>
+        <Button style={{backgroundColor: "#2d3748"}} variant="contained" onClick={handleLogin}>
           Log in
         </Button>
-        &nbsp;&nbsp;
-        <Link to="/signup">
-          <Button variant="contained">New User? Sign up</Button>
+        <br></br>
+        <br></br>
+        <Link to="/signup" className="text-gray-800 no-underline">
+          <p variant="contained">New User? Register</p>
         </Link>
       </div>
 
