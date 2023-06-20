@@ -92,7 +92,6 @@ export default function Landing() {
             <ul className="feature-list">
               <li className="feature-list-li">Browse Hundreds of Verified Service Postings</li>
               <li className="feature-list-li">Find the Services Your Looking For Using Our Robust Service Filtering and Searching Features</li>
-              <li className="feature-list-li">Quickly Book Your Next Service Within Minutes</li>
               <li className="feature-list-li">Easily Contact Vendors and Site Admins to Resolve Issues and Disputes</li>
               <li className="feature-list-li">View What Others Are Saying About a Service or Leave Your Own Feedback About A Service</li>
             </ul>
@@ -113,7 +112,7 @@ export default function Landing() {
         <div class="p-4">
           <div class="sm:flex sm:items-center sm:justify-between">
             <div class="flex items-center sm:mb-0">
-              <img src={logo} class="h-7 mr-3" alt="Logo" />
+              <img src={logo} class="h-10 mr-3" alt="Logo" />
               <span class="self-center text-lg font-semibold whitespace-nowrap text-gray-800">Urban Canada</span>
             </div>
             <ul class="flex absolute right-2 flex-wrap items-center mb-6 text-sm font-medium text-gray-800 sm:mb-0 dark:text-gray-400">
