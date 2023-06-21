@@ -1,6 +1,6 @@
 # Urban Canada
 
-**[This application is a modern service marketplace to empower vendors and satisfy clients.It serves as an online portal for vendors, tradesmen, service providers and other entrepreneurs or small business owners to market their services to a wider customer in one convenient location. For the persons or entities providing services (vendors), and for the persons purchasing or subscribing to these services (consumers) the application will provide a convenient interface. This service is important because it will seek to improve upon existing marketplaces to provide a more seamless interaction between vendors and consumers aggregating the pros and eradicating the cons associated with other popular platforms.]**
+**This application is a modern service marketplace to empower vendors and satisfy clients. It serves as an online portal for vendors, tradesmen, service providers and other entrepreneurs or small business owners to market their services to a wider customer in one convenient location. For the persons or entities providing services (vendors), and for the persons purchasing or subscribing to these services (consumers) the application will provide a convenient interface. This service is important because it will seek to improve upon existing marketplaces to provide a more seamless interaction between vendors and consumers aggregating the pros and eradicating the cons associated with other popular platforms.**
 
 * *Date Created*: 18 JUN 2023
 * *Last Modification Date*: 20 JUN 2023
@@ -16,119 +16,556 @@
 * [Waleed Alhindi](wl392785@dal.ca) - *(Full Stack Developer)*
 * [Edwin Adams](ed743899@dal.ca) - *(Full Stack Developer)*
 
+## Testing
+
+To test the web pages are correctly rendering and responding, the deployed application's landing page was navigated. It was observed that the first page the browser directed us towards was landing page, and it had been rendered as we expected. Further, we tested our Contact Us and FAQ pages by redirecting through the provided buttons on landing page and it works as expected. We tested responsivness by switching to tablet and mobile view respectively where it has user friedly display.
+
 ## Deployment
 
-Initially, we imported existing project of front-end environment on netlify from github as we had repository ready. We setup build settings to deploy the app. Finally, it was deployed and live on the mentioned link.
+Initially, we imported existing project of front-end environment on netlify from github as we had repository ready. We setup build settings to deploy the app. Then we added a redirect file which helps in redirecting the page on the live system. Finally, it was deployed and live on the mentioned link, working as expected.
 
 ## Built With
 
-<!--- Provide a list of the frameworks used to build this application, your list should include the name of the framework used, the url where the framework is available for download and what the framework was used for, see the example below --->
-
-* [React](https://legacy.reactjs.org/docs/getting-started.html/) - The web framework used
-* [npm](https://docs.npmjs.com//) - Dependency Management
-- [Node](https://nodejs.org/en/docs) - Enviorment Support
-**
+* [React](https://legacy.reactjs.org/docs/getting-started.html/) - The Web framework used.
+* [npm](https://docs.npmjs.com//) - Dependency Management.
+* [Node](https://nodejs.org/en/docs) - Enviorment Support.
 
 ## Sources Used
 
-If in completing your lab / assignment / project you used any interpretation of someone else's code, then provide a list of where the code was implement, how it was implemented, why it was implemented, and how it was modified. See the sections below for more details.
+### header.js
+
+*Lines 40 - 157*
+
+```
+<Disclosure as="nav" className="bg-gray-800">
+  {({ open }) => (
+    <>
+      <div className="mx-auto max-w-full">
+        <div className="relative flex h-24 items-center justify-between mx-3">
+          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+
+            <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+              <span className="sr-only">Open main menu</span>
+              {open ? (
+                <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+              )}
+            </Disclosure.Button>
+          </div>
+          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div className="flex flex-shrink-0 items-center">
+              <img
+                className="hidden h-12 w-18 lg:block"
+                src={logo}
+              />
+            </div>
+            <div className="hidden sm:ml-6 mt-2 sm:block">
+              <div className="flex space-x-1 ">
+                {updatedNavigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className={classNames(
+                      item.current ? 'bg-gray-900 no-underline text-white' : 'text-gray-300 no-underline hover:bg-gray-700 hover:text-white',
+                      'rounded-md px-3 py-2 text-sm font-medium'
+                    )}
+                    // aria-current={item.current ? 'page' : undefined}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <button
+              type="button"
+              className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            >
+              <span className="sr-only">View notifications</span>
+              <BellIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
+            <Menu as="div" className="relative ml-3">
+              <div>
+                <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    className="h-9 w-9 rounded-full"
+                    src={icon}
+                    alt=""
+                  />
+                </Menu.Button>
+              </div>
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                      >
+                        Your Profile
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                      >
+                        Sign out
+                      </a>
+                    )}
+                  </Menu.Item>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+          </div>
+        </div>
+      </div>
+
+      <Disclosure.Panel className="sm:hidden">
+        <div className="space-y-1 px-2 pb-3 pt-2">
+          {navigation.map((item) => (
+            <Disclosure.Button
+              key={item.name}
+              as="a"
+              href={item.href}
+              className={classNames(
+                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                'block rounded-md px-3 py-2 text-base font-medium'
+              )}
+              aria-current={item.current ? 'page' : undefined}
+            >
+              {item.name}
+            </Disclosure.Button>
+          ))}
+        </div>
+      </Disclosure.Panel>
+    </>
+  )}
+</Disclosure>
+
+```
+
+The code above was created by adapting the code in [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars) as shown below: 
+
+```
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+
+const navigation = [
+  { name: 'Dashboard', href: '#', current: true },
+  { name: 'Team', href: '#', current: false },
+  { name: 'Projects', href: '#', current: false },
+  { name: 'Calendar', href: '#', current: false },
+]
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export default function Example() {
+  return (
+    <Disclosure as="nav" className="bg-gray-800">
+      {({ open }) => (
+        <>
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="relative flex h-16 items-center justify-between">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex flex-shrink-0 items-center">
+                  <img
+                    className="block h-8 w-auto lg:hidden"
+                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    alt="Your Company"
+                  />
+                  <img
+                    className="hidden h-8 w-auto lg:block"
+                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    alt="Your Company"
+                  />
+                </div>
+                <div className="hidden sm:ml-6 sm:block">
+                  <div className="flex space-x-4">
+                    {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'rounded-md px-3 py-2 text-sm font-medium'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button
+                  type="button"
+                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                {/* Profile dropdown */}
+                <Menu as="div" className="relative ml-3">
+                  <div>
+                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <span className="sr-only">Open user menu</span>
+                      <img
+                        className="h-8 w-8 rounded-full"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Your Profile
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Settings
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Sign out
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            </div>
+          </div>
+
+          <Disclosure.Panel className="sm:hidden">
+            <div className="space-y-1 px-2 pb-3 pt-2">
+              {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as="a"
+                  href={item.href}
+                  className={classNames(
+                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    'block rounded-md px-3 py-2 text-base font-medium'
+                  )}
+                  aria-current={item.current ? 'page' : undefined}
+                >
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
+  )
+}
+
+```
+
+- The code in [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
+- [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars)'s Code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
+- [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars)'s Code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
+
+### footer.js
+
+*Lines 8 - 28*
+
+```
+<footer class="fixed bottom-0 bg-gray-200 w-full">
+    <div class="m-4">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <div class="flex items-center sm:mb-0">
+                <img src={logo} class="h-7 mr-3" alt="Logo" />
+                <span class="self-center text-lg font-semibold whitespace-nowrap text-gray-800">Urban Canada</span>
+            </div>
+            <ul class="flex absolute right-2 flex-wrap items-center mb-6 text-sm font-medium text-gray-800 sm:mb-0 dark:text-gray-400">
+                <li>
+                    <a href="#" class="mr-1 no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">About</a>
+                </li>
+                <li>
+                    <a href="/faq" class="mr-1 no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">FAQ</a>
+                </li>
+                <li>
+                    <a href="/contact" class="no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+```
+
+The code above was created by adapting the code in [Tailwind CSS Footer - Flowbite](https://flowbite.com/docs/components/footer/) as shown below: 
+
+```
+<footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0">
+                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+    </div>
+</footer>
+
+```
+
+- The code in [Tailwind CSS Footer - Flowbite](https://flowbite.com/docs/components/footer/) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
+- [Tailwind CSS Footer - Flowbite](https://flowbite.com/docs/components/footer/)'s code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
+- [Tailwind CSS Footer - Flowbite](https://flowbite.com/docs/components/footer/)'s code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
+
+### landing.js
+
+*Lines 27 - 70*
+
+```
+<div className="relative isolate overflow-hidden bg-gray-900 sm:py-32">
+    <div
+        className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+        aria-hidden="true"
+    >
+        <div
+        className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+        style={{
+            clipPath:
+            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+        }}
+        />
+    </div>
+    <div
+        className="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
+        aria-hidden="true"
+    >
+        <div
+        className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+        style={{
+            clipPath:
+            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+        }}
+        />
+    </div>
+    <div className="mx-auto max-w-7xl px-6 lg:px-8 d-flex flex-column justify-content-center align-items-center">
+        <div className="col-9 mx-auto lg:mx-0 md:py-4">
+        <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Urban Canada</h2>
+        <p className="mt-6 text-lg leading-8 text-gray-300">
+        A modern service marketplace to empower vendors and satisfy clients.
+        </p>
+        </div>
+        <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none justify-content-center col-9">
+        <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4" style={{backgroundColor: "#fff",  padding: "2rem", opacity: 0.7, borderRadius: "5px"}}>
+            {stats.map((stat) => (
+            <div key={stat.name} className="flex flex-col-reverse justify-content-center align-items-center">
+                <dt className="text-base leading-7 text-gray-800">{stat.name}</dt>
+                <dd className="text-2xl font-bold leading-9 tracking-tight text-gray" style={{alignContent: "center"}}>{stat.value}</dd>
+            </div>
+            ))}
+        </dl> 
+        </div>
+    </div>
+</div>
+
+```
+The code above was created by adapting the code in [Header Sections - Official Tailwind CSS UI Components](https://tailwindui.com/components/marketing/sections/header) as shown below: 
+
+```
+const links = [
+  { name: 'Open roles', href: '#' },
+  { name: 'Internship program', href: '#' },
+  { name: 'Our values', href: '#' },
+  { name: 'Meet our leadership', href: '#' },
+]
+const stats = [
+  { name: 'Offices worldwide', value: '12' },
+  { name: 'Full-time colleagues', value: '300+' },
+  { name: 'Hours per week', value: '40' },
+  { name: 'Paid time off', value: 'Unlimited' },
+]
+
+export default function Example() {
+  return (
+    <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
+      <img
+        src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+        alt=""
+        className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center"
+      />
+      <div
+        className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+        aria-hidden="true"
+      >
+        <div
+          className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+          style={{
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
+      <div
+        className="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
+        aria-hidden="true"
+      >
+        <div
+          className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+          style={{
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:mx-0">
+          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Work with us</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-300">
+            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
+            fugiat veniam occaecat fugiat aliqua.
+          </p>
+        </div>
+        <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
+            {links.map((link) => (
+              <a key={link.name} href={link.href}>
+                {link.name} <span aria-hidden="true">&rarr;</span>
+              </a>
+            ))}
+          </div>
+          <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.name} className="flex flex-col-reverse">
+                <dt className="text-base leading-7 text-gray-300">{stat.name}</dt>
+                <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+
+- The code in [Header Sections - Official Tailwind CSS UI Components](https://tailwindui.com/components/marketing/sections/header) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
+- [Header Sections - Official Tailwind CSS UI Components](https://tailwindui.com/components/marketing/sections/header)'s code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
+- [Header Sections - Official Tailwind CSS UI Components](https://tailwindui.com/components/marketing/sections/header)'s code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
 
 ### contact.js
 
-_Lines 35 - 36 and 82-93_
+*Lines 35 - 36*
+*Lines 82 - 93*
 
 ```
-My code:
-
 var emailValidRegex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 if (!inputEmailValue.match(emailValidRegex)) {
-      if (!inputEmailValue.match(emailValidRegex)) {
-        flag = true;
-        setEmailError("Email is invalid");
-      } else if (
-        !inputEmailValue.match(emailValidRegex) &&
-        inputEmailValue != ""
-      ) {
-        flag = true;
-        setEmailError("Email is invalid");
-      }
+    if (!inputEmailValue.match(emailValidRegex)) {
+    flag = true;
+    setEmailError("Email is invalid");
+    } else if (
+    !inputEmailValue.match(emailValidRegex) &&
+    inputEmailValue != ""
+    ) {
+    flag = true;
+    setEmailError("Email is invalid");
     }
+} 
 
 ```
 
-The code above was created by adapting the code in [Stackoverflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript) as shown below:
+The code above was created by adapting the code in [How can I validate an email address in JavaScript? - Stack Overflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript) as shown below: 
 
 ```
-Code that I am referencing:
 const re =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 ```
 
 - <!---How---> The code in [Stackoverflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript) was implemented by using a regex.
-- <!---Why---> [Stackoverflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript)'s Code was used as I required a regex to identify if the email was in valid format. It helped me in validation
-- <!---How---> [Stackoverflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript)'s Code was modified by comapring the constant variable from the code to the email address and creating a method that takes help of this regex and by testing this given regex with the user input.
+- <!---Why---> [Stackoverflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript)'s code was used as I required a regex to identify if the email was in valid format. It helped me in validation
+- <!---How---> [Stackoverflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript)'s code was modified by comapring the constant variable from the code to the email address and creating a method that takes help of this regex and by testing this given regex with the user input.
 
 ### contact.js
 
-_Lines 38 and 48-64_
+*Lines 166 - 182*
 
 ```
-My code:
-
-    var containsNumbersRegex = /^[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/;
-
-      if (!inputFirstNameValue || !inputFirstNameValue.length) {
-      setFirstNameError("First Name is required");
-      flag = true;
-    } else {
-      if (inputFirstNameValue.match(containsNumbersRegex)) {
-        setFirstNameError("First Name must have letters only");
-        flag = true;
-      } else {
-        setFirstNameError("");
-      }
-    }
-
-    if (!inputLastNameValue || !inputLastNameValue.length) {
-      setLastNameError("Last Name is required");
-      flag = true;
-    } else {
-      if (inputLastNameValue.match(containsNumbersRegex)) {
-        setLastNameError("Last Name must have letters only");
-        flag = true;
-      } else {
-        setLastNameError("");
-      }
-    }
-
-
-```
-
-The code above was created by adapting the code in [<Source>](Link) as shown below:
-
-<Enter Code you are referencing>
-
-```
-Code that I am referencing:
-//Enter code that you are refrencing here
-
-```
-
-- <!---How---> The code in [<Source>](<Link>)  was implemented along with various other things, however, my motive was to just get some insights of the regular expression.
-- <!---Why---> [<Source>](<Link>)'s because it helped me in validating if the text feild had only characters and helped me in restricting the user from entering numbers and special characters in first name and last name columns.
-- <!---How---> [<Source>](<Link>)'s Code was modified by removing the unwanted stuff from the referenced code and by only understanding regex.
-
-### contact.js
-
-_Lines 166 - 182_
-
-```
-Copy and paste your code on lines mentioned
-<FormLabel>What can we do for you?</FormLabel>
-          <TextField
+        <FormLabel>What can we do for you?</FormLabel>
+            <TextField
             multiline
             rows={3}
             fullwidth
@@ -138,19 +575,18 @@ Copy and paste your code on lines mentioned
             // minRows={3}
             helperText={queryError}
             onChange={handleQueryChange}
-          />
-          <FormHelperText>
+            />
+            <FormHelperText>
             Please specify the details in the above box.
-          </FormHelperText>
-        </FormControl>
-      </Box>
+            </FormHelperText>
+    </FormControl>
+</Box> 
 
 ```
 
-The code above was created by adapting the code in [MaterialUI](https://mui.com/material-ui/react-text-field/) as shown below:
+The code above was created by adapting the code in [MaterialUI](https://mui.com/material-ui/react-text-field/) as shown below: 
 
 ```
-Code that I refered:
 <TextField id="outlined-basic" label="Outlined" variant="outlined" />
 
 ```
@@ -159,102 +595,159 @@ Code that I refered:
 - <!---Why---> [MaterialUI](https://mui.com/material-ui/react-text-field/)'s Code was used because Material UI helped me with faster development and in having a consistent look for the application.
 - <!---How---> [MaterialUI](https://mui.com/material-ui/react-text-field/)'s Code was modified by introducing various other elements in the tag as required.
 
-### booking.js
+### contact.js
 
-*Lines 156 - 247*
+*Line 38*
+*Lines 48 - 64*
 
 ```
-<form className="max-w-sm bg-white py-10 m-auto" action="/MyBookings" method="GET">
-  <div class="mx-8">
-    <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">Service Booking</h2>
-    <p className="mt-2 text-m leading-6 text-gray-600">
-      Electrician
-    </p>
+var containsNumbersRegex = /^[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/;
 
-    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-max">
-      <div className="sm:col-span-4 ">
-        <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-          Name
-        </label>
+if (!inputFirstNameValue || !inputFirstNameValue.length) {
+setFirstNameError("First Name is required");
+flag = true;
+} else {
+    if (inputFirstNameValue.match(containsNumbersRegex)) {
+    setFirstNameError("First Name must have letters only");
+    flag = true;
+    } else {
+    setFirstNameError("");
+    }
+}
 
-        <div className="mt-2">
-          <div className="flex rounded-md ring-1 ring-gray-300">
+if (!inputLastNameValue || !inputLastNameValue.length) {
+    setLastNameError("Last Name is required");
+    flag = true;
+} else {
+    if (inputLastNameValue.match(containsNumbersRegex)) {
+    setLastNameError("Last Name must have letters only");
+    flag = true;
+    } else {
+    setLastNameError("");
+    }
+} 
+
+```
+
+The code above was created by adapting the code in [<Source>](Link) as shown below:
+
+```
+//Enter code that you are refrencing here
+
+```
+
+- <!---How---> The code in [<Source>](<Link>)  was implemented along with various other things, however, my motive was to just get some insights of the regular expression.
+- <!---Why---> [<Source>](<Link>)'s because it helped me in validating if the text feild had only characters and helped me in restricting the user from entering numbers and special characters in first name and last name columns.
+- <!---How---> [<Source>](<Link>)'s Code was modified by removing the unwanted stuff from the referenced code and by only understanding regex.
+
+### booking.js
+
+*Lines 9 - 112*
+
+```
+<form
+    className="max-w-sm bg-white py-10 m-auto"
+    action="/MyBookings"
+    method="GET"
+    >
+    <div class="mx-8">
+        <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
+        Service Booking
+        </h2>
+        <p className="mt-2 text-m leading-6 text-gray-600">Electrician</p>
+
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-max">
+        <div className="sm:col-span-4 ">
+            <label
+            htmlFor="username"
+            className="block text-sm font-medium leading-6 text-gray-900"
+            >
+            Name
+            </label>
+            <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                type="text"
+                name="username"
+                id="username"
+                autoComplete="username"
+                className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                value={"John Anderson"}
+                disabled
+                />
+            </div>
+        </div>
+
+        <div className="sm:col-span-2 sm:col-start-1">
+            <label
+            htmlFor="date"
+            className="block text-sm font-medium leading-6 text-gray-900"
+            >
+            Date
+            </label>
+            <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
             <input
-              type="text"
-              name="username"
-              id="username"
-              autoComplete="username"
-              className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-              value={"John Anderson"}
-              disabled
+                type="date"
+                name="date"
+                id="date"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                required
             />
-          </div>
+            </div>
         </div>
-      </div>
 
-      <div className="sm:col-span-2 sm:col-start-1">
-        <label htmlFor="date" className="block text-sm font-medium leading-6 text-gray-900">
-          Date
-        </label>
-
-        <div className="mt-2">
-          <input
-            type="date"
-            name="date"
-            id="date"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="sm:col-span-2">
-        <label htmlFor="time" className="block text-sm font-medium leading-6 text-gray-900">
-          Time
-        </label>
-
-        <div className="mt-2">
-          <input
-            type="time"
-            name="time"
-            id="time"
-            required
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          />
-        </div>
-      </div>
-
-      <div className="sm:col-span-4">
-        <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-          Notes
-        </label>
-
-        <div className="mt-2">
-          <div className="flex rounded-md ring-1 ring-gray-300">
-            <textarea
-              type="textarea"
-              name="notes"
-              id="notes"                   
-              className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+        <div className="sm:col-span-2">
+            <label
+            htmlFor="time"
+            className="block text-sm font-medium leading-6 text-gray-900"
+            >
+            Time
+            </label>
+            <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+            <input
+                type="time"
+                name="time"
+                id="time"
+                required
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div className="mt-6 flex items-center justify-center gap-x-6">
-      <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-        Cancel
-      </button>
+        <div className="sm:col-span-4">
+            <label
+            htmlFor="username"
+            className="block text-sm font-medium leading-6 text-gray-900"
+            >
+            Notes
+            </label>
+            <div className="mt-2">
+            <div className="flex rounded-md ring-1 ring-gray-300">
+                <textarea
+                type="textarea"
+                name="notes"
+                id="notes"
+                className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                />
+            </div>
+            </div>
+        </div>
+        </div>
 
-      <button
-        type="submit"
-        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      >
-        Confirm
-      </button>
+        <div className="mt-6 flex items-center justify-center gap-x-6">
+        <button
+            type="button"
+            className="text-sm font-semibold leading-6 text-gray-900"
+        >
+            Cancel
+        </button>
+        <button
+            type="submit"
+            className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+            Confirm
+        </button>
+        </div>
     </div>
-  </div>
 </form>
 
 ```
@@ -468,482 +961,85 @@ The code above was created by adapting the code in [Form Layouts - Official Tail
 - [Form Layouts - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/forms/form-layouts)'s Code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
 - [Form Layouts - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/forms/form-layouts)'s Code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
 
-### header.js
-
-*Lines 7 - 160*
-
-```
-<Disclosure as="nav" className="bg-gray-800">
-  {({ open }) => (
-    <>
-      <div className="mx-auto max-w-7xl">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-
-            <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-              <span className="sr-only">Open main menu</span>
-              {open ? (
-                <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-              )}
-            </Disclosure.Button>
-          </div>
-          
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              <img
-                className="hidden h-8 w-auto lg:block"
-                src={logo}
-              />
-            </div>
-
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium'
-                    )}
-                    aria-current={item.current ? 'page' : undefined}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <span className="sr-only">View notifications</span>
-              <BellIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </Menu.Button>
-              </div>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                      >
-                        Your Profile
-                      </a>
-                    )}
-                  </Menu.Item>
-
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                      >
-                        Settings
-                      </a>
-                    )}
-                  </Menu.Item>
-
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                      >
-                        Sign out
-                      </a>
-                    )}
-                  </Menu.Item>
-                </Menu.Items>
-              </Transition>
-            </Menu>
-          </div>
-        </div>
-      </div>
-
-      <Disclosure.Panel className="sm:hidden">
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          {navigation.map((item) => (
-            <Disclosure.Button
-              key={item.name}
-              as="a"
-              href={item.href}
-              className={classNames(
-                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium'
-              )}
-              aria-current={item.current ? 'page' : undefined}
-            >
-              {item.name}
-            </Disclosure.Button>
-          ))}
-        </div>
-      </Disclosure.Panel>
-    </>
-  )}
-</Disclosure>
-
-```
-
-The code above was created by adapting the code in [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars) as shown below: 
-
-```
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-export default function Example() {
-  return (
-    <Disclosure as="nav" className="bg-gray-800">
-      {({ open }) => (
-        <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                </div>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
-                  <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </div>
-            </div>
-          </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
-  )
-}
-
-```
-
-- The code in [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
-- [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars)'s Code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
-- [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars)'s Code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
-
 ### mybookings.js
 
-*Lines 7 - 147*
+*Lines 69 - 143*
 
 ```
 <div class="container">
-  <h5 class="mt-5 mb-4">My Bookings</h5>
-  <div class="row">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="overflow-hidden card table-nowrap table-card">
-        <div class="card-header d-flex align-items-center">
-          <h6 class="mb-0" className="items-start">Jimmy Anderson</h6>
+    <h5 class="mt-5 mb-4">My Bookings</h5>
+
+    <div class="row">
+        <div class="col-12 mb-3 mb-lg-5">
+        <div class="overflow-hidden card table-nowrap table-card">
+            <div class="card-header d-flex align-items-center">
+            <h6 class="mb-0" className="items-start">Jimmy Anderson</h6>
+            </div>
+
+            <div class="table-responsive">
+            <table class="table mb-0">
+                <thead class="small text-uppercase bg-body text-muted">
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Cancel</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {people.map((person) => (
+                    <tr class="align-middle">
+                    <td>{person.no}</td>
+                    <td class="h6 mb-0 lh-1">{person.name}</td>
+                    <td>{person.role}</td>
+                    <td>{person.date}</td>
+                    <td>{person.time}</td>
+                    <td>
+                        {person.status==false ?
+                        <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-500 py-1 text-sm font-medium text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                        </svg>
+                        <span>Pending</span>
+                        </button> :
+                        
+                        person.status=='in_progress' ?
+                        <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 py-1 text-sm font-medium text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                        </svg>
+                        <span>In Progress</span>
+                        </button> :
+
+                        <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 py-1 text-sm font-medium text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                        </svg>
+                        <span>Completed</span>
+                        </button>}
+                    </td>
+                    <td class="text-end">
+                        <button 
+                        type="submit"           
+                        class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Cancel
+                        </button>
+                    </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+            </div>
         </div>
-        
-        <div class="table-responsive">
-          <table class="table mb-0">
-            <thead class="small text-uppercase bg-body text-muted">
-              <tr>
-                <th>Name</th>
-                <th>Service</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Cancel</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr class="align-middle">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer"/>
-                    <div>
-                      <div class="h6 mb-0 lh-1">Alen John</div>
-                    </div>
-                  </div>
-                </td>
-                <td>Painter</td>
-                <td>09 Jul, 2023</td>
-                <td>15:30</td>
-                <td>
-                  <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-500 py-1 w-24 text-sm font-medium text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/> <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/> </svg>
-                    <span>Pending</span>
-                  </button>
-                </td>
-                <td class="text-end">
-                  <button 
-                    type="submit"           
-                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 w-24 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-              
-              <tr class="align-middle">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer"/>
-                    <div>
-                      <div class="h6 mb-0 lh-1">Topias Kantola</div>
-                    </div>
-                  </div>
-                </td>         
-                <td>Mechanic</td>
-                <td>21 Sep, 2023</td>
-                <td>11:00</td>
-                <td>
-                  <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 py-1 w-24 text-sm font-medium text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/> <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/> </svg>
-                    <span>Approved</span>
-                  </button>
-                </td>
-                <td class="text-end">
-                  <button 
-                    type="submit"           
-                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 w-24 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-
-              <tr class="align-middle">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer"/>
-                    <div>
-                      <div class="h6 mb-0 lh-1">Alen John</div>
-                    </div>
-                  </div>
-                </td>
-                <td>Electrician</td>
-                <td>31 May, 2023</td>
-                <td>11:30</td>
-                <td>
-                  <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-500 py-1 w-24 text-sm font-medium text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/> <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/> </svg>
-                    <span>Pending</span>
-                  </button>
-                </td>
-                <td class="text-end">
-                  <button 
-                    type="submit"           
-                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 w-24 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-
-              <tr class="align-middle">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer"/>
-                    <div>
-                      <div class="h6 mb-0 lh-1">Wyatt Morris</div>
-                    </div>
-                  </div>
-                </td>
-                <td>Plumber</td>
-                <td>20 Aug, 2023</td>
-                <td>12:45</td>
-                <td>
-                  <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 py-1 w-24 text-sm font-medium text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/> <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/> </svg>
-                    <span>Approved</span>
-                  </button>
-                </td>
-                <td class="text-end">
-                  <button 
-                    type="submit"           
-                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 w-24 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-
-              <tr class="align-middle">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="avatar sm rounded-pill me-3 flex-shrink-0" alt="Customer"/>
-                    <div>
-                      <div class="h6 mb-0 lh-1">Eliana Stout</div>
-                    </div>
-                  </div>
-                </td>
-                <td>Electrician</td>
-                <td>25 Sep, 2023</td>
-                <td>13:15</td>
-                <td>
-                  <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 py-1 w-24 text-sm font-medium text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/> <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/> </svg>
-                    <span>Approved</span>
-                  </button>
-                </td>
-                <td class="text-end">
-                  <button 
-                    type="submit"           
-                    class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 w-24 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Cancel
-                  </button>
-                </td>
-              </tr> 
-            </tbody>
-          </table>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 ```
@@ -1177,12 +1273,6 @@ table th {
 - The code in [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
 - [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list)'s Code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
 - [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list)'s Code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
-
-[1]   “Getting Started – React,” Reactjs.org, 2021. [Online]. Available: https://legacy.reactjs.org/docs/getting-started.html. [Accessed: June 18, 2023]
-[2]   “MUI: The React component library you always wanted,” Mui.com, 2023. [Online]. Available: https://mui.com/. [Accessed: June 18, 2023]
-[3]   “react-pro-sidebar,” npm, May 20, 2023. [Online]. Available: https://www.npmjs.com/package/react-pro-sidebar. [Accessed: June 18, 2023]
-[4]   “React Simple Maps,” React-simple-maps.io, 2020. [Online]. Available: https://www.react-simple-maps.io/. [Accessed: June 18, 2023]
-[5]   "Tailwind Documentation" tailwindcss.com, 2023. [Online]. Available: https://v2.tailwindcss.com/docs/. [Accessed: June 18, 2023]
 
 ## Acknowledgments
 
