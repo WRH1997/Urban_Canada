@@ -1,0 +1,25 @@
+.features-card {
+    font-size: 22px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.features-card:hover {
+    background-color: #1F2937;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+    transition: 0.5s;
+}
+
+.feature-list {
+    list-style-type: circle;
+    font-size: 18px;
+}
+
+.feature-list-li {
+    padding: 0.5rem;
+}
