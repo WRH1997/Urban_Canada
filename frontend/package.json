@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
     "@mui/icons-material": "^5.11.16",
@@ -18,6 +19,7 @@
     "chart.js": "^4.3.0",
     "dayjs": "^1.11.7",
     "mdb-react-ui-kit": "^6.1.0",
+    "node-sass": "^7.0.3",
     "nodemon": "^2.0.22",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
