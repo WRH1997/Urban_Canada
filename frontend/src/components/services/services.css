@@ -1,0 +1,8 @@
+.card:hover {
+  color: #ffffff;
+  background-color: #1f2937;
+  border-radius: 5px;
+  transform: scale(1.1);
+  text-decoration-color: #ffffff;
+  text-decoration-line: none;
+}
