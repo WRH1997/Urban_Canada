@@ -312,6 +312,227 @@ export default function Signup() {
         <p variant="contained">Alredy have an account? Log in</p>
       </Link>
     </Box>
+
+
+
+
+
+        {/* <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label" align="center">
+              Gender
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+            >
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Female"
+              />
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel
+                value="other"
+                control={<Radio />}
+                label="Other"
+              />
+            </RadioGroup>
+          </FormControl>{" "}
+          <br></br>
+          <FormControl sx={{ minWidth: 160 }}>
+            <InputLabel id="demo-simple-select-label">User Role</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              // value={User Role}
+              label="User Role"
+              defaultValue="serviceconsumer"
+
+              // onChange={handleChange}
+            >
+              <MenuItem value="serviceconsumer">Service Consumer</MenuItem>
+              <MenuItem value="serviceprovider">Service Provider</MenuItem>
+            </Select>
+          </FormControl>
+        </Box> */}
+
+    <form
+        className="max-w-sm bg-white pt-10 pb-24 m-auto"
+        method="GET"
+      >
+        <div class="mx-8">
+          <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
+            Registeration
+          </h2>
+
+          <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-4">
+
+          <div className="sm:col-span-2 sm:col-start-1">
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                First Name
+              </label>
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                  id="outlined-basic"
+                  error={firstNameError && firstNameError.length ? true : false}
+                  label="First Name"
+                  variant="outlined"
+                  helperText={firstNameError}
+                  onChange={handleFirstNameChange}
+                  type="text"
+                  name="firstname"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="time"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Last Name
+              </label>
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                  id="outlined-basic"
+                  error={lastNameError && lastNameError.length ? true : false}
+                  required
+                  label="Last Name"
+                  variant="outlined"
+                  helperText={lastNameError}
+                  onChange={handleLastNameChange}
+                  type="text"
+                  name="lastname"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-4 w-full">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Email
+              </label>
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                  id="outlined-basic"
+                  error={emailError && emailError.length ? true : false}
+                  required
+                  label="Email"
+                  variant="outlined"
+                  helperText={emailError}
+                  onChange={handleEmailChange}
+                  type="email"
+                  name="email"
+                  className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-4 w-full">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Confirm Email
+              </label>
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                  id="outlined-basic"
+                  error={confirmEmailError && confirmEmailError.length ? true : false}
+                  required
+                  label="Confirm Email"
+                  variant="outlined"
+                  helperText={confirmEmailError}
+                  onChange={handleConfirmEmailChange}
+                  type="email"
+                  name="email"
+                  className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2 sm:col-start-1">
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Password
+              </label>
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                  error={passwordError && passwordError.length ? true : false}
+                  required
+                  label="Password"
+                  type="password"
+                  helperText={passwordError}
+                  onChange={handlePasswordChange}
+                  name="password"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="time"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Confirm Password
+              </label>
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                  error={
+                    confirmPasswordError && confirmPasswordError.length ? true : false
+                  }
+                  required
+                  label=" Confirm Password"
+                  type="password"
+                  helperText={confirmPasswordError}
+                  onChange={handleConfirmPasswordChange}
+                  name="confirm_password"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-x-6">
+            <button
+              type="submit"
+              onClick={handleSignUp}
+              className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign Up
+            </button>            
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-x-6">
+            <a
+              href="/login"
+              className="text-sm no-underline font-semibold leading-6 text-gray-800 hover:underline"
+            >
+              Already have an account? Login
+            </a> 
+          </div>
+        </div>
+      </form>
     <Footer/>
     </div>
   );

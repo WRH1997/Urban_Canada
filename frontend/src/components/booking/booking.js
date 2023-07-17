@@ -7,7 +7,7 @@ export default function Bookings() {
     <div>
       <Header currentPage="/booking"/>
       <form
-        className="max-w-sm bg-white py-10 m-auto"
+        className="max-w-sm bg-white pt-10 pb-24 m-auto"
         action="/MyBookings"
         method="GET"
       >
