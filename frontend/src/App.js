@@ -18,12 +18,16 @@ import {
   ServiceDashErr4,
   ServiceDashErr5,
 } from "./components/servicedashboard/servicedashboard.jsx";
-
+import Services from "./components/services/services";
 // Admin pages
 import { DashboardPage } from "./components/admin/pages/DashboardPage";
 import VendorRequestPage from "./components/admin/pages/VendorRequestPage";
 import VendorsPage from "./components/admin/pages/VendorsPage";
 import CustomersPage from "./components/admin/pages/CustomersPage";
+
+// Rating Rewview Pages
+import Container from "./components/ratingReview/serviceProvider";
+import RatingComment from "./components/ratingReview/RatingComment";
 
 function App() {
   axios.interceptors.request.use((config) => {
@@ -89,6 +93,7 @@ function App() {
         <Route path="/ServiceDashErr5" element={<LoginRedirect />}>
           <Route index element={<ServiceDashErr5 />} />
         </Route>
+        <Route path="/Services" element={<Services />} />
         {/* Admin routes start */}
         {/* <ProtectedRoute
           exact
@@ -119,6 +124,11 @@ function App() {
           <Route index element={<CustomersPage />} />
         </Route>
         {/* Admin routes end */}
+
+        {/* Rating and Review start */}
+        <Route path="/ratings" Component={Container} />
+        <Route path="/profileDetails" Component={RatingComment} />
+        {/* Rating and Review end*/}
       </Routes>
     </BrowserRouter>
   );
