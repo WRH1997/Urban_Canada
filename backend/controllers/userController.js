@@ -28,32 +28,6 @@ exports.signup = async (req, res) => {
   }
 };
 
-// exports.login = async (req, res) => {
-//   try {
-//     let user = await User.findOne({ email: req.body.email });
-//     if (!user) {
-//       return res.status(400).json({ msg: "Invalid credentials" });
-//     }
-
-//     const isMatch = await bcrypt.compare(req.body.password, user.password);
-//     if (!isMatch) {
-//       return res.status(400).json({ msg: "Invalid credentials" });
-//     }
-
-//     const payload = { userId: user.id };
-//     jwt.sign(
-//       payload,
-//       process.env.JWT_SECRET,
-//       { expiresIn: "1h" },
-//       (err, token) => {
-//         if (err) throw err;
-//         res.status(200).json({ token });
-//       }
-//     );
-//   } catch (err) {
-//     res.status(500).json({ msg: "Server error" });
-//   }
-// };
 exports.login = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
