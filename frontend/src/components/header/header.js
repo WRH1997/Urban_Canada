@@ -1,33 +1,34 @@
-import React, { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from '../../assets/logo.png';
-import icon from '../../assets/icon.jpg';
-
+import React, { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import logo from "../../assets/logo.png";
+import icon from "../../assets/icon.jpg";
+import { useNavigate } from "react-router-dom";
 const guestNavigation = [
-  { name: 'Home', href: '/'},
-  { name: 'Login/SignUp', href: '/login'},
-  { name: 'Service Posting', href: '#'},
-  { name: 'Services', href: '/ServiceDashboardPage'},
-  { name: 'Service Booking', href: '/booking'},
-  { name: 'My Bookings', href: '/MyBookings'},
-  { name: 'Ratings', href: '#'},
-  { name: 'Admin Dashboard', href: '/admin/dashboard'},
+  { name: "Home", href: "/" },
+  { name: "Login/SignUp", href: "/login" },
+  { name: "Service Posting", href: "#" },
+  { name: "Services", href: "/ServiceDashboardPage" },
+  { name: "Service Booking", href: "/booking" },
+  { name: "My Bookings", href: "/MyBookings" },
+  { name: "Ratings", href: "#" },
+  { name: "Admin Dashboard", href: "/admin/dashboard" },
 ];
 
 const userNavigation = [
-  { name: 'Home', href: '/'},
-  { name: 'Services', href: '/ServiceDashboardPage'},
-  { name: 'Service Booking', href: '/booking'},
-  { name: 'My Bookings', href: '/MyBookings'},
-  { name: 'Ratings', href: '#'},
-]
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/ServiceDashboardPage" },
+  { name: "Service Booking", href: "/booking" },
+  { name: "My Bookings", href: "/MyBookings" },
+  { name: "Ratings", href: "#" },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Header(props) {
+  const navigate = useNavigate();
 
   const { currentPage } = props;
   const { isLoggedIn } = props;
@@ -40,7 +41,14 @@ export default function Header(props) {
     }
     return { ...item, current: false };
   });
-  
+  const handleSignOut = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("authToken");
+    navigate("/login");
+  };
+  const handleProfileNavigation = () => {
+    navigate("/profile");
+  };
   return (
     <div className="sticky top-0 bg-gray-800 z-50">
       <Disclosure as="nav" className="bg-gray-800">
@@ -49,7 +57,6 @@ export default function Header(props) {
             <div className="mx-auto max-w-full">
               <div className="relative flex h-24 items-center justify-between mx-3">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -62,10 +69,7 @@ export default function Header(props) {
 
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <img
-                      className="hidden h-12 w-18 lg:block"
-                      src={logo}
-                    />
+                    <img className="hidden h-12 w-18 lg:block" src={logo} />
                   </div>
 
                   <div className="hidden sm:ml-6 mt-2 sm:block">
@@ -75,8 +79,10 @@ export default function Header(props) {
                           key={item.name}
                           href={item.href}
                           className={classNames(
-                            item.current ? 'bg-gray-900 no-underline text-white' : 'text-gray-300 no-underline hover:bg-gray-700 hover:text-white',
-                            'rounded-md px-3 py-2 text-sm font-medium'
+                            item.current
+                              ? "bg-gray-900 no-underline text-white"
+                              : "text-gray-300 no-underline hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           // aria-current={item.current ? 'page' : undefined}
                         >
@@ -122,18 +128,26 @@ export default function Header(props) {
                           {({ active }) => (
                             <a
                               href="#"
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              onClick={handleProfileNavigation}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                             >
                               Your Profile
                             </a>
                           )}
                         </Menu.Item>
-                        
+
                         <Menu.Item>
                           {({ active }) => (
                             <a
                               href="#"
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              onClick={handleSignOut}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                             >
                               Sign out
                             </a>
@@ -154,10 +168,12 @@ export default function Header(props) {
                     as="a"
                     href={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-900 no-underline text-white' : 'text-gray-300 no-underline hover:bg-gray-700 hover:text-white',
-                      'block rounded-md px-3 py-2 text-base font-medium'
+                      item.current
+                        ? "bg-gray-900 no-underline text-white"
+                        : "text-gray-300 no-underline hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
@@ -168,5 +184,5 @@ export default function Header(props) {
         )}
       </Disclosure>
     </div>
-  )
+  );
 }
