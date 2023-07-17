@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import './servicedashboard.css';
-import logo from '../../assets/logo.png';
 import prof from './assets/prof.png'
 import down from './assets/down.png';
 import down2 from './assets/down2.png';
@@ -8,188 +7,10 @@ import servImg from './assets/service.jpeg';
 import Header from '../header/header';
 import Footer from "../footer/footer";
 
-
-
-
-import * as React from "react";
-import { useState, useEffect } from 'react';
-import { Fragment } from 'react';
-import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-
-
 export const ServiceDashboardPage = () => (
   <body class='servicedashbod'>
   <Header currentPage='/ServiceDashboardPage'/>
-
-  <div className="bg-white w-full h-screen pt-4">
-
-      <div className="buying_nav">
-
-        <div class="relative inline-block text-left">
-
-          <Menu as="div" className="relative inline-block text-left">
-            <div className="pt-4 pr-4">
-              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-              Categories
-              <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-              </Menu.Button>
-            </div>
-
-            <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        Books
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        Electronics
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        Furniture
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        Musical Instruments
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        Sports Equipments
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        Others
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        All
-                      </a>
-                    )}
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-        </div>
-      </div>
-      
-      <div className="pl-5">
-        <p className="font-bold text-2xl pb-1 text-black mt-2">
-          Buy Stuff!
-        </p>
-        <p className="font-medium text-base text-gray-500">
-          Products on Sale
-        </p>
-      </div>
-
-      <section class="bg-white">
-        <div class="mx-auto max-w-2xl py-16 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-           
-              <Link class="group p-2" to={'/Product_Details'}
-
-              style={{             
-              color: "#242424",
-              backgroundColor: "#ffd711",
-              borderRadius: "5px",
-              transform: "1.2"
-            }}
-              
-              
-              
->
-                <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
-                  <img src={logo} alt={`Product`} class="h-full w-full object-cover object-center group-hover:opacity-75"/>
-                </div>
-                <h3 class="mt-4 text-sm text-gray-700">Product Title</h3>
-                <p class="mt-1 text-lg font-medium text-gray-900">$123</p>
-              </Link>
-        
-          </div>
-        </div>
-      </section>
-     
-    </div>
-
-  {/* <div class='cont'>
+  <div class='cont'>
       <div class='filter-box'>
         <label class='filter-lbl'>Filters</label>
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -464,13 +285,92 @@ export const ServiceDashboardPage2 = () => (
             <a class='next1'>Next</a>
           </div></center>
         </div>
-    </div> */}
-
-
-
-
-
-
+    </div>
     <Footer/>
   </body>
   );
+
+  export const ServiceDashErr1 = () => {
+    return(
+      <body>
+        <center>
+          <div class='err-box'>
+            <br></br><br></br>
+            <h1>The Filtering Services Task is Separate from the "Listing/Browsing Services" Task <br></br>(i.e., it is outside of this task's scope).</h1>
+            <br></br>
+            <button class="back-btn">
+              <Link to="/ServiceDashboardPage" class="back-link">Back</Link>
+            </button>
+          </div>
+        </center>
+      </body>
+    );
+  };
+
+  export const ServiceDashErr2 = () => {
+    return(
+      <body class='servicedashbod'>
+        <center>
+        <div class='err-box'>
+          <br></br><br></br>
+          <h1>The Book Service Feature is outside the scope of this Feature</h1>
+          <br></br>
+          <button class="back-btn">
+            <Link to="/ServiceDashboardPage" class="back-link">Back</Link>
+          </button>
+        </div>
+        </center>
+      </body>
+    );
+  }
+
+  export const ServiceDashErr3 = () => {
+    return(
+      <body class='servicedashbod'>
+        <center>
+        <div class='err-box'>
+          <br></br><br></br>
+          <h1>The Vendor Profile Feature is outside the scope of this Feature</h1>
+          <br></br>
+          <button class="back-btn">
+            <Link to="/ServiceDashboardPage" class="back-link">Back</Link>
+          </button>
+        </div>
+        </center>
+      </body>
+    );
+  }
+
+  export const ServiceDashErr4 = () => {
+    return(
+      <body class='servicedashbod'>
+        <center>
+        <div class='err-box'>
+          <br></br><br></br>
+          <h1>The Manage Bookings Feature is outside the scope of this Feature</h1>
+          <br></br>
+          <button class="back-btn">
+            <Link to="/ServiceDashboardPage" class="back-link">Back</Link>
+          </button>
+        </div>
+        </center>
+      </body>
+    );
+  }
+
+  export const ServiceDashErr5 = () => {
+    return(
+      <body class='servicedashbod'>
+        <center>
+        <div class='err-box'>
+          <br></br><br></br>
+          <h1 class='sdh1'>Home/Landing Page Outside of Scope of this Feature</h1>
+          <br></br>
+          <button class="back-btn">
+            <Link to="/ServiceDashboardPage" class="back-link">Back</Link>
+          </button>
+        </div>
+        </center>
+      </body>
+    );
+  }
