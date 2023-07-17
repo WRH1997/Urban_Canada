@@ -17,7 +17,7 @@ import CustomersPage from "./components/admin/pages/CustomersPage"
 
 // Rating Rewview Pages
 import Container from './components/ratingReview/serviceProvider';
-import ProfileDetails from "./components/ratingReview/ProfileDetails";
+import RatingComment from "./components/ratingReview/RatingComment";
 
 function App() {
   axios.interceptors.request.use((config) => {
@@ -50,8 +50,7 @@ function App() {
 
         {/* Rating and Review start */}
         <Route path="/ratings" Component={Container} />
-        <Route path="/profileDetails" Component={ProfileDetails} />
-        <Route path="/ratings" Component={Container} />
+        <Route path="/profileDetails" Component={RatingComment} />
         {/* Rating and Review end*/}
 
 

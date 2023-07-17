@@ -2,7 +2,7 @@ import React from 'react';
 import man from '../../assets/images/man.jpg'
 import woman from '../../assets/images/woman.jpg'
 import Navbar from './navigation';
-import Rating from './rating';
+// import Rating from './rating';
 
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ import Rating from './rating';
 // import Button from '@mui/material/Button';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../../assets/sass/style.scss';
-// import { Rating } from '@mui/material';
+import { Rating } from '@mui/material';
 
 function Footer(){
     return(

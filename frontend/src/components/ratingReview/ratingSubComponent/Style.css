@@ -1,0 +1,21 @@
+.but:hover{
+    /* transform: scaleX(2%); */
+    background-color: white;
+    color: rgb(75 85 99);
+}
+.but{
+    background-color: rgb(75 85 99);
+    border-color: rgb(75 85 99);
+    color:white;
+}
+.comment:hover{
+    border-color: rgb(75 85 99);
+}
+.comment{
+    background-color: rgb(249, 245, 245);
+    border-color: rgb(75 85 99);
+    padding:1%;
+}
+.comment:focus{
+  border: 1px solid red;
+}
