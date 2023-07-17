@@ -365,7 +365,7 @@ export default function Signup() {
           </FormControl>
         </Box> */}
 
-    {/* <form
+    <form
         className="max-w-sm bg-white pt-10 pb-24 m-auto"
         method="GET"
       >
@@ -532,7 +532,7 @@ export default function Signup() {
             </a> 
           </div>
         </div>
-      </form> */}
+      </form>
     <Footer/>
     </div>
   );

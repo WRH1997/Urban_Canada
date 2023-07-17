@@ -7,7 +7,7 @@ import Signup from "./components/signup/Signup";
 import Contact from "./components/contact/contact";
 import LandingPage from "./components/landingpage/landing";
 import FAQ from "./components/faq/faq";
-import {ServiceDashboardPage, ServiceDashboardPage2, ServiceDashErr1, ServiceDashErr2, ServiceDashErr3, ServiceDashErr4, ServiceDashErr5} from "./components/servicedashboard/servicedashboard.jsx";
+import {ServiceDashboardPage} from "./components/servicedashboard/servicedashboard";
 
 // Admin pages
 import { DashboardPage } from "./components/admin/pages/DashboardPage"
@@ -31,12 +31,6 @@ function App() {
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/faq" element={<FAQ />}></Route>
         <Route path="/ServiceDashboardPage" element={<ServiceDashboardPage />} />
-        <Route path="/ServiceDashboardPage2" element={<ServiceDashboardPage2 />} />
-        <Route path="/ServiceDashErr1" element={<ServiceDashErr1 />} />
-        <Route path="/ServiceDashErr2" element={<ServiceDashErr2 />} />
-        <Route path="/ServiceDashErr3" element={<ServiceDashErr3 />} />
-        <Route path="/ServiceDashErr4" element={<ServiceDashErr4 />} />
-        <Route path="/ServiceDashErr5" element={<ServiceDashErr5 />} />
         {/* Admin routes start */}
         <Route exact path="/admin/dashboard" Component={DashboardPage} />
         <Route exact path="/admin/vendor-request" Component={VendorRequestPage} />

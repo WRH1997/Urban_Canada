@@ -38,7 +38,7 @@ export default function Login() {
     <div>  
       <Header currentPage="/login"  />
 
-      <div align="center">
+      {/* <div align="center">
         <h1 className="my-10" style={{fontSize: "35px"}}>Login</h1>
         <TextField
           id="outlined-basic"
@@ -65,9 +65,9 @@ export default function Login() {
         <Link to="/signup" className="text-gray-800 no-underline">
           <p variant="contained">New User? Register</p>
         </Link>
-      </div>
+      </div> */}
 
-      {/* <form
+      <form
         className="max-w-sm bg-white pt-10 pb-24 m-auto"
         method="GET"
       >
@@ -139,7 +139,7 @@ export default function Login() {
             </a> 
           </div>
         </div>
-      </form> */}
+      </form>
       
       <Footer/>
     </div>
