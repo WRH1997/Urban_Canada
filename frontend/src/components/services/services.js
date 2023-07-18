@@ -10,6 +10,8 @@ export default function Services() {
   const [services, setServices] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [filters, setFilters] = React.useState([]);
+  const [filtered, setFiltered] = React.useState(false);
+  const [searched, setSearched] = React.useState(false);
 
   //cleaning, repair, moving, carpentry, landscaping, other
   //const [filters, setFilters] = React.useState([]);
@@ -29,14 +31,22 @@ export default function Services() {
   }
 
   React.useEffect(() => {
+    if(filtered){
+      return;
+    }
+    if(searched){
+      return;
+    }
     fetchData();
   }, services)
 
 
   const searchServices = async (event) =>{
     event.preventDefault();
+    setSearched(true);
     let searchTerm = event.target.value;
     if(searchTerm==""){
+      setSearched(false);
       fetchData();
       return;
     }
@@ -63,9 +73,11 @@ export default function Services() {
       }
     }
     if(newFilters.length==0){
+      setFiltered(false);
       fetchData();
       return;
     }
+    setFiltered(true);
     let data = await fetch('http://localhost:3001/filterServices', {
       method: 'POST',
       headers: {
@@ -121,7 +133,7 @@ export default function Services() {
               <h3 className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
               <h3 className="text-sm text-gray-700">Category: {service.category}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">Price Per Hour: ${service.pricePerHour}</p>
-              (Service Description) {service.serviceDesc}
+              {service.serviceDesc}
             </a>
           ))}
         </div>
