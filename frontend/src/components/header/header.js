@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../../assets/logo.png";
 import icon from "../../assets/icon.jpg";
 import { useNavigate } from "react-router-dom";
+
 const guestNavigation = [
   { name: "Home", href: "/" },
   { name: "Login/SignUp", href: "/login" },
