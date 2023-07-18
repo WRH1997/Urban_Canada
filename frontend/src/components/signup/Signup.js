@@ -10,210 +10,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Signup() {
-  // const UserRoles = {
-  //   SERVICE_CONSUMER: "service-consumer",
-  //   SERVICE_PROVIDER: "service-provider",
-  // };
-
-  // const [inputFirstNameValue, setInputFirstNameValue] = React.useState("");
-  // const [inputLastNameValue, setInputLastNameValue] = React.useState("");
-  // const [inputEmailValue, setInputEmailValue] = React.useState("");
-  // const [inputConfirmEmailValue, setInputConfirmEmailValue] =
-  //   React.useState("");
-  // const [inputPasswordValue, setInputPasswordValue] = React.useState("");
-  // const [inputConfirmPasswordValue, setInputConfirmPasswordValue] =
-  //   React.useState("");
-  // const [userRole, setUserRole] = React.useState(UserRoles.SERVICE_CONSUMER);
-  // const [gender, setGender] = React.useState("");
-  // const [isValidated, setIsValidated] = useState(
-  //   userRole === UserRoles.SERVICE_CONSUMER
-  // );
-
-  // const handleFirstNameChange = (event) => {
-  //   setInputFirstNameValue(event.target.value);
-  // };
-  // const handleLastNameChange = (event) => {
-  //   setInputLastNameValue(event.target.value);
-  // };
-  // const handleEmailChange = (event) => {
-  //   setInputEmailValue(event.target.value);
-  // };
-  // const handleConfirmEmailChange = (event) => {
-  //   setInputConfirmEmailValue(event.target.value);
-  // };
-  // const handlePasswordChange = (event) => {
-  //   setInputPasswordValue(event.target.value);
-  // };
-  // const handleConfirmPasswordChange = (event) => {
-  //   setInputConfirmPasswordValue(event.target.value);
-  // };
-  // const handleRoleChange = (event) => {
-  //   setUserRole(event.target.value);
-  //   // if user is a service consumer then it is set to true else to false
-  //   setIsValidated(event.target.value === UserRoles.SERVICE_CONSUMER);
-  // };
-  // const handleGenderChange = (event) => {
-  //   setGender(event.target.value);
-  // };
-
-  // const [firstNameError, setFirstNameError] = React.useState("");
-  // const [lastNameError, setLastNameError] = React.useState("");
-  // const [emailError, setEmailError] = React.useState("");
-  // const [confirmEmailError, setConfirmEmailError] = React.useState("");
-  // const [passwordError, setPasswordError] = React.useState("");
-  // const [confirmPasswordError, setConfirmPasswordError] = React.useState("");
-
-  // const navigate = useNavigate();
-  // const resetForm = () => {
-  //   setInputFirstNameValue("");
-  //   setInputLastNameValue("");
-  //   setInputEmailValue("");
-  //   setInputConfirmEmailValue("");
-  //   setInputPasswordValue("");
-  //   setInputConfirmPasswordValue("");
-  //   setFirstNameError("");
-  //   setLastNameError("");
-  //   setEmailError("");
-  //   setConfirmEmailError("");
-  //   setPasswordError("");
-  //   setConfirmPasswordError("");
-  // };
-
-  // const handleSignUp = async (e) => {
-  //   e.preventDefault()
-  //   var emailValidRegex =
-  //     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  //   var passwordValidRegex =
-  //     /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-  //   var containsNumbersRegex = /^[A-Za-z]+$/;
-
-  //   let flag = false;
-
-  //   if (!inputFirstNameValue || !inputFirstNameValue.length) {
-  //     setFirstNameError("First Name is required.");
-  //     flag = true;
-  //   } else {
-  //     if (inputFirstNameValue.match(containsNumbersRegex)) {
-  //       setFirstNameError("");
-  //       flag = true;
-  //     } else {
-  //       setFirstNameError("Must contain letters only.");
-  //     }
-  //   }
-
-  //   if (!inputLastNameValue || !inputLastNameValue.length) {
-  //     setLastNameError("Last Name is required.");
-  //     flag = true;
-  //   } else {
-  //     if (inputLastNameValue.match(containsNumbersRegex)) {
-  //       setLastNameError("");
-  //       flag = true;
-  //     } else {
-  //       setLastNameError("Must contain letters only.");
-  //     }
-  //   }
-
-  //   if (!inputEmailValue || !inputEmailValue.length) {
-  //     setEmailError("Email is required.");
-  //     flag = true;
-  //   } else {
-  //     setEmailError("");
-  //   }
-  //   if (!inputConfirmEmailValue || !inputConfirmEmailValue.length) {
-  //     setConfirmEmailError("Confirm email is required.");
-  //     flag = true;
-  //   } else {
-  //     setConfirmEmailError("");
-  //   }
-  //   if (!inputPasswordValue || !inputPasswordValue.length) {
-  //     setPasswordError("Password is required.");
-  //     flag = true;
-  //   } else {
-  //     setPasswordError("");
-  //   }
-  //   if (!inputConfirmPasswordValue || !inputConfirmPasswordValue.length) {
-  //     setConfirmPasswordError("Confirm Password is required.");
-  //     flag = true;
-  //   } else {
-  //     setConfirmPasswordError("");
-  //   }
-  //   if (inputEmailValue != inputConfirmEmailValue) {
-  //     setConfirmEmailError("Email doesn't match.");
-  //     flag = true;
-  //   }
-  //   if (inputPasswordValue != inputConfirmPasswordValue) {
-  //     setConfirmPasswordError("Password doesn't match.");
-  //     flag = true;
-  //   }
-  //   if (
-  //     !inputEmailValue.match(emailValidRegex) ||
-  //     !passwordValidRegex.test(inputPasswordValue)
-  //   ) {
-  //     if (
-  //       !inputEmailValue.match(emailValidRegex) &&
-  //       !passwordValidRegex.test(inputPasswordValue)
-  //     ) {
-  //       flag = true;
-  //       setEmailError("Email is invalid.");
-  //     } else if (
-  //       !inputEmailValue.match(emailValidRegex) &&
-  //       inputEmailValue != ""
-  //     ) {
-  //       flag = true;
-  //       setEmailError("Email is invalid.");
-  //     } else if (
-  //       !inputPasswordValue.match(passwordValidRegex) &&
-  //       inputPasswordValue != ""
-  //     ) {
-  //       flag = true;
-  //       setPasswordError("Length should be at least 8. Must contain at least one symbol, upper case, lower case and number.");
-  //     }
-  //   }
-  //   if (
-  //     !inputFirstNameValue.length &&
-  //     !inputLastNameValue.length &&
-  //     !inputEmailValue.length &&
-  //     !inputConfirmEmailValue.length &&
-  //     !inputConfirmPasswordValue.length &&
-  //     !inputPasswordValue.length
-  //   ) {
-  //     alert("Invalid Submission");
-  //   }
-  //   if (!flag) {
-  //     let gender = document.querySelector('input[name="gender"]:checked').value;
-  //     console.log(gender);
-  //     try {
-  //       const response = await axios.post("http://localhost:3001/signup", {
-  //         firstName: inputFirstNameValue,
-  //         lastName: inputLastNameValue,
-  //         email: inputEmailValue,
-  //         password: inputPasswordValue,
-  //         gender: gender,
-  //         role: userRole,
-  //         isValidated: isValidated,
-  //         isBlocked: false,
-  //       });
-  //       console.log("User signed up successfully");
-  //       //resetForm();
-  //       //navigate("/login");
-  //       window.location.href = "/login"
-  //     } catch (error) {
-  //       if (error.response) {
-  //         console.log(error.response.data.msg);
-  //         console.log(error.response.status);
-  //         if (error.response.status === 400) {
-  //           alert("User already exists");
-  //         }
-  //       } else if (error.request) {
-  //         // The request was made but no response was received
-
-  //         console.log(error.request);
-  //       } else {
-  //         console.log("Error", error.message);
-  //       }
-  //     }
-  //   }
-
   const UserRoles = {
     SERVICE_CONSUMER: "service-consumer",
     SERVICE_PROVIDER: "service-provider",
@@ -283,69 +79,70 @@ export default function Signup() {
     setConfirmPasswordError("");
   };
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (e) => {
+    e.preventDefault()
     var emailValidRegex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     var passwordValidRegex =
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    var containsNumbersRegex = /[0-9]/g;
+    var containsLettersOnly = /^[A-Za-z]+$/;
 
     let flag = false;
 
     if (!inputFirstNameValue || !inputFirstNameValue.length) {
-      setFirstNameError("First Name is required");
+      setFirstNameError("First Name is required.");
       flag = true;
     } else {
-      if (inputFirstNameValue.match(containsNumbersRegex)) {
-        setFirstNameError("First Name cannot have numbers");
-        flag = true;
-      } else {
+      if (inputFirstNameValue.match(containsLettersOnly)) {
         setFirstNameError("");
+      } else {
+        setFirstNameError("Must contain letters only.");
+        flag = true;
       }
     }
 
     if (!inputLastNameValue || !inputLastNameValue.length) {
-      setLastNameError("Last Name is required");
+      setLastNameError("Last Name is required.");
       flag = true;
     } else {
-      if (inputLastNameValue.match(containsNumbersRegex)) {
-        setLastNameError("Last Name cannot have numbers");
-        flag = true;
-      } else {
+      if (inputLastNameValue.match(containsLettersOnly)) {
         setLastNameError("");
+      } else {
+        setLastNameError("Must contain letters only.");
+        flag = true;
       }
     }
 
     if (!inputEmailValue || !inputEmailValue.length) {
-      setEmailError("Email is required");
+      setEmailError("Email is required.");
       flag = true;
     } else {
       setEmailError("");
     }
     if (!inputConfirmEmailValue || !inputConfirmEmailValue.length) {
-      setConfirmEmailError("Confirm email is required");
+      setConfirmEmailError("Confirm email is required.");
       flag = true;
     } else {
       setConfirmEmailError("");
     }
     if (!inputPasswordValue || !inputPasswordValue.length) {
-      setPasswordError("Password is required");
+      setPasswordError("Password is required.");
       flag = true;
     } else {
       setPasswordError("");
     }
     if (!inputConfirmPasswordValue || !inputConfirmPasswordValue.length) {
-      setConfirmPasswordError("Confirm Password is required");
+      setConfirmPasswordError("Confirm Password is required.");
       flag = true;
     } else {
       setConfirmPasswordError("");
     }
     if (inputEmailValue != inputConfirmEmailValue) {
-      setConfirmEmailError("Email doesn't match");
+      setConfirmEmailError("Email doesn't match.");
       flag = true;
     }
     if (inputPasswordValue != inputConfirmPasswordValue) {
-      setConfirmPasswordError("Password doesn't match");
+      setConfirmPasswordError("Password doesn't match.");
       flag = true;
     }
     if (
@@ -357,22 +154,19 @@ export default function Signup() {
         !passwordValidRegex.test(inputPasswordValue)
       ) {
         flag = true;
-        setEmailError("Email is invalid");
+        setEmailError("Email is invalid.");
       } else if (
         !inputEmailValue.match(emailValidRegex) &&
         inputEmailValue != ""
       ) {
         flag = true;
-        setEmailError("Email is invalid");
+        setEmailError("Email is invalid.");
       } else if (
         !inputPasswordValue.match(passwordValidRegex) &&
         inputPasswordValue != ""
       ) {
         flag = true;
-        alert(
-          "Password should contain at least one symbol, one upper case, one lower case and a number"
-        );
-        setPasswordError("Invalid Password");
+        setPasswordError("Length should be at least 8. Must contain at least one symbol, upper case, lower case and number.");
       }
     }
     if (
@@ -400,9 +194,7 @@ export default function Signup() {
           isBlocked: false,
         });
         console.log("User signed up successfully");
-        //resetForm();
-        //navigate("/login");
-        window.location.href = "/login";
+        window.location.href = "/login"
       } catch (error) {
         if (error.response) {
           console.log(error.response.data.msg);
@@ -419,7 +211,6 @@ export default function Signup() {
         }
       }
     }
-
   };
   return (
     <div>
@@ -645,11 +436,12 @@ export default function Signup() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-x-6"  onClick={handleSignUp}>
+          <div className="mt-6 flex items-center justify-center gap-x-6">
             <button
               variant="contained"
               type="submit"
               className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={handleSignUp}
             >
               Sign Up
             </button>            
