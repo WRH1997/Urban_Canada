@@ -18,6 +18,7 @@ require("./utils/database.js");
 require("dotenv").config();
 
 const userRoutes = require("./routes/userRoutes");
+const serviceRoutes = require("./routes/serviceRoutes");
 
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -26,6 +27,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use("/", serviceRoutes);
 app.use("/", userRoutes);
 
 const PORT = 3001;
