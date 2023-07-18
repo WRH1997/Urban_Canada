@@ -208,10 +208,11 @@ export default function Signup() {
         navigate("/login");
       } catch (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           console.log(error.response.data.msg);
           console.log(error.response.status);
+          if (error.response.status === 400) {
+            alert("User already exists");
+          }
         } else if (error.request) {
           // The request was made but no response was received
 
