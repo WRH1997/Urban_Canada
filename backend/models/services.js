@@ -40,6 +40,11 @@ const ServiceSchema = new mongoose.Schema({
         enum: ['Cleaning', 'Repair', 'Moving', 'Carpentry', 'Landscaping', 'Other'],
         default: 'Other'
         
+    },
+
+    serviceImg: {
+        type: String,
+        required: false
     }
 });
 
