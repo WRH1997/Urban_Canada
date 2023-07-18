@@ -10,6 +10,9 @@ import Radio from "@mui/material/Radio";
 import FormControl from "@mui/material/FormControl";
 import * as yup from "yup";
 import Header from "../header/header";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/userAuth";
+
 function Profile() {
   const [user, setUser] = useState({}); // User state
   const [loading, setLoading] = useState(true); // Loading state
@@ -89,6 +92,22 @@ function Profile() {
         alert(` Error: ${error.errors.join(", ")}`);
       } else {
         console.error("Error updating profile: ", error);
+      }
+    }
+  };
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const handleDeleteAccount = async () => {
+    const confirmation = window.confirm("Do you want to delete your account?");
+
+    if (confirmation) {
+      try {
+        await axios.delete(`http://localhost:3001/${user._id}`);
+        logout(); // Call the logout function
+        alert("Your account has been deleted");
+        navigate("/");
+      } catch (error) {
+        console.error("Error deleting account: ", error);
       }
     }
   };
@@ -240,6 +259,15 @@ function Profile() {
               variant="contained"
             >
               Update Profile
+            </Button>
+            <br></br>
+            <Button
+              type="submit"
+              style={{ backgroundColor: "#2d3748" }}
+              variant="contained"
+              onClick={handleDeleteAccount}
+            >
+              Delete Account
             </Button>
           </Box>
         )}
