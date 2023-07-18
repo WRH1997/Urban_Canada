@@ -2,3 +2,26 @@
   border-radius: 5px;
   transform: scale(1.05);
 }
+
+.service_card{
+  border-radius: 25px;
+  border: solid black 1px;
+}
+
+.search-bar{
+  margin-top: 25px;
+  width: 40%;
+}
+
+.px-4{
+  padding-top: 4vh;
+}
+
+.filters{
+  float:left;
+  border: solid black 1px;
+  margin-left: 2vh;
+  margin-right: 4vh;
+  margin-top: 5vh;
+  padding: 5px;
+}
