@@ -10,6 +10,210 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Signup() {
+  // const UserRoles = {
+  //   SERVICE_CONSUMER: "service-consumer",
+  //   SERVICE_PROVIDER: "service-provider",
+  // };
+
+  // const [inputFirstNameValue, setInputFirstNameValue] = React.useState("");
+  // const [inputLastNameValue, setInputLastNameValue] = React.useState("");
+  // const [inputEmailValue, setInputEmailValue] = React.useState("");
+  // const [inputConfirmEmailValue, setInputConfirmEmailValue] =
+  //   React.useState("");
+  // const [inputPasswordValue, setInputPasswordValue] = React.useState("");
+  // const [inputConfirmPasswordValue, setInputConfirmPasswordValue] =
+  //   React.useState("");
+  // const [userRole, setUserRole] = React.useState(UserRoles.SERVICE_CONSUMER);
+  // const [gender, setGender] = React.useState("");
+  // const [isValidated, setIsValidated] = useState(
+  //   userRole === UserRoles.SERVICE_CONSUMER
+  // );
+
+  // const handleFirstNameChange = (event) => {
+  //   setInputFirstNameValue(event.target.value);
+  // };
+  // const handleLastNameChange = (event) => {
+  //   setInputLastNameValue(event.target.value);
+  // };
+  // const handleEmailChange = (event) => {
+  //   setInputEmailValue(event.target.value);
+  // };
+  // const handleConfirmEmailChange = (event) => {
+  //   setInputConfirmEmailValue(event.target.value);
+  // };
+  // const handlePasswordChange = (event) => {
+  //   setInputPasswordValue(event.target.value);
+  // };
+  // const handleConfirmPasswordChange = (event) => {
+  //   setInputConfirmPasswordValue(event.target.value);
+  // };
+  // const handleRoleChange = (event) => {
+  //   setUserRole(event.target.value);
+  //   // if user is a service consumer then it is set to true else to false
+  //   setIsValidated(event.target.value === UserRoles.SERVICE_CONSUMER);
+  // };
+  // const handleGenderChange = (event) => {
+  //   setGender(event.target.value);
+  // };
+
+  // const [firstNameError, setFirstNameError] = React.useState("");
+  // const [lastNameError, setLastNameError] = React.useState("");
+  // const [emailError, setEmailError] = React.useState("");
+  // const [confirmEmailError, setConfirmEmailError] = React.useState("");
+  // const [passwordError, setPasswordError] = React.useState("");
+  // const [confirmPasswordError, setConfirmPasswordError] = React.useState("");
+
+  // const navigate = useNavigate();
+  // const resetForm = () => {
+  //   setInputFirstNameValue("");
+  //   setInputLastNameValue("");
+  //   setInputEmailValue("");
+  //   setInputConfirmEmailValue("");
+  //   setInputPasswordValue("");
+  //   setInputConfirmPasswordValue("");
+  //   setFirstNameError("");
+  //   setLastNameError("");
+  //   setEmailError("");
+  //   setConfirmEmailError("");
+  //   setPasswordError("");
+  //   setConfirmPasswordError("");
+  // };
+
+  // const handleSignUp = async (e) => {
+  //   e.preventDefault()
+  //   var emailValidRegex =
+  //     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  //   var passwordValidRegex =
+  //     /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  //   var containsNumbersRegex = /^[A-Za-z]+$/;
+
+  //   let flag = false;
+
+  //   if (!inputFirstNameValue || !inputFirstNameValue.length) {
+  //     setFirstNameError("First Name is required.");
+  //     flag = true;
+  //   } else {
+  //     if (inputFirstNameValue.match(containsNumbersRegex)) {
+  //       setFirstNameError("");
+  //       flag = true;
+  //     } else {
+  //       setFirstNameError("Must contain letters only.");
+  //     }
+  //   }
+
+  //   if (!inputLastNameValue || !inputLastNameValue.length) {
+  //     setLastNameError("Last Name is required.");
+  //     flag = true;
+  //   } else {
+  //     if (inputLastNameValue.match(containsNumbersRegex)) {
+  //       setLastNameError("");
+  //       flag = true;
+  //     } else {
+  //       setLastNameError("Must contain letters only.");
+  //     }
+  //   }
+
+  //   if (!inputEmailValue || !inputEmailValue.length) {
+  //     setEmailError("Email is required.");
+  //     flag = true;
+  //   } else {
+  //     setEmailError("");
+  //   }
+  //   if (!inputConfirmEmailValue || !inputConfirmEmailValue.length) {
+  //     setConfirmEmailError("Confirm email is required.");
+  //     flag = true;
+  //   } else {
+  //     setConfirmEmailError("");
+  //   }
+  //   if (!inputPasswordValue || !inputPasswordValue.length) {
+  //     setPasswordError("Password is required.");
+  //     flag = true;
+  //   } else {
+  //     setPasswordError("");
+  //   }
+  //   if (!inputConfirmPasswordValue || !inputConfirmPasswordValue.length) {
+  //     setConfirmPasswordError("Confirm Password is required.");
+  //     flag = true;
+  //   } else {
+  //     setConfirmPasswordError("");
+  //   }
+  //   if (inputEmailValue != inputConfirmEmailValue) {
+  //     setConfirmEmailError("Email doesn't match.");
+  //     flag = true;
+  //   }
+  //   if (inputPasswordValue != inputConfirmPasswordValue) {
+  //     setConfirmPasswordError("Password doesn't match.");
+  //     flag = true;
+  //   }
+  //   if (
+  //     !inputEmailValue.match(emailValidRegex) ||
+  //     !passwordValidRegex.test(inputPasswordValue)
+  //   ) {
+  //     if (
+  //       !inputEmailValue.match(emailValidRegex) &&
+  //       !passwordValidRegex.test(inputPasswordValue)
+  //     ) {
+  //       flag = true;
+  //       setEmailError("Email is invalid.");
+  //     } else if (
+  //       !inputEmailValue.match(emailValidRegex) &&
+  //       inputEmailValue != ""
+  //     ) {
+  //       flag = true;
+  //       setEmailError("Email is invalid.");
+  //     } else if (
+  //       !inputPasswordValue.match(passwordValidRegex) &&
+  //       inputPasswordValue != ""
+  //     ) {
+  //       flag = true;
+  //       setPasswordError("Length should be at least 8. Must contain at least one symbol, upper case, lower case and number.");
+  //     }
+  //   }
+  //   if (
+  //     !inputFirstNameValue.length &&
+  //     !inputLastNameValue.length &&
+  //     !inputEmailValue.length &&
+  //     !inputConfirmEmailValue.length &&
+  //     !inputConfirmPasswordValue.length &&
+  //     !inputPasswordValue.length
+  //   ) {
+  //     alert("Invalid Submission");
+  //   }
+  //   if (!flag) {
+  //     let gender = document.querySelector('input[name="gender"]:checked').value;
+  //     console.log(gender);
+  //     try {
+  //       const response = await axios.post("http://localhost:3001/signup", {
+  //         firstName: inputFirstNameValue,
+  //         lastName: inputLastNameValue,
+  //         email: inputEmailValue,
+  //         password: inputPasswordValue,
+  //         gender: gender,
+  //         role: userRole,
+  //         isValidated: isValidated,
+  //         isBlocked: false,
+  //       });
+  //       console.log("User signed up successfully");
+  //       //resetForm();
+  //       //navigate("/login");
+  //       window.location.href = "/login"
+  //     } catch (error) {
+  //       if (error.response) {
+  //         console.log(error.response.data.msg);
+  //         console.log(error.response.status);
+  //         if (error.response.status === 400) {
+  //           alert("User already exists");
+  //         }
+  //       } else if (error.request) {
+  //         // The request was made but no response was received
+
+  //         console.log(error.request);
+  //       } else {
+  //         console.log("Error", error.message);
+  //       }
+  //     }
+  //   }
+
   const UserRoles = {
     SERVICE_CONSUMER: "service-consumer",
     SERVICE_PROVIDER: "service-provider",
@@ -63,70 +267,85 @@ export default function Signup() {
   const [passwordError, setPasswordError] = React.useState("");
   const [confirmPasswordError, setConfirmPasswordError] = React.useState("");
 
-  const handleSignUp = async (e) => {
-    e.preventDefault()
+  const navigate = useNavigate();
+  const resetForm = () => {
+    setInputFirstNameValue("");
+    setInputLastNameValue("");
+    setInputEmailValue("");
+    setInputConfirmEmailValue("");
+    setInputPasswordValue("");
+    setInputConfirmPasswordValue("");
+    setFirstNameError("");
+    setLastNameError("");
+    setEmailError("");
+    setConfirmEmailError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+  };
+
+  const handleSignUp = async () => {
     var emailValidRegex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     var passwordValidRegex =
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    var containsNumbersRegex = /^[A-Za-z]+$/;
+    var containsNumbersRegex = /[0-9]/g;
 
     let flag = false;
 
     if (!inputFirstNameValue || !inputFirstNameValue.length) {
-      setFirstNameError("First Name is required.");
+      setFirstNameError("First Name is required");
       flag = true;
     } else {
       if (inputFirstNameValue.match(containsNumbersRegex)) {
-        setFirstNameError("");
+        setFirstNameError("First Name cannot have numbers");
         flag = true;
       } else {
-        setFirstNameError("Must contain letters only.");
+        setFirstNameError("");
       }
     }
 
     if (!inputLastNameValue || !inputLastNameValue.length) {
-      setLastNameError("Last Name is required.");
+      setLastNameError("Last Name is required");
       flag = true;
     } else {
       if (inputLastNameValue.match(containsNumbersRegex)) {
-        setLastNameError("");
+        setLastNameError("Last Name cannot have numbers");
         flag = true;
       } else {
-        setLastNameError("Must contain letters only.");
+        setLastNameError("");
       }
     }
 
     if (!inputEmailValue || !inputEmailValue.length) {
-      setEmailError("Email is required.");
+      setEmailError("Email is required");
       flag = true;
     } else {
       setEmailError("");
     }
     if (!inputConfirmEmailValue || !inputConfirmEmailValue.length) {
-      setConfirmEmailError("Confirm email is required.");
+      setConfirmEmailError("Confirm email is required");
       flag = true;
     } else {
       setConfirmEmailError("");
     }
     if (!inputPasswordValue || !inputPasswordValue.length) {
-      setPasswordError("Password is required.");
+      setPasswordError("Password is required");
       flag = true;
     } else {
       setPasswordError("");
     }
     if (!inputConfirmPasswordValue || !inputConfirmPasswordValue.length) {
-      setConfirmPasswordError("Confirm Password is required.");
+      setConfirmPasswordError("Confirm Password is required");
       flag = true;
     } else {
       setConfirmPasswordError("");
     }
     if (inputEmailValue != inputConfirmEmailValue) {
-      setConfirmEmailError("Email doesn't match.");
+      setConfirmEmailError("Email doesn't match");
       flag = true;
     }
     if (inputPasswordValue != inputConfirmPasswordValue) {
-      setConfirmPasswordError("Password doesn't match.");
+      setConfirmPasswordError("Password doesn't match");
       flag = true;
     }
     if (
@@ -138,19 +357,22 @@ export default function Signup() {
         !passwordValidRegex.test(inputPasswordValue)
       ) {
         flag = true;
-        setEmailError("Email is invalid.");
+        setEmailError("Email is invalid");
       } else if (
         !inputEmailValue.match(emailValidRegex) &&
         inputEmailValue != ""
       ) {
         flag = true;
-        setEmailError("Email is invalid.");
+        setEmailError("Email is invalid");
       } else if (
         !inputPasswordValue.match(passwordValidRegex) &&
         inputPasswordValue != ""
       ) {
         flag = true;
-        setPasswordError("Length should be at least 8. Must contain at least one symbol, upper case, lower case and number.");
+        alert(
+          "Password should contain at least one symbol, one upper case, one lower case and a number"
+        );
+        setPasswordError("Invalid Password");
       }
     }
     if (
@@ -179,8 +401,8 @@ export default function Signup() {
         });
         console.log("User signed up successfully");
         //resetForm();
-        // navigate("/login");
-        window.location.href = "/login"
+        //navigate("/login");
+        window.location.href = "/login";
       } catch (error) {
         if (error.response) {
           console.log(error.response.data.msg);
@@ -197,6 +419,7 @@ export default function Signup() {
         }
       }
     }
+
   };
   return (
     <div>
@@ -413,6 +636,7 @@ export default function Signup() {
                 label="Usero-simple-select-label"
                 id="demo-sim Role"
                 onChange={handleRoleChange}
+                defaultValue={UserRoles.SERVICE_CONSUMER}
                 class="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
                   <option value={UserRoles.SERVICE_CONSUMER}>Service Consumer</option>
                   <option value={UserRoles.SERVICE_PROVIDER}>Service Provider</option>
