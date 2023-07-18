@@ -5,9 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var connectDB = require('./utils/database');
 var indexRouter = require('./routes/index');
+var cors = require('cors');
+var bookingRouter = require('./routes/booking');
 
 
 var app = express();
+app.use(cors());
 require('dotenv').config();
 
 app.use(logger('dev'));
