@@ -64,6 +64,7 @@ exports.login = async (req, res) => {
           role: user.role,
           isValidated: user.isValidated,
           isBlocked: user.isBlocked,
+          bio: user.bio,
           // Include any other user properties you want to include in the response
         };
         console.log(userResponse);
