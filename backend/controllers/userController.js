@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
           isValidated: user.isValidated,
           isBlocked: user.isBlocked,
           bio: user.bio,
-          // Include any other user properties you want to include in the response
+          phoneNumber: user.phoneNumber,
         };
         console.log(userResponse);
         // Delete the password from the response
