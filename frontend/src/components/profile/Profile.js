@@ -144,8 +144,8 @@ function Profile() {
                   value="service-consumer"
                   control={<Radio />}
                   label="Service Consumer"
-                  disabled
-                  // sx={{ color: "rgba(0, 0, 0, 0.8)" }}
+                  // disabled
+                  // sx={{ color: "rgba(0, 0, 0, 0.6)" }}
                   sx={{
                     "& .MuiInputBase-input.Mui-disabled": {
                       WebkitTextFillColor: "#000000",
