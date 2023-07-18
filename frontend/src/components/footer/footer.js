@@ -4,7 +4,7 @@ import logo from '../../assets/logo2.png';
 export default function Header() {
 
   return (
-    <footer class="flex bottom-0 bg-gray-200 w-full">
+    <footer class="fixed bottom-0 bg-gray-200 w-full">
         <div class="m-4">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div class="flex items-center sm:mb-0">
