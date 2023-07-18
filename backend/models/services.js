@@ -10,6 +10,11 @@ const ServiceSchema = new mongoose.Schema({
         required: true
     },
 
+    vendorID: {
+        type: String,
+        required: true,
+    },
+
     vendorName: {
         type: String,
         required: true
