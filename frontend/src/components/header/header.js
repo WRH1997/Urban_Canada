@@ -127,6 +127,7 @@ export default function Header(props) {
                           {({ active }) => (
                             <a
                               href="#"
+                              onClick={handleProfileNavigation}
                               className={classNames(
                                 active ? "bg-gray-200" : "",
                                 "block no-underline px-4 py-2 text-sm text-gray-700"
@@ -141,6 +142,7 @@ export default function Header(props) {
                           {({ active }) => (
                             <a
                               href="#"
+                              onClick={handleSignOut}
                               className={classNames(
                                 active ? "bg-gray-200" : "",
                                 "block no-underline px-4 py-2 text-sm text-gray-700"

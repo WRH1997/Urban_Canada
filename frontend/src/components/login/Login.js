@@ -67,7 +67,6 @@ export default function Login() {
                   setInputPasswordValue("");
                   navigate("/booking");
                 } else {
-                  // Error handling
                   console.log("Error storing data in local storage");
                 }
               })
@@ -78,11 +77,19 @@ export default function Login() {
           }
         })
         .catch((error) => {
-          if (error.response && error.response.status === 403) {
-            alert(error.response.data.message);
+          if (error.response) {
+            if (error.response.status === 400) {
+              alert("Invalid credentials");
+            } else if (error.response.status === 403) {
+              alert("Access restricted, contact admin.");
+            } else if (error.response.status === 500) {
+              alert("Server error");
+            } else {
+              // Handle other errors
+              console.log(error);
+            }
           } else {
-            // Handle other errors
-            console.log(error);
+            alert("An error occurred: " + error);
           }
         });
     }
@@ -149,8 +156,6 @@ export default function Login() {
             <p variant="contained">New User? Register</p>
           </Link>
         </div>
-
-        <Footer />
       </Box>
     </div>
   );
