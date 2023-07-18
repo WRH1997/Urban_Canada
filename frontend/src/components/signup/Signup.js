@@ -63,13 +63,29 @@ export default function Signup() {
   const [passwordError, setPasswordError] = React.useState("");
   const [confirmPasswordError, setConfirmPasswordError] = React.useState("");
 
+  const navigate = useNavigate();
+  const resetForm = () => {
+    setInputFirstNameValue("");
+    setInputLastNameValue("");
+    setInputEmailValue("");
+    setInputConfirmEmailValue("");
+    setInputPasswordValue("");
+    setInputConfirmPasswordValue("");
+    setFirstNameError("");
+    setLastNameError("");
+    setEmailError("");
+    setConfirmEmailError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+  };
+
   const handleSignUp = async (e) => {
     e.preventDefault()
     var emailValidRegex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     var passwordValidRegex =
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    var containsNumbersRegex = /^[A-Za-z]+$/;
+    var containsLettersOnly = /^[A-Za-z]+$/;
 
     let flag = false;
 
@@ -77,11 +93,11 @@ export default function Signup() {
       setFirstNameError("First Name is required.");
       flag = true;
     } else {
-      if (inputFirstNameValue.match(containsNumbersRegex)) {
+      if (inputFirstNameValue.match(containsLettersOnly)) {
         setFirstNameError("");
-        flag = true;
       } else {
         setFirstNameError("Must contain letters only.");
+        flag = true;
       }
     }
 
@@ -89,11 +105,11 @@ export default function Signup() {
       setLastNameError("Last Name is required.");
       flag = true;
     } else {
-      if (inputLastNameValue.match(containsNumbersRegex)) {
+      if (inputLastNameValue.match(containsLettersOnly)) {
         setLastNameError("");
-        flag = true;
       } else {
         setLastNameError("Must contain letters only.");
+        flag = true;
       }
     }
 
@@ -178,8 +194,6 @@ export default function Signup() {
           isBlocked: false,
         });
         console.log("User signed up successfully");
-        //resetForm();
-        // navigate("/login");
         window.location.href = "/login"
       } catch (error) {
         if (error.response) {
@@ -413,6 +427,7 @@ export default function Signup() {
                 label="Usero-simple-select-label"
                 id="demo-sim Role"
                 onChange={handleRoleChange}
+                defaultValue={UserRoles.SERVICE_CONSUMER}
                 class="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
                   <option value={UserRoles.SERVICE_CONSUMER}>Service Consumer</option>
                   <option value={UserRoles.SERVICE_PROVIDER}>Service Provider</option>
@@ -421,11 +436,12 @@ export default function Signup() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-x-6"  onClick={handleSignUp}>
+          <div className="mt-6 flex items-center justify-center gap-x-6">
             <button
               variant="contained"
               type="submit"
               className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={handleSignUp}
             >
               Sign Up
             </button>            
