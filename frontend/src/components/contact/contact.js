@@ -5,7 +5,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import FormHelperText from "@mui/joy/FormHelperText";
 import { Box } from "@mui/material";
-import { red } from '@mui/material/colors';
+import { red } from "@mui/material/colors";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 const color = red[500];
@@ -108,96 +108,96 @@ export default function Contact() {
   };
   return (
     <div>
-    <Header/>
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginY: 20,
-        marginX: 5,
-      }}
-    >
-      <h1 style={{color: '#2d3748', fontSize: "35px"}}>Contact us</h1>
-      <br></br>
-      <Box sx={{}}>
-        <Box
-          sx={{
-            display: "flex",
-          }}
-        >
+      <Header />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginY: 20,
+          marginX: 5,
+        }}
+      >
+        <h1 style={{ color: "#2d3748", fontSize: "35px" }}>Contact us</h1>
+        <br></br>
+        <Box sx={{}}>
+          <Box
+            sx={{
+              display: "flex",
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              color="grey"
+              error={firstNameError && firstNameError.length ? true : false}
+              required
+              label="First Name"
+              variant="outlined"
+              helperText={firstNameError}
+              onChange={handleFirstNameChange}
+            />
+            &nbsp;&nbsp;
+            <TextField
+              id="outlined-basic"
+              color="grey"
+              error={lastNameError && lastNameError.length ? true : false}
+              required
+              label="Last Name"
+              variant="outlined"
+              helperText={lastNameError}
+              onChange={handleLastNameChange}
+            />
+          </Box>
+          <br></br>
           <TextField
             id="outlined-basic"
             color="grey"
-            error={firstNameError && firstNameError.length ? true : false}
+            error={emailError && emailError.length ? true : false}
             required
-            label="First Name"
+            label="Email"
+            sx={{
+              width: "100%",
+            }}
             variant="outlined"
-            helperText={firstNameError}
-            onChange={handleFirstNameChange}
+            helperText={emailError}
+            onChange={handleEmailChange}
           />
-          &nbsp;&nbsp;
-          <TextField
-            id="outlined-basic"
-            color="grey"
-            error={lastNameError && lastNameError.length ? true : false}
-            required
-            label="Last Name"
-            variant="outlined"
-            helperText={lastNameError}
-            onChange={handleLastNameChange}
-          />
+          <br></br>
+          <br></br>
+          <FormControl
+            sx={{
+              width: "100%",
+            }}
+          >
+            <FormLabel>What can we do for you?</FormLabel>
+            <TextField
+              multiline
+              rows={3}
+              fullWidth
+              color="grey"
+              error={queryError && queryError.length ? true : false}
+              required
+              placeholder="Enter your query here"
+              // minRows={3}
+              helperText={queryError}
+              onChange={handleQueryChange}
+            />
+            <FormHelperText>
+              Please specify the details in the above box.
+            </FormHelperText>
+          </FormControl>
         </Box>
         <br></br>
-        <TextField
-          id="outlined-basic"
-          color="grey"
-          error={emailError && emailError.length ? true : false}
-          required
-          label="Email"
-          sx={{
-            width: "100%",
-          }}
-          variant="outlined"
-          helperText={emailError}
-          onChange={handleEmailChange}
-        />
-        <br></br>
-        <br></br>
-        <FormControl
-          sx={{
-            width: "100%",
-          }}
+        <Button
+          style={{ backgroundColor: "#2d3748" }}
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{ marginTop: "10px" }}
         >
-          <FormLabel>What can we do for you?</FormLabel>
-          <TextField
-            multiline
-            rows={3}
-            fullwidth
-            color="grey"
-            error={queryError && queryError.length ? true : false}
-            required
-            placeholder="Enter your query here"
-            // minRows={3}
-            helperText={queryError}
-            onChange={handleQueryChange}
-          />
-          <FormHelperText>
-            Please specify the details in the above box.
-          </FormHelperText>
-        </FormControl>
+          Submit
+        </Button>
       </Box>
-      <br></br>
-      <Button
-        style={{backgroundColor: "#2d3748"}}
-        variant="contained"
-        onClick={handleSubmit}
-        sx={{ marginTop: "10px" }}
-      >
-        Submit
-      </Button>
-    </Box>
-    <Footer/>
+      <Footer />
     </div>
   );
 }
