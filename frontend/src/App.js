@@ -28,6 +28,7 @@ import CustomersPage from "./components/admin/pages/CustomersPage";
 // Rating Rewview Pages
 import Container from "./components/ratingReview/serviceProvider";
 import RatingComment from "./components/ratingReview/RatingComment";
+import ServicePostingPage from "./components/serviceposting/serviceposting";
 
 function App() {
   axios.interceptors.request.use((config) => {
@@ -93,6 +94,7 @@ function App() {
         <Route path="/ServiceDashErr5" element={<LoginRedirect />}>
           <Route index element={<ServiceDashErr5 />} />
         </Route>
+        <Route path="/ServicePosting" element={<ServicePostingPage/>} />
         <Route path="/Services" element={<Services />} />
         {/* Admin routes start */}
         {/* <ProtectedRoute

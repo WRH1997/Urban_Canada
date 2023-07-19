@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const guestNavigation = [
   { name: "Home", href: "/" },
   { name: "Login/SignUp", href: "/login" },
-  { name: "Service Posting", href: "#" },
+  { name: "Service Posting", href: "/ServicePosting" },
   { name: "Services", href: "/ServiceDashboardPage" },
   { name: "Service Booking", href: "/booking" },
   { name: "My Bookings", href: "/MyBookings" },
