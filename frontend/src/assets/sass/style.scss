@@ -1,399 +1,399 @@
 
-$card-width: 300px;
-$card-height: 300px;
-
-body{
-    // background-color: #27374D;
-}
-
-
-@mixin center-element {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-
-.img{
-  height: 200px;
-  width: 300px;
-}
-
-.mega-container{
-  width: 100%;
-  height: 100%;
-  background-color: #27374D;
-}
-
-
-
-.content{
-  width: $card-width;
-  height: $card-height;
-}
-
-
-.rating-card {
-  width: $card-width;
-  height: $card-height;
-  background-color: #ffffff;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  border-radius: 20px;
-  
-  // Center the card
-  @include center-element;
-}
-
-.rating-card:hover{
-  box-shadow: 0px 0px 10px 10px white;
-  transition: 0.5s ;
-  width: 310;
-  height: 310;
-}
-
-
-.card-grid {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 3fr));
-    grid-gap:40px;
-  }
-
-
-// Make the card responsive
-@media (max-width: 768px) {
-  .card {
-    width: 80%;
-    height: auto;
-    overflow: unset;
-  }
-
-  img {
-    height: 200px;
-    width: 385px;
-
-  }
-}
-
-.container{
-    margin: auto;
-    margin-top: 200px;
-    max-width: 1080px;
-    margin-bottom: 50px;
-}
-
-.my-navbar {
-    margin: auto;
-    margin-top: 10px;
-    background-color: rgba(255,255,255,0.5);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    position: fixed;
-    top:0;
-    right:4%;
-    width: 90%;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-content: center;
-    z-index: 1000;
-    transition: 0.5s;
-  }
-  
-  .my-navbar a {
-    color: white;
-    margin-right: 10px;
-    text-decoration: none;
-    // font-size: 15px;
-  }
-  
-  .my-navbar-brand {
-    font-weight: bold;
-    font-size: 30px;
-  }
-  
-  .my-navbar-nav {
-    margin-left: auto;
-  }
-  
-
-  .my-nav-link{
-    margin: 10px;
-    padding: 10px;
-    font-size: 24px;
-    border-radius: 5px;
-  }
-
-  .my-nav-link:hover{
-    background-color: pink;
-    transition: 0.5s;
-  }
-
-
-  @media screen and (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 10px;
-      width: 100%;
-      background-color: red;
-    }
-
-    .navbar-brand {
-      font-size: 24px;
-      background-color: red;
-
-    }
-    
-    .navbar-nav {
-      margin-top: 10px;
-    }
-  }
-
-  .navbar-toggle {
-    display: none;
-  }
-  
-  .navbar-toggle-label {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
- 
-  @media screen and (max-width: 768px) {
-    .navbar-toggle {
-      display: block;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-  
-    .navbar-toggle-label {
-      display: block;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-    }
-  
-    .navbar-nav {
-      display: none;
-      position: absolute;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.5);
-      padding: 10px;
-      border-radius: 5px;
-    }
-  
-    .navbar-toggle:checked ~ .navbar-nav {
-      display: block;
-    }
-  }
-
-.footer{
-  // position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  background-color: #526D82
-}
-
-#logo{
-  width: 30px;
-  height: 30px;
-}
-  
-
-.bg-darshil-blue{
-  background-color: #27374D;
-}
-
-
-
-//
-
+// $card-width: 300px;
+// $card-height: 300px;
 
 // body{
-//   background-color: black;
-//   display: block;
+//     // background-color: #27374D;
 // }
 
-.container{
-  display: block;
-  margin: auto;
-  margin-top: 100px;
-  width: 400p;
 
-}
+// @mixin center-element {
+//   position: relative;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
 
-.cards-container{
-  display: block;
 
-  margin: auto;
-  margin-top: 50px;
-  margin: 50px;
-  position: relative;
-  width: 1200px;
-  // overflow: hidden;
-  // color: white;
+// .img{
+//   height: 200px;
+//   width: 300px;
+// }
 
-.title{
-  display: block;
-  margin: auto;
-  // background-color: red;
-}
-.MuiTextField-root{
-  color: white;
-}
-}
+// .mega-container{
+//   width: 100%;
+//   height: 100%;
+//   background-color: #27374D;
+// }
 
-.list-card{
-  width: 400px;
-}
 
-.my-card{
-  display: block;
-  margin: auto;
-  padding: 40px;
-  width: 1000px;
-  background-color: gray;
-// color: black;
-}
 
-.profile-details{
-  background-color: gray;
-  width: 100%;
-  height: 100vh;
-}
+// .content{
+//   width: $card-width;
+//   height: $card-height;
+// }
 
-.bio{
-display: flex;
-height: 400px;
-overflow: auto;
-// flex-direction: row;
-}
 
-.p1{
-width: 500px;
-margin: 20px;
-// border-right: 1px solid black;
-}
-
-.p2{
-width:1600px;
-margin: 20px;
-// background-color: green;
-}
-
-.login{
-  display: block;
-  position: relative;
-  margin: auto;
-  margin-top: 200px;
-  transition: 0.5s;
-  padding: 30px;
-  width: 350px;
-  height: 350px;
-  border: 1px solid black;
-  background-color: white;
-  border-radius: 10px;
-
-  .MuiTextField-root {
-      margin-bottom: 1rem;
-      margin: auto;
-      margin: 10px;
-      display: block;
-      transition: 1s;
-
-    //   padding: 20px;
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
+// .rating-card {
+//   width: $card-width;
+//   height: $card-height;
+//   background-color: #ffffff;
+//   text-align: center;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
+//   border-radius: 20px;
   
-  .MuiTextField-root:hover {
+//   // Center the card
+//   @include center-element;
+// }
+
+// .rating-card:hover{
+//   box-shadow: 0px 0px 10px 10px white;
+//   transition: 0.5s ;
+//   width: 310;
+//   height: 310;
+// }
+
+
+// .card-grid {
+//     position: relative;
+//     display: grid;
+//     grid-template-columns: repeat(auto-fill, minmax(300px, 3fr));
+//     grid-gap:40px;
+//   }
+
+
+// // Make the card responsive
+// @media (max-width: 768px) {
+//   .card {
+//     width: 80%;
+//     height: auto;
+//     overflow: unset;
+//   }
+
+//   img {
+//     height: 200px;
+//     width: 385px;
+
+//   }
+// }
+
+// .container{
+//     margin: auto;
+//     margin-top: 200px;
+//     max-width: 1080px;
+//     margin-bottom: 50px;
+// }
+
+// .my-navbar {
+//     margin: auto;
+//     margin-top: 10px;
+//     background-color: rgba(255,255,255,0.5);
+//     border-radius: 10px;
+//     backdrop-filter: blur(10px);
+//     -webkit-backdrop-filter: blur(10px);
+//     position: fixed;
+//     top:0;
+//     right:4%;
+//     width: 90%;
+//     padding: 20px;
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     align-content: center;
+//     z-index: 1000;
+//     transition: 0.5s;
+//   }
+  
+//   .my-navbar a {
+//     color: white;
+//     margin-right: 10px;
+//     text-decoration: none;
+//     // font-size: 15px;
+//   }
+  
+//   .my-navbar-brand {
+//     font-weight: bold;
+//     font-size: 30px;
+//   }
+  
+//   .my-navbar-nav {
+//     margin-left: auto;
+//   }
+  
+
+//   .my-nav-link{
+//     margin: 10px;
+//     padding: 10px;
+//     font-size: 24px;
+//     border-radius: 5px;
+//   }
+
+//   .my-nav-link:hover{
+//     background-color: pink;
+//     transition: 0.5s;
+//   }
+
+
+//   @media screen and (max-width: 768px) {
+//     .navbar {
+//       flex-direction: column;
+//       align-items: flex-start;
+//       padding: 10px;
+//       width: 100%;
+//       background-color: red;
+//     }
+
+//     .navbar-brand {
+//       font-size: 24px;
+//       background-color: red;
+
+//     }
+    
+//     .navbar-nav {
+//       margin-top: 10px;
+//     }
+//   }
+
+//   .navbar-toggle {
+//     display: none;
+//   }
+  
+//   .navbar-toggle-label {
+//     display: none;
+//     font-size: 24px;
+//     cursor: pointer;
+//   }
+  
+ 
+//   @media screen and (max-width: 768px) {
+//     .navbar-toggle {
+//       display: block;
+//       position: absolute;
+//       top: 10px;
+//       right: 10px;
+//     }
+  
+//     .navbar-toggle-label {
+//       display: block;
+//       position: absolute;
+//       top: 10px;
+//       right: 10px;
+//       cursor: pointer;
+//     }
+  
+//     .navbar-nav {
+//       display: none;
+//       position: absolute;
+//       top: 70px;
+//       left: 0;
+//       width: 100%;
+//       background-color: rgba(255, 255, 255, 0.5);
+//       padding: 10px;
+//       border-radius: 5px;
+//     }
+  
+//     .navbar-toggle:checked ~ .navbar-nav {
+//       display: block;
+//     }
+//   }
+
+// .footer{
+//   // position: fixed;
+//   bottom: 0;
+//   width: 100%;
+//   height: 100px;
+//   background-color: #526D82
+// }
+
+// #logo{
+//   width: 30px;
+//   height: 30px;
+// }
+  
+
+// .bg-darshil-blue{
+//   background-color: #27374D;
+// }
+
+
+
+// //
+
+
+// // body{
+// //   background-color: black;
+// //   display: block;
+// // }
+
+// .container{
+//   display: block;
+//   margin: auto;
+//   margin-top: 100px;
+//   width: 400p;
+
+// }
+
+// .cards-container{
+//   display: block;
+
+//   margin: auto;
+//   margin-top: 50px;
+//   margin: 50px;
+//   position: relative;
+//   width: 1200px;
+//   // overflow: hidden;
+//   // color: white;
+
+// .title{
+//   display: block;
+//   margin: auto;
+//   // background-color: red;
+// }
+// .MuiTextField-root{
+//   color: white;
+// }
+// }
+
+// .list-card{
+//   width: 400px;
+// }
+
+// .my-card{
+//   display: block;
+//   margin: auto;
+//   padding: 40px;
+//   width: 1000px;
+//   background-color: gray;
+// // color: black;
+// }
+
+// .profile-details{
+//   background-color: gray;
+//   width: 100%;
+//   height: 100vh;
+// }
+
+// .bio{
+// display: flex;
+// height: 400px;
+// overflow: auto;
+// // flex-direction: row;
+// }
+
+// .p1{
+// width: 500px;
+// margin: 20px;
+// // border-right: 1px solid black;
+// }
+
+// .p2{
+// width:1600px;
+// margin: 20px;
+// // background-color: green;
+// }
+
+// .login{
+//   display: block;
+//   position: relative;
+//   margin: auto;
+//   margin-top: 200px;
+//   transition: 0.5s;
+//   padding: 30px;
+//   width: 350px;
+//   height: 350px;
+//   border: 1px solid black;
+//   background-color: white;
+//   border-radius: 10px;
+
+//   .MuiTextField-root {
+//       margin-bottom: 1rem;
+//       margin: auto;
+//       margin: 10px;
+//       display: block;
+//       transition: 1s;
+
+//     //   padding: 20px;
+//       &:last-child {
+//         margin-bottom: 0;
+//       }
+//     }
+  
+//   .MuiTextField-root:hover {
         
-      // box-shadow: 0px 0px 2px 2px rgba(0, 0, 200, 0.7);
-      border-radius: 4px;
-      transition: 1s;
+//       // box-shadow: 0px 0px 2px 2px rgba(0, 0, 200, 0.7);
+//       border-radius: 4px;
+//       transition: 1s;
 
         
-      //   padding: 20px;
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
+//       //   padding: 20px;
+//         &:last-child {
+//           margin-bottom: 0;
+//         }
+//       }
 
 
-  .MuiButton-root {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: red;
-      transition: 0.5s;
+//   .MuiButton-root {
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       background-color: red;
+//       transition: 0.5s;
       
-  }
+//   }
 
-  .MuiButton-root:hover{
-      // background-color: red;
-      box-shadow: 0px 0px 5px 5px rgba(0,0,0, 0.2);
-    }
-}
+//   .MuiButton-root:hover{
+//       // background-color: red;
+//       box-shadow: 0px 0px 5px 5px rgba(0,0,0, 0.2);
+//     }
+// }
 
-@media (max-width: 768px){
-  .cards-container {
-    /* Mobile-specific styles */
-    width: fit-content;
-    margin: 30px;
-  }
+// @media (max-width: 768px){
+//   .cards-container {
+//     /* Mobile-specific styles */
+//     width: fit-content;
+//     margin: 30px;
+//   }
 
-  .my-card-content{
-    margin: 20px;
-    width: 400px;
-    background-color: gray;
-  }
+//   .my-card-content{
+//     margin: 20px;
+//     width: 400px;
+//     background-color: gray;
+//   }
 
-  .my-card{
-    margin: 20px;
-    padding: 20px;
-    width: 400px;
-  }
+//   .my-card{
+//     margin: 20px;
+//     padding: 20px;
+//     width: 400px;
+//   }
 
-  .bio{
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    background-color: gray;
-  }
+//   .bio{
+//     display: flex;
+//     flex-direction: column;
+//     width: 400px;
+//     background-color: gray;
+//   }
 
-  .p1{
-    width: 500px;
-  }
+//   .p1{
+//     width: 500px;
+//   }
 
-  .p2{
-    margin-top: -20px;
-    width: 300px;
-  }
+//   .p2{
+//     margin-top: -20px;
+//     width: 300px;
+//   }
 
-  .divider{
-    display: none;
-  }
+//   .divider{
+//     display: none;
+//   }
 
-  .list-card{
-    width: auto;
-  }
-}
+//   .list-card{
+//     width: auto;
+//   }
+// }
 
 
-.login:hover{
-  box-shadow: 0px 0px 10px 10px gray;
-  transition: 0.5s;
-}
+// .login:hover{
+//   box-shadow: 0px 0px 10px 10px gray;
+//   transition: 0.5s;
+// }
