@@ -10,7 +10,6 @@ var cors = require('cors');
 
 
 var app = express();
-app.use(cors({  origin: '*'}));
 require('dotenv').config();
 
 app.use(logger('dev'));
