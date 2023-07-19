@@ -10,7 +10,10 @@
     "@heroicons/react": "^2.0.18",
     "@mui/icons-material": "^5.11.16",
     "@mui/joy": "^5.0.0-alpha.84",
-    "@mui/material": "^5.13.5",
+    "@mui/material": "^5.14.0",
+    "@mui/system": "^5.14.0",
+    "@szhsin/react-accordion": "^1.2.2",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,7 +22,6 @@
     "chart.js": "^4.3.0",
     "dayjs": "^1.11.7",
     "mdb-react-ui-kit": "^6.1.0",
-    "node-sass": "^7.0.3",
     "nodemon": "^2.0.22",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
@@ -34,8 +36,10 @@
     "react-simple-maps": "^3.0.0",
     "react-slick": "^0.29.0",
     "react-tailwindcss-datepicker": "^1.6.1",
+    "sass": "^1.63.6",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -65,5 +69,9 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "tailwindcss": "^3.3.2"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "tailwind.config.js",
+  "author": "",
+  "license": "ISC"
 }

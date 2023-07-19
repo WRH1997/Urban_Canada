@@ -45,8 +45,8 @@ export default function Landing() {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8 d-flex flex-column justify-content-center align-items-center">
-          <div className="col-9 mx-auto lg:mx-0 md:py-4">
-            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Urban Canada</h2>
+          <div className="col-9 mx-auto lg:mx-0">
+            <h2 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">Urban Canada</h2>
             <p className="mt-6 text-lg leading-8 text-gray-300">
             A modern service marketplace to empower vendors and satisfy clients.
             </p>
