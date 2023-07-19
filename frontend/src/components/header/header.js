@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../../assets/logo.png";
@@ -8,18 +8,18 @@ import { useNavigate } from "react-router-dom";
 const guestNavigation = [
   { name: "Home", href: "/" },
   { name: "Login/SignUp", href: "/login" },
-  { name: "Service Posting", href: "#" },
-  { name: "Services", href: "/ServiceDashboardPage" },
-  { name: "Service Booking", href: "/booking" },
-  { name: "My Bookings", href: "/MyBookings" },
-  { name: "Ratings", href: "#" },
-  { name: "Admin Dashboard", href: "/admin/dashboard" },
 ];
 
-const userNavigation = [
+const providerNavigation = [
   { name: "Home", href: "/" },
-  { name: "Services", href: "/ServiceDashboardPage" },
-  { name: "Service Booking", href: "/booking" },
+  { name: "Service Posting", href: "#" },
+  { name: "My Bookings", href: "/MyBookings" },
+  { name: "Ratings", href: "#" },
+];
+
+const consumerNavigation = [
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/Services" },
   { name: "My Bookings", href: "/MyBookings" },
   { name: "Ratings", href: "#" },
 ];
@@ -30,11 +30,29 @@ function classNames(...classes) {
 
 export default function Header(props) {
   const navigate = useNavigate();
+  const [loggedInUser,setLoggedInUser] = useState("guest")
 
   const { currentPage } = props;
   const { isLoggedIn } = props;
 
-  const navigation = isLoggedIn ? userNavigation : guestNavigation;
+  useEffect(()=>{
+    const loggedin_user = localStorage.getItem("userData")
+    if(loggedin_user){
+      const user_object = JSON.parse(loggedin_user)
+      setLoggedInUser(user_object.role)
+    }
+  },[])
+
+  console.log(loggedInUser)
+
+  var navigation = guestNavigation;
+
+  if(loggedInUser == "service-consumer"){
+     navigation = consumerNavigation;
+  }
+  if (loggedInUser == "service-provider") {
+     navigation = providerNavigation;
+  }
 
   const updatedNavigation = navigation.map((item) => {
     if (item.href === currentPage) {
