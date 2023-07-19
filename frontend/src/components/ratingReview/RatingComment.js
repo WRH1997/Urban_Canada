@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Star from './ratingSubComponent/Star';
 
-
+import axios from 'axios';
 import { Typography, Box, Button, Grid, Paper, Avatar } from '@mui/material';
 import { Rating } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
@@ -16,18 +16,26 @@ import Footer from "../footer/footer";
 const App = () => {
 
   const [newComment, setNewComment] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [ratingReviewData, setRatingReviewData] = useState([]);
 
-//   const commentorsCount = 3;
-  const starCount = 5;
-  const commentorsName = ['Darshil Sozio', 'Jolly Psycho', 'Gippi Madie'];
-  const comment = [
-    'Awesome work!',
-    'They Provide the best service Ever!!',
-    'They cleaned my house very neatly!',
-  ];
   const commentorsStar = [1, 2, 3];
   const userName = 'Robert Guilbert';
-  const myArray = [5, 2, 4, 2, 1];
+
+  useEffect(() => {
+    const fetchRatingReviewData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/rating/getRating');
+        setRatingReviewData(response.data); // Extract the data from the response object
+        console.log(response.data); // Log the data to verify if it's correct
+      } catch (error) {
+        console.error('Error fetching rating review data:', error);
+      }
+    };
+  
+    fetchRatingReviewData();
+  }, []);
+
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -38,28 +46,31 @@ const App = () => {
     // You can handle the comment submission here and add it to the comments section
     console.log('New Comment:', newComment);
     setNewComment(''); // Clear the comment field after submission
+    setIsSubmitted(true); // Set isSubmitted to true after the form is submitted
+
   };
 
   const calculateChartData = () => {
-    let totalValue = 0;
-    let totalUsers = 0;
-    let rectStarFill = new Array(5).fill(0);
-
-    for (let i = 0; i < starCount; i++) {
-      totalValue += (myArray[i] * (5 - i));
-      totalUsers += myArray[i];
-      rectStarFill[i] = ((myArray[i] / totalUsers) * 100).toFixed(2);
-    }
-
-    const average = totalUsers !== 0 ? (totalValue / totalUsers).toFixed(2) : 0.0;
-    const avgText = `${average} average based on ${totalUsers} reviews.`;
-
+    let starCount = [0, 0, 0, 0, 0];
+  
+    ratingReviewData.forEach((review) => {
+      starCount[review.star - 1]++;
+    });
+    
+    starCount.reverse();
+  
+    const rectStarFill = starCount.map((count) => ((count / ratingReviewData.length) * 100).toFixed(2));
+  
+    const average = ratingReviewData.length > 0 ? (starCount.reduce((acc, cur, index) => acc + (cur * (index + 1)), 0) / ratingReviewData.length).toFixed(2) : 0.0;
+    const avgText = `${average} average based on ${ratingReviewData.length} reviews.`;
+  
     return {
       average,
       avgText,
       rectStarFill,
     };
   };
+  
 
   // Function to generate a random image URL
 const getRandomImage = () => {
@@ -177,11 +188,11 @@ const getRandomImage = () => {
           <Grid item xs={12} md={4}>
             <Paper>
               <Box p={2} textAlign="left">
-                {newComment ? (
-                  <Typography variant="body1" fontWeight="bold">
-                    Thank you for your comment!
-                  </Typography>
-                ) : (
+              {isSubmitted ? (
+              <Typography variant="body1" fontWeight="bold">
+                Thank you for your comment!
+              </Typography>
+              ) : (
                   <form onSubmit={handleCommentSubmit}>
                     <Typography variant="h6">Comment</Typography>
                     <textarea
@@ -207,27 +218,31 @@ const getRandomImage = () => {
 
       {/* Comments */}
       <br/>
-      {commentorsName.map((name, index) => (
+      {/* {commentorsName.map((name, index) => ( */}
+      {ratingReviewData.map((review, index) => (
         <Box key={index} p={1} bgcolor="rgb(75 85 99)" mt={1}>
           <Paper>
             <Box display="flex" alignItems="center" p={1}>
               <Box display="flex" alignItems="center" mr={1}>
                 {/* <ImageSpecific src="./temp1.jpg" bradius="20" /> */}
-                <Avatar alt={name} src={getRandomImage()} />
+                <Avatar alt={review.name} src={getRandomImage()} />
               </Box>
               <Box width="80%" py={1}>
                 <Typography variant="body1" fontWeight="bold">
-                  {name}
+                  {review.name}
                 </Typography>
-                <Typography variant="body2">{comment[index]}</Typography>
+                <Typography variant="body2">{review.comment}</Typography>
               </Box>
               <Box>
-                <Star sel_quan={commentorsStar[index]} editable={false} />
+                <Star sel_quan={review.star} editable={false} />
               </Box>
             </Box>
           </Paper>
         </Box>
       ))}
+      <br />
+      <br />
+      <br />
       <Footer/>
     </div>
   );

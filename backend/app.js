@@ -5,9 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var connectDB = require('./utils/database');
 var indexRouter = require('./routes/index');
+var ratingRouter = require('./routes/rating');
+var cors = require('cors');
 
 
 var app = express();
+app.use(cors({  origin: '*'}));
 require('dotenv').config();
 
 app.use(logger('dev'));
@@ -20,6 +23,7 @@ connectDB();
 
 
 app.use('/', indexRouter);
+app.use('/rating',ratingRouter);
 
 app.use((req, res, next) => {
   res.status(404).send('404 - Route not found');

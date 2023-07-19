@@ -62,7 +62,7 @@ export default function Star(props)
   }
   return (
    
-    <div className="5star" style={{ background:props.bgColor,display: 'inline-block',paddingLeft:'1%' }}>{data}</div>
+    <div className="5star" style={{ background:props.bgColor,display: 'flex',paddingLeft:'1%' }}>{data}</div>
   );
 }
 Star.propTypes={
