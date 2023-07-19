@@ -8,6 +8,7 @@ import Footer from "../footer/footer";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { grey, pink } from '@mui/material/colors';
 
 export default function Signup() {
   const UserRoles = {
@@ -388,6 +389,7 @@ export default function Signup() {
                 <FormControl>
                   <RadioGroup
                     row
+                    color="grey"
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="female"
                     name="gender"
@@ -395,17 +397,26 @@ export default function Signup() {
                   >
                     <FormControlLabel
                       value="female"
-                      control={<Radio />}
+                      control={<Radio size="small" sx={{color: grey[800],
+                        '&.Mui-checked': {
+                          color: grey[800],
+                        },}} />}
                       label="Female"
                     />
                     <FormControlLabel
                       value="male"
-                      control={<Radio />}
+                      control={<Radio size="small" sx={{color: grey[800],
+                        '&.Mui-checked': {
+                          color: grey[800],
+                        },}} />}
                       label="Male"
                     />
                     <FormControlLabel
                       value="other"
-                      control={<Radio />}
+                      control={<Radio size="small" sx={{color: grey[800],
+                        '&.Mui-checked': {
+                          color: grey[800],
+                        },}} />}
                       label="Other"
                     />
                   </RadioGroup>
