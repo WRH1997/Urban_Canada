@@ -33,7 +33,7 @@ import ServicePostingPage from "./components/serviceposting/serviceposting";
 function App() {
   axios.interceptors.request.use((config) => {
     config.headers["Origin"] = "http://localhost:3000";
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("authToken");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
