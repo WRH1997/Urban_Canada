@@ -65,7 +65,7 @@ export default function Login() {
                 if (authToken && userData) {
                   setInputEmailValue("");
                   setInputPasswordValue("");
-                  navigate("/booking");
+                  navigate("/");
                 } else {
                   console.log("Error storing data in local storage");
                 }
@@ -175,7 +175,7 @@ export default function Login() {
               className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Sign In
-            </button>            
+            </button>
           </div>
 
           <div className="mt-6 flex items-center justify-center gap-x-6">
