@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import '../services/services.css';
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 
 
 export default function Services() {
@@ -104,7 +105,8 @@ export default function Services() {
       </center>
 
       <div className='filters'>
-        <h4>Filters:</h4>
+      <Accordion className='fltrs-dropdown'>
+        <AccordionItem header="Filters" className='accFltrs'>
         <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
         <br></br>
         <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
@@ -116,6 +118,10 @@ export default function Services() {
         <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
         <br></br>
         <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+        <br></br><br></br>
+        </AccordionItem>
+      </Accordion>
+
       </div>
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
