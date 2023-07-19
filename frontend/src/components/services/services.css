@@ -1,11 +1,12 @@
 .service_card:hover {
   border-radius: 5px;
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .service_card{
-  border-radius: 25px;
-  border: solid black 1px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 15px #d1d5db;
+  color: black;
 }
 
 .search-bar{

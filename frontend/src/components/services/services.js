@@ -120,19 +120,20 @@ export default function Services() {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {services?.map((service) => (
-            <a className="service_card group p-2 hover:bg-gray-800 decoration-white no-underline">
-              <p className="mt-1 text-lg font-medium text-gray-900">{service.serviceName}</p>
+            <a className="service_card group p-2  decoration-white no-underline">
+              <p style={{color: "inherit"}} className="mt-1 text-l font-medium text-gray-900">{service.serviceName}</p>
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img
+                  style={{color: "inherit"}}
                   src={service.serviceImg}
                   alt={service.serviceName}
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
                 />
               </div>
-              <h3 className="mt-4 text-sm text-gray-700">Vendor: {service.vendorName}</h3>
-              <h3 className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
-              <h3 className="text-sm text-gray-700">Category: {service.category}</h3>
-              <p className="mt-1 text-lg font-medium text-gray-900">Price Per Hour: ${service.pricePerHour}</p>
+              <h3 style={{color: "inherit"}} className="mt-4 text-sm text-gray-700">Vendor: {service.vendorName}</h3>
+              <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
+              <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
+              <p style={{color: "inherit"}} className="mt-1 text-lg font-medium text-gray-900">Rate: ${service.pricePerHour}/hr.</p>
               {service.serviceDesc}
             </a>
           ))}
