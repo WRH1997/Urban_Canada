@@ -11,6 +11,7 @@ var cors = require("cors");
 var userRoutes = require("./routes/userRoutes");
 
 var app = express();
+app.use(cors({ origin: "*" }));
 require("dotenv").config();
 
 app.use(logger("dev"));
