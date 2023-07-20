@@ -9,6 +9,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/material";
+import Modal from "@mui/material/Modal";
 
 import axios from "axios";
 
@@ -17,12 +18,16 @@ export default function Login() {
   const [inputPasswordValue, setInputPasswordValue] = React.useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
   const handleEmailChange = (event) => {
     setInputEmailValue(event.target.value);
   };
   const handlePasswordChange = (event) => {
     setInputPasswordValue(event.target.value);
+  };
+
+  const handleForgotPassword = (event) => {
+    event.preventDefault();
+    navigate("/reset-password-request");
   };
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -71,7 +76,6 @@ export default function Login() {
                 }
               })
               .catch((error) => {
-                // Error handling
                 console.log(error);
               });
           }
@@ -85,7 +89,6 @@ export default function Login() {
             } else if (error.response.status === 500) {
               alert("Server error");
             } else {
-              // Handle other errors
               console.log(error);
             }
           } else {
@@ -101,10 +104,7 @@ export default function Login() {
     <div>
       <Header currentPage="/login" />
 
-       <form
-        className="max-w-sm bg-white pt-10 pb-24 m-auto"
-        method="GET"
-      >
+      <form className="max-w-sm bg-white pt-10 pb-24 m-auto" method="GET">
         <div class="mx-8">
           <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
             Login
@@ -142,23 +142,23 @@ export default function Login() {
               <div className="mt-2">
                 <div className="flex rounded-md ring-1 ring-gray-300">
                   <input
-                     required
-                     label="Password"
-                     type={showPassword ? "text" : "password"}
-                     onChange={handlePasswordChange}
-                     InputProps={{
-                       // <- This is where the toggle button is added
-                       endAdornment: (
-                         <InputAdornment position="end">
-                           <IconButton
-                             aria-label="toggle password visibility"
-                             onClick={handleClickShowPassword}
-                           >
-                             {showPassword ? <VisibilityOff /> : <Visibility />}
-                           </IconButton>
-                         </InputAdornment>
-                       ),
-                     }}
+                    required
+                    label="Password"
+                    type={showPassword ? "text" : "password"}
+                    onChange={handlePasswordChange}
+                    InputProps={{
+                      // <- This is where the toggle button is added
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                     name="password"
                     className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
@@ -180,8 +180,9 @@ export default function Login() {
 
           <div className="mt-6 flex items-center justify-center gap-x-6">
             <a
-              href="#"
+              href="/reset-password-request"
               className="text-sm no-underline font-semibold leading-6 text-gray-800 hover:underline"
+              onClick={handleForgotPassword}
             >
               Forgot Password? Reset
             </a>
@@ -193,7 +194,7 @@ export default function Login() {
               className="text-sm no-underline font-semibold leading-6 text-gray-800 hover:underline"
             >
               New User? Register
-            </a> 
+            </a>
           </div>
         </div>
       </form>
