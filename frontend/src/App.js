@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Booking from "./components/booking/booking";
@@ -16,8 +17,14 @@ import VendorsPage from "./components/admin/pages/VendorsPage";
 import CustomersPage from "./components/admin/pages/CustomersPage";
 import Container from "./components/ratingReview/serviceProvider";
 import RatingComment from "./components/ratingReview/RatingComment";
+import { EmailContext } from "./contexts/EmailContext";
+
+import ResetPasswordRequest from "./components/resetPassword/ResetPasswordRequest";
+import ResetPasswordConfirm from "./components/resetPassword/ResetPasswordConfirm";
+import UpdatePassword from "./components/resetPassword/UpdatePassword";
 
 function App() {
+  const [email, setEmail] = useState("");
   axios.interceptors.request.use((config) => {
     config.headers["Origin"] = "http://localhost:3000";
     const token = localStorage.getItem("authToken");
@@ -32,6 +39,32 @@ function App() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/reset-password-request"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <ResetPasswordRequest />
+            </EmailContext.Provider>
+          }
+        />
+
+        <Route
+          path="/reset-password-confirm"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <ResetPasswordConfirm />
+            </EmailContext.Provider>
+          }
+        />
+
+        <Route
+          path="/update-password"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <UpdatePassword />
+            </EmailContext.Provider>
+          }
+        />
         {/* <ProtectedRoute path="/MyBookings" element={<MyBookings />} /> */}
         <Route path="/MyBookings" element={<LoginRedirect />}>
           <Route index element={<MyBookings />} />
@@ -50,7 +83,7 @@ function App() {
         <Route path="/faq" element={<FAQ />}></Route>
 
         <Route path="/Services" element={<Services />} />
-        
+
         {/* Admin routes start */}
         {/* <ProtectedRoute
           exact
