@@ -123,7 +123,7 @@ exports.resetPasswordRequest = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedResetPasswordToken = await bcrypt.hash(resetPasswordToken, salt);
 
-  const resetPasswordExpires = Date.now() + 3600000; // token expires in an hour
+  const resetPasswordExpires = Date.now() + 300000; // token expires in 5 mins
 
   user.resetPasswordToken = hashedResetPasswordToken;
   user.resetPasswordExpires = resetPasswordExpires;
