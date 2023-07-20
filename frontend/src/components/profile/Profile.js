@@ -130,9 +130,9 @@ function Profile() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: 2, // replace 2 with desired space between items
+              gap: 2,
               width: "100%",
-              maxWidth: 500, // max width of the form
+              maxWidth: 500,
             }}
           >
             <h2 align="center">Update Profile</h2>

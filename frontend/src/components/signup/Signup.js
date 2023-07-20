@@ -8,7 +8,7 @@ import Footer from "../footer/footer";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { grey, pink } from '@mui/material/colors';
+import { grey, pink } from "@mui/material/colors";
 
 export default function Signup() {
   const UserRoles = {
@@ -81,7 +81,7 @@ export default function Signup() {
   };
 
   const handleSignUp = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     var emailValidRegex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     var passwordValidRegex =
@@ -167,7 +167,9 @@ export default function Signup() {
         inputPasswordValue != ""
       ) {
         flag = true;
-        setPasswordError("Length should be at least 8. Must contain at least one symbol, upper case, lower case and number.");
+        setPasswordError(
+          "Length should be at least 8. Must contain at least one symbol, upper case, lower case and number."
+        );
       }
     }
     if (
@@ -195,7 +197,7 @@ export default function Signup() {
           isBlocked: false,
         });
         console.log("User signed up successfully");
-        window.location.href = "/login"
+        window.location.href = "/login";
       } catch (error) {
         if (error.response) {
           console.log(error.response.data.msg);
@@ -217,17 +219,14 @@ export default function Signup() {
     <div>
       <Header currentPage="/login" />
 
-      <form
-        className="max-w-sm bg-white pt-10 pb-24 m-auto"
-      >
+      <form className="max-w-sm bg-white pt-10 pb-24 m-auto">
         <div class="mx-8">
           <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
             Registeration
           </h2>
 
           <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-4">
-
-          <div className="sm:col-span-2 sm:col-start-1">
+            <div className="sm:col-span-2 sm:col-start-1">
               <label
                 htmlFor="date"
                 className="block text-sm font-medium leading-6 text-gray-900"
@@ -248,7 +247,11 @@ export default function Signup() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              {firstNameError && <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>{firstNameError}</p>}
+              {firstNameError && (
+                <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>
+                  {firstNameError}
+                </p>
+              )}
             </div>
 
             <div className="sm:col-span-2">
@@ -272,7 +275,11 @@ export default function Signup() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              {lastNameError && <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>{lastNameError}</p>}
+              {lastNameError && (
+                <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>
+                  {lastNameError}
+                </p>
+              )}
             </div>
 
             <div className="sm:col-span-4 w-full">
@@ -296,7 +303,11 @@ export default function Signup() {
                   className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 />
               </div>
-              {emailError && <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>{emailError}</p>}
+              {emailError && (
+                <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>
+                  {emailError}
+                </p>
+              )}
             </div>
 
             <div className="sm:col-span-4 w-full">
@@ -309,7 +320,9 @@ export default function Signup() {
               <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
                 <input
                   id="outlined-basic"
-                  error={confirmEmailError && confirmEmailError.length ? true : false}
+                  error={
+                    confirmEmailError && confirmEmailError.length ? true : false
+                  }
                   required
                   label="Confirm Email"
                   variant="outlined"
@@ -320,7 +333,11 @@ export default function Signup() {
                   className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 />
               </div>
-              {confirmEmailError && <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>{confirmEmailError}</p>}
+              {confirmEmailError && (
+                <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>
+                  {confirmEmailError}
+                </p>
+              )}
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
@@ -342,7 +359,11 @@ export default function Signup() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              {passwordError && <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>{passwordError}</p>}
+              {passwordError && (
+                <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>
+                  {passwordError}
+                </p>
+              )}
             </div>
 
             <div className="sm:col-span-2">
@@ -368,7 +389,11 @@ export default function Signup() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              {confirmPasswordError && <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>{confirmPasswordError}</p>}
+              {confirmPasswordError && (
+                <p style={{ color: "red", fontSize: "12px", margin: "0px" }}>
+                  {confirmPasswordError}
+                </p>
+              )}
             </div>
 
             <div className="sm:col-span-4 w-full">
@@ -379,49 +404,70 @@ export default function Signup() {
                 Gender
               </label>
               <div className="mt-2 flex rounded-md">
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <FormControl>
-                  <RadioGroup
-                    row
-                    color="grey"
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="gender"
-                    onChange={handleGenderChange}
-                  >
-                    <FormControlLabel
-                      value="female"
-                      control={<Radio size="small" sx={{color: grey[800],
-                        '&.Mui-checked': {
-                          color: grey[800],
-                        },}} />}
-                      label="Female"
-                    />
-                    <FormControlLabel
-                      value="male"
-                      control={<Radio size="small" sx={{color: grey[800],
-                        '&.Mui-checked': {
-                          color: grey[800],
-                        },}} />}
-                      label="Male"
-                    />
-                    <FormControlLabel
-                      value="other"
-                      control={<Radio size="small" sx={{color: grey[800],
-                        '&.Mui-checked': {
-                          color: grey[800],
-                        },}} />}
-                      label="Other"
-                    />
-                  </RadioGroup>
-                </FormControl>{" "}
-              </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormControl>
+                    <RadioGroup
+                      row
+                      color="grey"
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      defaultValue="female"
+                      name="gender"
+                      onChange={handleGenderChange}
+                    >
+                      <FormControlLabel
+                        value="female"
+                        control={
+                          <Radio
+                            size="small"
+                            sx={{
+                              color: grey[800],
+                              "&.Mui-checked": {
+                                color: grey[800],
+                              },
+                            }}
+                          />
+                        }
+                        label="Female"
+                      />
+                      <FormControlLabel
+                        value="male"
+                        control={
+                          <Radio
+                            size="small"
+                            sx={{
+                              color: grey[800],
+                              "&.Mui-checked": {
+                                color: grey[800],
+                              },
+                            }}
+                          />
+                        }
+                        label="Male"
+                      />
+                      <FormControlLabel
+                        value="other"
+                        control={
+                          <Radio
+                            size="small"
+                            sx={{
+                              color: grey[800],
+                              "&.Mui-checked": {
+                                color: grey[800],
+                              },
+                            }}
+                          />
+                        }
+                        label="Other"
+                      />
+                    </RadioGroup>
+                  </FormControl>{" "}
+                </Box>
               </div>
             </div>
 
@@ -433,15 +479,20 @@ export default function Signup() {
                 User Role
               </label>
               <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
-              <select
-                labelId="demple-select"
-                label="Usero-simple-select-label"
-                id="demo-sim Role"
-                onChange={handleRoleChange}
-                defaultValue={UserRoles.SERVICE_CONSUMER}
-                class="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
-                  <option value={UserRoles.SERVICE_CONSUMER}>Service Consumer</option>
-                  <option value={UserRoles.SERVICE_PROVIDER}>Service Provider</option>
+                <select
+                  labelId="demple-select"
+                  label="Usero-simple-select-label"
+                  id="demo-sim Role"
+                  onChange={handleRoleChange}
+                  defaultValue={UserRoles.SERVICE_CONSUMER}
+                  class="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                >
+                  <option value={UserRoles.SERVICE_CONSUMER}>
+                    Service Consumer
+                  </option>
+                  <option value={UserRoles.SERVICE_PROVIDER}>
+                    Service Provider
+                  </option>
                 </select>
               </div>
             </div>
@@ -455,7 +506,7 @@ export default function Signup() {
               onClick={handleSignUp}
             >
               Sign Up
-            </button>            
+            </button>
           </div>
 
           <div className="mt-6 flex items-center justify-center gap-x-6">
@@ -464,7 +515,7 @@ export default function Signup() {
               className="text-sm no-underline font-semibold leading-6 text-gray-800 hover:underline"
             >
               Already have an account? Login
-            </a> 
+            </a>
           </div>
         </div>
       </form>
