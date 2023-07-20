@@ -4,6 +4,7 @@ import Footer from "../footer/footer";
 import '../services/services.css';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';
+import {Link} from 'react-router-dom'
 
 export default function Services() {
 
@@ -179,7 +180,9 @@ export default function Services() {
                     variant="contained"
                     className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Book
+                    <Link to="/booking" state={service}>
+                      Book
+                    </Link>
                   </button>
                 </div>
                 <p className="mb-0 text-sm">{service.serviceDesc}</p>

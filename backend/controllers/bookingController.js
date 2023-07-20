@@ -6,14 +6,15 @@ const { ObjectId } = require('mongodb');
 exports.creatBooking = async (req, res) => {
     try {
 
-        const { consumer_id, provider_id, service_id, date, note } = req.body;
+        const { consumer_id, provider_id, service_id, date, note, address } = req.body;
     
         const newBooking = new Booking({
           date: date,
           note: note,
           consumer_id: new ObjectId(consumer_id),
           provider_id: new ObjectId(provider_id),
-          service_id: new ObjectId(service_id)
+          service_id: new ObjectId(service_id),
+          address: address
         });
     
         const savedBooking = await newBooking.save();
