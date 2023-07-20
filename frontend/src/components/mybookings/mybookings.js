@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../header/header';
 import Footer from "../footer/footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { MenuList, Paper } from '@mui/material';
 
 const people = [
   {
@@ -108,6 +113,21 @@ const people = [
 
 export default function MyBookings() {
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div>
       <Header currentPage="/MyBookings" />
@@ -139,9 +159,9 @@ export default function MyBookings() {
                   </thead>
 
                   <tbody>
-                    {people.map((person) => (
+                    {people.map((person,index) => (
                       <tr class="align-middle">
-                        <td>{person.no}</td>
+                        <td>{index+1}</td>
                         <td class="h6 mb-0 lh-1">{person.name}</td>
                         <td>{person.role}</td>
                         <td>{person.date}</td>
@@ -213,11 +233,42 @@ export default function MyBookings() {
                         </td>
 
                         <td>
+                        {/* <Button
+                          id="basic-button"
+                          aria-controls={open ? 'basic-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          onClick={handleClick}
+                        >
+                          Dashboard
+                        </Button> */}
+                        <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          onClick={handleClick} />
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                          }}
+                          className='mybooking-action-menu'
+                        >
+                          <Paper>
+                            <MenuList className='mybooking-action-menu'>
+                              <MenuItem onClick={handleClose}>Profile</MenuItem>
+                              <MenuItem onClick={handleClose}>My account</MenuItem>
+                              <MenuItem onClick={handleClose}>Logout</MenuItem>
+                            </MenuList>
+                          </Paper>
+                        </Menu>
                           
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
   <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-</svg>
-                        <select
+</svg> */}
+                        {/* <select
                 labelId="demple-select"
                 label="Usero-simple-select-label"
                 id="demo-sim Role"
@@ -230,9 +281,11 @@ export default function MyBookings() {
                   </option>
                   <option value="service-provider">.</option>
                   <option value="service-provider">.</option>
-                </select>
+                </select> */}
+
+    
                 
-                          {person.status==false ?
+                          {/* {person.status==false ?
                             <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
                              
                             </div> :
@@ -245,7 +298,7 @@ export default function MyBookings() {
                             <div class="flex w-full rounded-md py-1 text-sm font-bold text-green-600">
                       
                             </div>
-                          }
+                          } */}
                         </td>
 
 
@@ -253,6 +306,63 @@ export default function MyBookings() {
                     ))}
                   </tbody>
                 </table>
+
+
+
+                <div className="relative">
+                  <button
+                    id="dropdownDefaultButton"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button"
+                    onClick={toggleDropdown}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                      <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    </svg>
+                  </button>
+
+                  {isOpen && (
+                    <div
+                      id="dropdown"
+                      className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                    >
+                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Dashboard
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Settings
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Earnings
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Sign out
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
                 
               </div>
             </div>
