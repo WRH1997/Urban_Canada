@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Header from '../header/header';
 import Footer from "../footer/footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../mybookings/mybookings.css';
+import '../mybookings_provider/mybookings_provider.css';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -158,7 +158,7 @@ export default function MyBookings() {
                     <tr>
                       <th className='booking-th'>No.</th>
                       <th className='booking-th'>Name</th>
-                      <th className='booking-th'>Role</th>
+                      <th className='booking-th'>Address</th>
                       <th className='booking-th'>Date</th>
                       <th className='booking-th'>Time</th>
                       <th className='booking-th'>Status</th>
@@ -171,7 +171,7 @@ export default function MyBookings() {
                       <tr class="align-middle">
                         <td>{index+1}</td>
                         <td class="h6 mb-0 lh-1">{person.name}</td>
-                        <td>{person.role}</td>
+                        <td>{person.address}</td>
                         <td>{person.date}</td>
                         <td>{person.time}</td>
   
@@ -212,17 +212,25 @@ export default function MyBookings() {
                           }}
                           className='mybooking-action-menu'
                         >
-                            {person.status=='Completed' ?
+
+                          
+                            {person.status=='Pending' ?
                             <Paper>
                             <MenuList className='mybooking-action-menu'>
-                             <MenuItem onClick={handleClose}>Feedback</MenuItem>
+                             <MenuItem onClick={handleClose}>Approve</MenuItem>
+                             <MenuItem onClick={handleClose}>Reject</MenuItem>
+                             </MenuList>
+                          </Paper>                
+                            :
+                            person.status=='Approved' ?
+                            <Paper>
+                            <MenuList className='mybooking-action-menu'>
+                             <MenuItem onClick={handleClose}>Complete</MenuItem>
                              </MenuList>
                           </Paper>                
                             :
                             <Paper>
                             <MenuList className='mybooking-action-menu'>
-                              <MenuItem onClick={handleClose}>Reschedule</MenuItem>
-                              <MenuItem onClick={handleClose}>Cancel</MenuItem>
                              </MenuList>
                           </Paper>
                           }
