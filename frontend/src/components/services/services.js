@@ -4,7 +4,8 @@ import Footer from "../footer/footer";
 import '../services/services.css';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { Rating } from "@material-tailwind/react";
 
 export default function Services() {
 
@@ -95,7 +96,7 @@ export default function Services() {
 
   return (
     <div>  
-      <Header currentPage="/services"  />
+      <Header currentPage="/Services" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
 
       <div className="bg-white">
@@ -173,6 +174,12 @@ export default function Services() {
                 <h3 style={{color: "inherit"}} className="mt-4 text-sm text-gray-700">Vendor: {service.vendorName}</h3>
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
+                <div className="flex">
+                <Rating unratedColor="amber" ratedColor="amber" value={4} readonly />
+                <Link to="/ratings" className="text-gray-800 mx-2" state={service}>
+                      View
+                    </Link>
+                </div>
                 <p style={{color: "inherit"}} className="mb-2 text-lg font-medium text-gray-900">Rate: ${service.pricePerHour}/hr.</p>
                 <div className="mb-2">
                   <button
@@ -180,7 +187,7 @@ export default function Services() {
                     variant="contained"
                     className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    <Link to="/booking" state={service}>
+                    <Link to="/booking" className="text-white no-underline" state={service}>
                       Book
                     </Link>
                   </button>

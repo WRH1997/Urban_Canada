@@ -14,14 +14,13 @@ const providerNavigation = [
   { name: "Home", href: "/" },
   { name: "Service Posting", href: "#" },
   { name: "My Bookings", href: "/vendor_bookings" },
-  { name: "Ratings", href: "#" },
+  { name: "My Ratings", href: "#" },
 ];
 
 const consumerNavigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/Services" },
   { name: "My Bookings", href: "/MyBookings" },
-  { name: "Ratings", href: "#" },
 ];
 
 function classNames(...classes) {
@@ -145,7 +144,6 @@ export default function Header(props) {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
                               onClick={handleProfileNavigation}
                               className={classNames(
                                 active ? "bg-gray-200" : "",
