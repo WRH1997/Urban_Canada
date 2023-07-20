@@ -6,6 +6,7 @@ import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from '@mui/icons-material/Group';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import logo from "../../../assets/logo.png";
 export const SidebarNav = () => {
     const { collapseSidebar } = useProSidebar();
     const navData = [
@@ -40,19 +41,23 @@ export const SidebarNav = () => {
             <Sidebar breakPoint='md' backgroundColor='#fff' transitionDuration={700} style={{ height: "100vh"}}>
                 <Menu menuItemStyles={{
                         button: {
+                            color: "#1F2937",
                             [`&.ps-active`]: {
-                            backgroundColor: '#E1F3FE',
-                            color: '#406AD7'
+                            backgroundColor: '#9BA4B5',
+                            color: '#1F2937'
                             }
                         }
                     }}
                 >
                     <MenuItem
-                        icon={<MenuOutlinedIcon />}
+                        icon={<MenuOutlinedIcon style={{color: "#fff"}}/>}
                         onClick={() => {collapseSidebar();}}
-                        style={{ textAlign: "center" }}
+                        style={{ textAlign: "center", backgroundColor: "#1f2937", border: "none"}}
                     >
-                        <h4>Nandkumar</h4>
+                        {/* <h4>Nandkumar</h4> */}
+                        {/* <div className=""> */}
+                            <img className="h-10 w-15 lg:block" src={logo} />
+                        {/* </div> */}
                     </MenuItem>
                     <MenuItem icon={<HomeOutlinedIcon />}  active={window.location.pathname == "/admin/dashboard" ? true : false} onClick={()=>window.location.href = '/admin/dashboard'}>Dashboard</MenuItem>
                     <MenuItem icon={<MoveToInboxIcon />} active={window.location.pathname == "/admin/vendor-request" ? true : false} onClick={()=>window.location.href = '/admin/vendor-request'}>Vendor Request</MenuItem>

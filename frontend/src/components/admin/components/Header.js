@@ -10,7 +10,7 @@ const Header = () => {
     const {toggleSidebar,broken} = useProSidebar();
     const [menuStatus,setMenuStatue] = useState(false);
 
-    const navReference = useRef()
+    const navReference = useRef(null)
 
     const toggleMenu = () => {
         setMenuStatue(!menuStatus)
@@ -34,18 +34,25 @@ const Header = () => {
         }
     }))
 
+    const handleSignOut = () => {
+        localStorage.removeItem("userData");
+        localStorage.removeItem("authToken");
+        window.location.href = "/login"
+    }
+
     return (
         <header class="header fixed-top d-flex align-items-center">
-            <MenuIcon onClick={toggleSidebar} />
+            <MenuIcon style={{color: "#fff"}} onClick={toggleSidebar} />
             <nav class="ms-auto p-2" ref={navReference}>
-                <IconButton size='large' onClick={toggleMenu}>
-                    <AccountCircleIcon />
+                <IconButton size='large' onClick={handleSignOut}>
+                    {/* <AccountCircleIcon /> */}
+                    <LogoutIcon style={{color: "#fff"}} />
                 </IconButton>
-                {
+                {/* {
                     menuStatus && 
                     <div style={{position: 'relative'}}>
                         <List style={{position: 'absolute', top: '0px',left: '-80px', backgroundColor: '#fff', boxShadow: '0px 2px 20px rgba(1, 41, 112, 0.1)'}} >
-                            <ListItemButton onClick={closeMenu}>
+                            <ListItemButton onClick={()=>console.log("Clicked!")}>
                                 <ListItemIcon>
                                     <LogoutIcon />
                                 </ListItemIcon>
@@ -53,7 +60,7 @@ const Header = () => {
                             </ListItemButton>
                         </List>
                     </div>
-                }
+                } */}
                 
             </nav>
         </header>
