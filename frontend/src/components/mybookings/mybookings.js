@@ -3,6 +3,11 @@ import Header from '../header/header';
 import Footer from "../footer/footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { MenuList, Paper } from '@mui/material';
 
 const people = [
   {
@@ -114,6 +119,15 @@ export default function MyBookings() {
     setIsOpen(!isOpen);
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div>
       <Header currentPage="/MyBookings" />
@@ -145,9 +159,9 @@ export default function MyBookings() {
                   </thead>
 
                   <tbody>
-                    {people.map((person) => (
+                    {people.map((person,index) => (
                       <tr class="align-middle">
-                        <td>{person.no}</td>
+                        <td>{index+1}</td>
                         <td class="h6 mb-0 lh-1">{person.name}</td>
                         <td>{person.role}</td>
                         <td>{person.date}</td>
@@ -219,11 +233,42 @@ export default function MyBookings() {
                         </td>
 
                         <td>
+                        {/* <Button
+                          id="basic-button"
+                          aria-controls={open ? 'basic-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          onClick={handleClick}
+                        >
+                          Dashboard
+                        </Button> */}
+                        <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          onClick={handleClick} />
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                          }}
+                          className='mybooking-action-menu'
+                        >
+                          <Paper>
+                            <MenuList className='mybooking-action-menu'>
+                              <MenuItem onClick={handleClose}>Profile</MenuItem>
+                              <MenuItem onClick={handleClose}>My account</MenuItem>
+                              <MenuItem onClick={handleClose}>Logout</MenuItem>
+                            </MenuList>
+                          </Paper>
+                        </Menu>
                           
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
   <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-</svg>
-                        <select
+</svg> */}
+                        {/* <select
                 labelId="demple-select"
                 label="Usero-simple-select-label"
                 id="demo-sim Role"
@@ -236,11 +281,11 @@ export default function MyBookings() {
                   </option>
                   <option value="service-provider">.</option>
                   <option value="service-provider">.</option>
-                </select>
+                </select> */}
 
     
                 
-                          {person.status==false ?
+                          {/* {person.status==false ?
                             <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
                              
                             </div> :
@@ -253,7 +298,7 @@ export default function MyBookings() {
                             <div class="flex w-full rounded-md py-1 text-sm font-bold text-green-600">
                       
                             </div>
-                          }
+                          } */}
                         </td>
 
 
