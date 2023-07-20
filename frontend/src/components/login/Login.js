@@ -70,7 +70,7 @@ export default function Login() {
                 if (authToken && userData) {
                   setInputEmailValue("");
                   setInputPasswordValue("");
-                  navigate("/booking");
+                  navigate("/");
                 } else {
                   console.log("Error storing data in local storage");
                 }

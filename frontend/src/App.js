@@ -10,6 +10,7 @@ import LandingPage from "./components/landingpage/landing";
 import FAQ from "./components/faq/faq";
 import Profile from "./components/profile/Profile";
 import LoginRedirect from "./components/LoginRedirects/LoginRedirect";
+<<<<<<< frontend/src/App.js
 import ResetPasswordRequest from "./components/resetPassword/ResetPasswordRequest";
 import ResetPasswordConfirm from "./components/resetPassword/ResetPasswordConfirm";
 import UpdatePassword from "./components/resetPassword/UpdatePassword";
@@ -23,14 +24,17 @@ import {
   ServiceDashErr4,
   ServiceDashErr5,
 } from "./components/servicedashboard/servicedashboard.jsx";
+=======
+>>>>>>> frontend/src/App.js
+import ResetPasswordRequest from "./components/resetPassword/ResetPasswordRequest";
+import ResetPasswordConfirm from "./components/resetPassword/ResetPasswordConfirm";
+import UpdatePassword from "./components/resetPassword/UpdatePassword";
+import { EmailContext } from "./contexts/EmailContext";
 import Services from "./components/services/services";
-// Admin pages
 import { DashboardPage } from "./components/admin/pages/DashboardPage";
 import VendorRequestPage from "./components/admin/pages/VendorRequestPage";
 import VendorsPage from "./components/admin/pages/VendorsPage";
 import CustomersPage from "./components/admin/pages/CustomersPage";
-
-// Rating Rewview Pages
 import Container from "./components/ratingReview/serviceProvider";
 import RatingComment from "./components/ratingReview/RatingComment";
 
@@ -90,43 +94,12 @@ function App() {
         <Route path="/booking" element={<LoginRedirect />}>
           <Route index element={<Booking />} />
         </Route>
+
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/faq" element={<FAQ />}></Route>
-        {/* <ProtectedRoute
-          path="/ServiceDashboardPage"
-          element={<ServiceDashboardPage />}
-        /> */}
-        <Route path="/ServiceDashboardPage" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashboardPage />} />
-        </Route>
-        {/* <ProtectedRoute
-          path="/ServiceDashboardPage2"
-          element={<ServiceDashboardPage2 />}
-        /> */}
-        <Route path="/ServiceDashboardPage2" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashboardPage2 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr1" element={<ServiceDashErr1 />} /> */}
-        <Route path="/ServiceDashErr1" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr1 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr2" element={<ServiceDashErr2 />} /> */}
-        <Route path="/ServiceDashErr2" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr2 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr3" element={<ServiceDashErr3 />} /> */}
-        <Route path="/ServiceDashErr3" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr3 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr4" element={<ServiceDashErr4 />} /> */}
-        <Route path="/ServiceDashErr4" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr4 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr5" element={<ServiceDashErr5 />} /> */}
-        <Route path="/ServiceDashErr5" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr5 />} />
-        </Route>
+
         <Route path="/Services" element={<Services />} />
+        
         {/* Admin routes start */}
         {/* <ProtectedRoute
           exact
