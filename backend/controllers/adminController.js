@@ -21,7 +21,7 @@ exports.approveVendor = async (req, res) => {
         }
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -45,7 +45,7 @@ exports.rejectVendor = async (req, res) => {
         }
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -56,7 +56,7 @@ exports.getUnVerifiedVendors = async (req, res) => {
         res.json(users)
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -67,7 +67,7 @@ exports.getBlockedVendors = async (req, res) => {
         res.json(users)
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -78,7 +78,7 @@ exports.getBlockedConsumers = async (req, res) => {
         res.json(users)
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -89,7 +89,7 @@ exports.getActiveVendors = async (req, res) => {
         res.json(users)
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -100,7 +100,7 @@ exports.getActiveConsumers = async (req, res) => {
         res.json(users)
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -124,7 +124,7 @@ exports.blockVendor = async (req, res) => {
         }
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -148,7 +148,7 @@ exports.unBlockVendor = async (req, res) => {
         }
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -172,7 +172,7 @@ exports.blockConsumer = async (req, res) => {
         }
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -196,7 +196,7 @@ exports.unBlockConsumer = async (req, res) => {
         }
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -240,7 +240,7 @@ exports.getTopServiceStatistics = async (req, res) => {
         res.json(data)
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
 
@@ -312,6 +312,6 @@ exports.getCityStatistics = async (req, res) => {
         res.json(city_coordinates)
     }
     catch(e){
-        res.status(500).json({'error':'There was an issue retreiving the services from the database.', 'errorMessage': e.message()});
+        res.status(500).send(e)
     }
 }
