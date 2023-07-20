@@ -3,6 +3,7 @@ import Header from "../header/header";
 import Footer from "../footer/footer";
 import '../services/services.css';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import {BrowserView, MobileView} from 'react-device-detect';
 
 export default function Services() {
 
@@ -94,6 +95,7 @@ export default function Services() {
   return (
     <div>  
       <Header currentPage="/services"  />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
 
       <div className="bg-white">
         <center>
@@ -111,24 +113,47 @@ export default function Services() {
             />
           </div>
 
-          <div className='filters'>
-            <Accordion className='fltrs-dropdown'>
-              <AccordionItem header="Filters" className='accFltrs'>
-              <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
-              <br></br>
-              <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
-              <br></br>
-              <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
-              <br></br>
-              <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
-              <br></br>
-              <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
-              <br></br>
-              <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
-              <br></br><br></br>
-              </AccordionItem>
-            </Accordion>
-          </div>
+          <BrowserView>
+              <div className='filters-desktop'>
+                <Accordion className='fltrs-dropdown'>
+                  <AccordionItem header="Filters" className='accFltrs'>
+                  <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+                  <br></br>
+                  <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+                  <br></br>
+                  <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+                  <br></br>
+                  <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+                  <br></br>
+                  <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+                  <br></br>
+                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+                  <br></br><br></br>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </BrowserView>
+            <MobileView>
+              <div className='filters-mobile'>
+                <Accordion className='fltrs-dropdown'>
+                  <AccordionItem header="Filters" className='accFltrs'>
+                  <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+                  <br></br>
+                  <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+                  <br></br>
+                  <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+                  <br></br>
+                  <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+                  <br></br>
+                  <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+                  <br></br>
+                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+                  <br></br><br></br>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </MobileView>
+
         </center>
 
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
