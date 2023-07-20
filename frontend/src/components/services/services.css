@@ -1,6 +1,6 @@
 .service_card:hover {
   border-radius: 5px;
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 
 .service_card{
@@ -20,14 +20,14 @@
 
 .filters{
   width: 22vh;
-  float:left;
+  float: left;
   box-shadow: 0px 2px 15px #d1d5db;
   border-radius: 25px;
   margin-left: 2vh;
   margin-right: 4vh;
   margin-top: 5vh;
   padding-left: 1vh;
-  font-size: 2pt;
+  font-size: 1pt;
 }
 
 .fltrs-dropdown{
@@ -35,17 +35,16 @@
 }
 
 .szh-accordion__item-btn{
-  font-size: 18pt;
+  font-size: 12pt;
   padding: 5%;
   width: 100%;
   padding-left: -1vh
 }
 
 .accFltrs{
-  font-size: 11pt;
+  font-size: 10pt;
   cursor: pointer;
   align-items: center;
-  width: 100%;
   margin: 0;
   text-align: left;
   color: black;
