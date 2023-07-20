@@ -13,7 +13,7 @@ const guestNavigation = [
 const providerNavigation = [
   { name: "Home", href: "/" },
   { name: "Service Posting", href: "#" },
-  { name: "My Bookings", href: "/MyBookings" },
+  { name: "My Bookings", href: "/vendor_bookings" },
   { name: "Ratings", href: "#" },
 ];
 

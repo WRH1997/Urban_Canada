@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Booking from "./components/booking/booking";
 import MyBookings from "./components/mybookings/mybookings";
+import VendorBookings from "./components/mybookings_provider/mybookings_provider";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import Contact from "./components/contact/contact";
@@ -69,6 +70,9 @@ function App() {
         <Route path="/MyBookings" element={<LoginRedirect />}>
           <Route index element={<MyBookings />} />
         </Route>
+
+        <Route path="/vendor_bookings" element={<VendorBookings />} />
+
         <Route path="/signup" element={<Signup />}></Route>
         {/* <ProtectedRoute path="/profile" element={<Profile />} /> */}
         <Route path="/profile" element={<LoginRedirect />}>
