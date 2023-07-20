@@ -9,7 +9,4 @@ router.get('/', function(req, res, next) {
   res.send("<h1>API working</h1>");
 });
 
-
-
-
 module.exports = router;

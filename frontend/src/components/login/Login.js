@@ -65,7 +65,7 @@ export default function Login() {
                 if (authToken && userData) {
                   setInputEmailValue("");
                   setInputPasswordValue("");
-                  navigate("/booking");
+                  navigate("/");
                 } else {
                   console.log("Error storing data in local storage");
                 }
@@ -100,63 +100,104 @@ export default function Login() {
   return (
     <div>
       <Header currentPage="/login" />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+
+       <form
+        className="max-w-sm bg-white pt-10 pb-24 m-auto"
+        method="GET"
       >
-        <div align="center">
-          <h1 className="my-10" style={{ fontSize: "35px" }}>
+        <div class="mx-8">
+          <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
             Login
-          </h1>
-          <TextField
-            style={{ width: "200px" }}
-            id="outlined-basic"
-            required
-            label="Email"
-            variant="outlined"
-            onChange={handleEmailChange}
-          />
-          <br></br>
-          <br></br>
-          <TextField
-            style={{ width: "200px" }}
-            required
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            onChange={handlePasswordChange}
-            InputProps={{
-              // <- This is where the toggle button is added
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <br></br>
-          <br></br>
-          <Button
-            style={{ backgroundColor: "#2d3748" }}
-            variant="contained"
-            onClick={handleLogin}
-          >
-            Log in
-          </Button>
-          <br></br>
-          <br></br>
-          <Link to="/signup" className="text-gray-800 no-underline">
-            <p variant="contained">New User? Register</p>
-          </Link>
+          </h2>
+
+          <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-4">
+            <div className="sm:col-span-4 w-full">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Email
+              </label>
+              <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                <input
+                  id="outlined-basic"
+                  required
+                  label="Email"
+                  variant="outlined"
+                  onChange={handleEmailChange}
+                  type="email"
+                  name="email"
+                  className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Password
+              </label>
+              <div className="mt-2">
+                <div className="flex rounded-md ring-1 ring-gray-300">
+                  <input
+                     required
+                     label="Password"
+                     type={showPassword ? "text" : "password"}
+                     onChange={handlePasswordChange}
+                     InputProps={{
+                       // <- This is where the toggle button is added
+                       endAdornment: (
+                         <InputAdornment position="end">
+                           <IconButton
+                             aria-label="toggle password visibility"
+                             onClick={handleClickShowPassword}
+                           >
+                             {showPassword ? <VisibilityOff /> : <Visibility />}
+                           </IconButton>
+                         </InputAdornment>
+                       ),
+                     }}
+                    name="password"
+                    className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-x-6">
+            <button
+              type="submit"
+              variant="contained"
+              onClick={handleLogin}
+              className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign In
+            </button>
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-x-6">
+            <a
+              href="#"
+              className="text-sm no-underline font-semibold leading-6 text-gray-800 hover:underline"
+            >
+              Forgot Password? Reset
+            </a>
+          </div>
+
+          <div className="mt-1 flex items-center justify-center gap-x-6">
+            <a
+              href="/signup"
+              className="text-sm no-underline font-semibold leading-6 text-gray-800 hover:underline"
+            >
+              New User? Register
+            </a> 
+          </div>
         </div>
-      </Box>
+      </form>
+      <Footer />
     </div>
   );
 }
