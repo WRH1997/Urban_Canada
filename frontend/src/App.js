@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Booking from "./components/booking/booking";
@@ -9,6 +10,10 @@ import LandingPage from "./components/landingpage/landing";
 import FAQ from "./components/faq/faq";
 import Profile from "./components/profile/Profile";
 import LoginRedirect from "./components/LoginRedirects/LoginRedirect";
+import ResetPasswordRequest from "./components/resetPassword/ResetPasswordRequest";
+import ResetPasswordConfirm from "./components/resetPassword/ResetPasswordConfirm";
+import UpdatePassword from "./components/resetPassword/UpdatePassword";
+import { EmailContext } from "./contexts/EmailContext";
 import {
   ServiceDashboardPage,
   ServiceDashboardPage2,
@@ -30,6 +35,7 @@ import Container from "./components/ratingReview/serviceProvider";
 import RatingComment from "./components/ratingReview/RatingComment";
 
 function App() {
+  const [email, setEmail] = useState("");
   axios.interceptors.request.use((config) => {
     config.headers["Origin"] = "http://localhost:3000";
     const token = localStorage.getItem("authToken");
@@ -44,6 +50,33 @@ function App() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/reset-password-request"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <ResetPasswordRequest />
+            </EmailContext.Provider>
+          }
+        />
+
+        <Route
+          path="/reset-password-confirm"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <ResetPasswordConfirm />
+            </EmailContext.Provider>
+          }
+        />
+
+        <Route
+          path="/update-password"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <UpdatePassword />
+            </EmailContext.Provider>
+          }
+        />
+
         {/* <ProtectedRoute path="/MyBookings" element={<MyBookings />} /> */}
         <Route path="/MyBookings" element={<LoginRedirect />}>
           <Route index element={<MyBookings />} />
