@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
       (err, token) => {
         if (err) throw err;
 
-        // Create a copy of user object
+        // Create a copy of the user object
         // let userResponse = user.toObject();
         const userResponse = {
           _id: user._id,
