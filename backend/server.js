@@ -21,6 +21,8 @@ const userRoutes = require("./routes/userRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
 const adminRoutes = require("./routes/adminRoutes")
 const bookingRoutes = require("./routes/booking")
+var ratingRoutes = require("./routes/ratingRoutes");
+
 
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -33,6 +35,8 @@ app.use("/", serviceRoutes);
 app.use("/", userRoutes);
 app.use("/admin",adminRoutes)
 app.use("/booking",bookingRoutes)
+app.use("/rating", ratingRoutes);
+
 
 const PORT = 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
