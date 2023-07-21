@@ -28,7 +28,7 @@ import CustomersPage from "./components/admin/pages/CustomersPage";
 // Rating Rewview Pages
 import Container from "./components/ratingReview/serviceProvider";
 import RatingComment from "./components/ratingReview/RatingComment";
-import ServicePostingPage from "./components/serviceposting/serviceposting";
+import ServicePostingPage from "./components/serviceposting/ServicePostingPage";
 
 function App() {
   axios.interceptors.request.use((config) => {
