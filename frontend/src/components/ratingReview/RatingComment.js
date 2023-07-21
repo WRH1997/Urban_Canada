@@ -157,7 +157,8 @@ const getRandomImage = () => {
               <Box p={2} textAlign="left">
                 <Typography variant="h6">User Rating</Typography>
                 <Box display="flex" alignItems="center">
-                  <Rating name="average-rating" value={parseFloat(calculateChartData().average)} readOnly />
+                  {/* <Rating name="average-rating" value={parseFloat(calculateChartData().average)} readOnly /> */}
+                  <Star sel_quan={parseFloat(calculateChartData().average)} editable={false} selSize={20}/>
                   <Typography variant="body1">{calculateChartData().avgText}</Typography>
                 </Box>
                 <Bar
