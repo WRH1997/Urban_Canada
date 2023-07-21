@@ -176,7 +176,7 @@ export default function Services() {
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
                 <div className="flex">
                 <Rating unratedColor="amber" ratedColor="amber" value={4} readonly />
-                <Link to="/profileDetails" className="text-gray-800 mx-2" state={service}>
+                <Link to="/profileDetails" className="text-gray-800 font-medium text-sm mx-2" state={service}>
                       View
                     </Link>
                 </div>
