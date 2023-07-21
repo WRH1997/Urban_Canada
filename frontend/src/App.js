@@ -120,8 +120,7 @@ function App() {
         {/* Admin routes end */}
 
         {/* Rating and Review start */}
-        <Route path="/ratings" element={<Container />} />
-        <Route path="/profileDetails" element={<RatingComment />} />
+        <Route path="/rating/:vendorId" element={<RatingComment />} />
         {/* Rating and Review end*/}
       </Routes>
     </BrowserRouter>
