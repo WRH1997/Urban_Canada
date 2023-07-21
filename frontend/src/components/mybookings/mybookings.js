@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -287,7 +286,7 @@ export default function MyBookings() {
           }
         </DialogContent>
 
-        <DialogActions className='pt-0 self-center'>
+        <DialogActions className='py-3 px-5 self-center'>
           <a href="#" onClick={closeModel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
             Cancel
           </a>
@@ -297,7 +296,7 @@ export default function MyBookings() {
             className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={rescheduleBookingHandler}
           >
-            Reschedule
+            Confirm
           </button>
         </DialogActions>
       </Dialog>
@@ -328,7 +327,7 @@ export default function MyBookings() {
           }
         </DialogContent>
 
-        <DialogActions className='pt-0 self-center'>
+        <DialogActions className='pb-3 mx-4 pt-2 self-center'>
           <a href="#" onClick={closeModelCancel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
             Cancel
           </a>
