@@ -70,11 +70,11 @@ export default function Header(props) {
   const handleSignOut = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("authToken");
-    navigate("/");
+    window.location.href = "/";
   };
 
   const handleProfileNavigation = () => {
-    navigate("/profile");
+    window.location.href = "/profile";
   };
   
   return (
