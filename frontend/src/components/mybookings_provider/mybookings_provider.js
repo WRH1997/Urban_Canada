@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -23,9 +22,11 @@ export default function MyBookings() {
   const [openComplete, setOpenComplete] = useState(false)
   const [selectedBooking,setSelectedBooking] = useState("")
 
+  // set date and time
   const [date,setDate] = useState("")
   const [time,setTime] = useState("")
 
+  // open model function
   const openModel = (booking) => {
     setSelectedBooking(booking)
     console.log(booking)
@@ -35,6 +36,7 @@ export default function MyBookings() {
     setOpenEdit(true)
   };
 
+  // close model function
   const closeModel = () => {
       setOpenEdit(false)
       setSelectedBooking("")
@@ -42,28 +44,32 @@ export default function MyBookings() {
       setTime("")
   };
 
+  // open model to reject
   const openModelCancel = (booking) => {
     setSelectedBooking(booking)
     handleClose()
     setOpenCancel(true)
   };
 
+  // close model to reject
   const closeModelCancel = () => {
       setOpenCancel(false)
       setSelectedBooking("")
   };
 
+  // close model to complete
   const openModelComplete = (booking) => {
     setSelectedBooking(booking)
     handleClose()
     setOpenComplete(true)
   };
-
+  // close model to complete
   const closeModelComplete = () => {
       setOpenComplete(false)
       setSelectedBooking("")
   };
 
+  // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-provider/${consumer_id}`).then((res)=>{
       setBookings(res.data)
@@ -88,6 +94,7 @@ export default function MyBookings() {
     setAnchorEl(null);
   };
 
+  // function to approve booking request
   const approveBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/approve/${booking_id}`).then((res)=>{
@@ -98,6 +105,7 @@ export default function MyBookings() {
     closeModel()
   }
 
+  // function to reject booking request
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
@@ -108,6 +116,7 @@ export default function MyBookings() {
     closeModel()
   }
 
+  // complete booking function
   const completeBookingHandler = () => {
     const booking_id = selectedBooking._id
     console.log(booking_id)
@@ -122,6 +131,7 @@ export default function MyBookings() {
   return (
     <div>
       <Header currentPage="/vendor_bookings" />
+
       <div class="container">
         <h5 class="my-4">My Bookings</h5>
 
@@ -162,25 +172,22 @@ export default function MyBookings() {
                         <td>{person.date.split(" ")[1]}</td>
   
                         <td>
-                          {
-                            person.isCanceled==true ?
+                          {person.isCanceled==true ?
                             <div class="flex w-full rounded-md py-1 text-sm font-bold text-red-500">
                               <span>Cancelled</span>
                             </div> : 
-                              person.status=='Pending' ?
-                                <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
-                                  <span>{person.status}</span>
-                                </div> 
-                              :
-                                person.status=='Completed' ?
-                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-success">
-                                    <span>{person.status}</span>
-                                  </div> 
-                                  :
-                                  person.status=='Approved' &&
-                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-blue-500">
-                                    <span>{person.status}</span>
-                                  </div> 
+                          person.status=='Pending' ?
+                            <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
+                              <span>{person.status}</span>
+                            </div> :
+                          person.status=='Completed' ?
+                            <div class="flex w-full rounded-md py-1 text-sm font-bold text-success">
+                              <span>{person.status}</span>
+                            </div> :
+                          person.status=='Approved' &&
+                            <div class="flex w-full rounded-md py-1 text-sm font-bold text-blue-500">
+                              <span>{person.status}</span>
+                            </div>
                           }
                         </td>
 
@@ -189,13 +196,14 @@ export default function MyBookings() {
                             <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
                               aria-haspopup="true"
                               aria-expanded={open ? 'true' : undefined}
+                            /> :
+
+                            <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                              aria-haspopup="true"
+                              aria-expanded={open ? 'true' : undefined}
+                              onClick={(e)=>handleClick(e,person)}
                             />
-                          :  
-                          <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={(e)=>handleClick(e,person)} />
-                        }
+                          }
                         </td>
                       </tr>
                     ))}
@@ -217,55 +225,48 @@ export default function MyBookings() {
         }}
         className='mybooking-action-menu'
       >
-        {
-          
-          selectedPerson.status=='Pending' &&
-              <Paper>
-                <MenuList className='p-0 mybooking-action-menu'>
-                  <MenuItem onClick={()=>openModel(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Approve</p></MenuItem>
-                  <MenuItem onClick={()=>openModelCancel(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Reject</p></MenuItem>
-                </MenuList>
-              </Paper>
+        {selectedPerson.status=='Pending' &&
+          <Paper>
+            <MenuList className='p-0 mybooking-action-menu'>
+              <MenuItem onClick={()=>openModel(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Approve</p></MenuItem>
+              <MenuItem onClick={()=>openModelCancel(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Reject</p></MenuItem>
+            </MenuList>
+          </Paper>
         }
-        {
-          selectedPerson.status=='Approved' &&
-            <Paper>
-              <MenuList className='p-0 mybooking-action-menu'>
-                <MenuItem onClick={()=>openModelComplete(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Complete</p></MenuItem>
-              </MenuList>
-            </Paper>
+        {selectedPerson.status=='Approved' &&
+          <Paper>
+            <MenuList className='p-0 mybooking-action-menu'>
+              <MenuItem onClick={()=>openModelComplete(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Complete</p></MenuItem>
+            </MenuList>
+          </Paper>
         }
       </Menu>
-      <Dialog
-          open={openEdit}
-          onClose={closeModel}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-      >
-          <DialogTitle id="alert-dialog-title">
-            <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Booking Approval</p>
-          </DialogTitle>
-          <DialogContent className='pb-2'>
-            {
-              selectedBooking != "" && 
-              <DialogContentText id="alert-dialog-description">
-                <p className='m-0 p-0 text-black text-sm'>
-                  <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
-                  <b>Category:</b> {selectedBooking.service_id.category} <br/>
-                  <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
-                  <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
-                  <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
-                </p>
-              </DialogContentText>
-            }
-            
-          </DialogContent>
 
-          <DialogActions className='pt-0 self-center'>
-          {/* <Button className='admin-cancel-btn' onClick={closeModel}>Cancel</Button>
-          <Button className='admin-confirm-btn' variant='contained' onClick={approveBookingHandler} autoFocus>
-            Approve
-          </Button> */}
+      <Dialog
+        open={openEdit}
+        onClose={closeModel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Booking Approval</p>
+        </DialogTitle>
+
+        <DialogContent className='pb-2'>
+          {selectedBooking != "" && 
+            <DialogContentText id="alert-dialog-description">
+              <p className='m-0 p-0 text-black text-sm'>
+                <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
+                <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+                <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
+                <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
+              </p>
+            </DialogContentText>
+          }
+        </DialogContent>
+
+        <DialogActions className='pt-0 pb-3 self-center'>
           <a href="#" onClick={closeModel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
             Cancel
           </a>
@@ -277,37 +278,35 @@ export default function MyBookings() {
           >
             Approve
           </button>
-          </DialogActions>
+        </DialogActions>
       </Dialog>
+
       <Dialog
-            open={openCancel}
-            onClose={closeModelCancel}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
+        open={openCancel}
+        onClose={closeModelCancel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
           <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Reject Booking</p>
-          </DialogTitle>
-          <DialogContent className='pb-2'>
-            {
-              selectedBooking != "" && 
-              <DialogContentText id="alert-dialog-description">
-                <p className='m-0 p-0 text-black text-sm'>
-                  <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
-                  <b>Category:</b> {selectedBooking.service_id.category} <br/>
-                  <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
-                  <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
-                  <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
-                </p>
-              </DialogContentText>
-            }
-            </DialogContent>
-            <DialogActions className='pt-0 self-center'>
-              {/* <Button className='admin-cancel-btn' onClick={closeModelCancel}>Cancel</Button>
-              <Button className='admin-confirm-btn' variant='contained' onClick={cancelBookingHandler} autoFocus>
-                Confirm
-              </Button> */}
-              <a href="#" onClick={closeModelCancel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
+        </DialogTitle>
+
+        <DialogContent className='pb-2'>
+          {selectedBooking != "" && 
+            <DialogContentText id="alert-dialog-description">
+              <p className='m-0 p-0 text-black text-sm'>
+                <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
+                <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+                <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
+                <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
+              </p>
+            </DialogContentText>
+          }
+        </DialogContent>
+
+        <DialogActions className='pt-0 pb-3 self-center'>
+          <a href="#" onClick={closeModelCancel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
             Cancel
           </a>
 
@@ -318,37 +317,35 @@ export default function MyBookings() {
           >
             Confirm
           </button>
-            </DialogActions>
-        </Dialog>
-        <Dialog
-            open={openComplete}
-            onClose={closeModelComplete}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Service Complete</p>
-          </DialogTitle>
-          <DialogContent className='pb-2'>
-            {
-              selectedBooking != "" && 
-              <DialogContentText id="alert-dialog-description">
-                <p className='m-0 p-0 text-black text-sm'>
-                  <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
-                  <b>Category:</b> {selectedBooking.service_id.category} <br/>
-                  <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
-                  <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
-                  <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
-                </p>
-              </DialogContentText>
-            }
-            </DialogContent>
-            <DialogActions className='pt-0 self-center'>
-              {/* <Button className='admin-cancel-btn' onClick={closeModelComplete}>Cancel</Button>
-              <Button className='admin-confirm-btn' variant='contained' onClick={completeBookingHandler} autoFocus>
-                Complete
-              </Button> */}
-              <a href="#" onClick={closeModelComplete} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openComplete}
+        onClose={closeModelComplete}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Service Complete</p>
+        </DialogTitle>
+
+        <DialogContent className='pb-2'>
+          {selectedBooking != "" && 
+            <DialogContentText id="alert-dialog-description">
+              <p className='m-0 p-0 text-black text-sm'>
+                <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
+                <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+                <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
+                <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
+              </p>
+            </DialogContentText>
+          }
+        </DialogContent>
+
+        <DialogActions className='pt-0 pb-3 self-center'>
+          <a href="#" onClick={closeModelComplete} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
             Cancel
           </a>
 
@@ -359,8 +356,9 @@ export default function MyBookings() {
           >
             Complete
           </button>
-            </DialogActions>
-        </Dialog>
+        </DialogActions>
+      </Dialog>
+
       <Footer/>
     </div>
   )
