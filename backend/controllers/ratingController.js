@@ -3,7 +3,8 @@ var RatingReview = require('../models/ratingReviews')
 
 exports.getRating = async (req, res) => {
     try {
-      const ratingReviews = await RatingReview.find({});
+      const vendorId = req.params.vendorId;
+      const ratingReviews = await RatingReview.find({vendorId }).exec();
       res.status(200).json(ratingReviews);
     } catch (error) {
         console.log(error);
@@ -11,29 +12,25 @@ exports.getRating = async (req, res) => {
     }
 };
 
-exports.addRating = async (req, res) => {
+exports.postRating = async (req, res) => {
+  try {
+    const { name, comment, star, consumerId, vendorId } = req.body;
 
-    const fakeRatingReviewData = [
-        { name: 'John', comment: 'Awesome work!', star: 5 },
-        { name: 'Sarah', comment: 'They Provide the best service Ever!!', star: 4 },
-        { name: 'Michael', comment: 'They cleaned my house very neatly!', star: 3 },
-        // Add more fake data as needed...
-    ];
-      
-  
-    try {
-        // await RatingReview.deleteMany({}); // Clear existing data
-        await await RatingReview.insertMany(fakeRatingReviewData);
+    // Create a new rating review
+    const ratingReview = new RatingReview({
+      name,
+      comment,
+      star,
+      consumerId,
+      vendorId,
+    });
 
+    // Save the rating review to the database
+    const savedRating = await ratingReview.save();
 
-    //   const newRatingReview = new RatingReview({
-    //     comment:"heool",
-    //     star:"fake Data",
-    //   });
-  
-    //   await newRatingReview.save();
-    //   res.json(res);
-    } catch (error) {
-      res.status(500).json({ error: 'Error adding new rating review' });
-    }
+    res.status(201).json({ message: 'Rating review posted successfully', ratingReview: savedRating });
+  } catch (error) {
+    console.error('Error posting rating review:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };

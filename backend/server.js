@@ -21,7 +21,7 @@ const userRoutes = require("./routes/userRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
 const adminRoutes = require("./routes/adminRoutes")
 const bookingRoutes = require("./routes/booking")
-var ratingRoutes = require("./routes/ratingRoutes");
+const ratingRoutes = require("./routes/ratingRoutes");
 
 
 const corsOptions = {
