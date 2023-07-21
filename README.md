@@ -1405,20 +1405,6 @@ table th {
 The code above was created by adapting the code in [Product Lists - Official Tailwind CSS UI Components](https://tailwindui.com/components/ecommerce/components/product-lists) as shown below: 
 
 ```
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 const products = [
   {
     id: 1,
@@ -1534,7 +1520,7 @@ export default function Example() {
 </MobileView>
 ```
 
-The code above was created by adapting the code in [Bootstrap snippet. new customer listszhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion) as shown below: 
+The code above was created by adapting the code in [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion) as shown below: 
 
 ```
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
@@ -1562,9 +1548,9 @@ export default function Example() {
 }
 ```
 
-- <!---How---> The code in [NAME](link) was implemented by...
-- <!---Why---> [NAME](link)'s Code was used because...
-- <!---How---> [NAME](link)'s Code was modified by...
+- The code in [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion) was implemented by Zheng Song (Github Handle: @ szhsin).
+- [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion)'s Code was used for the filter drop down menu in the services dashboard page. This accordion package was used specifically because it is un-stylized; allowing us full customization over its design.
+- [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion)'s Code was modified to display our filter checkboxes once expanded.
 
 ## Acknowledgments
 
