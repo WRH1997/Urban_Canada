@@ -9,11 +9,18 @@ import 'chart.js/auto';
 import Header from '../header/header';
 import Footer from "../footer/footer";
 
+import { useParams } from 'react-router-dom';
+
 // import ImageSpecific from './ratingSubComponent/ImageSpecific';
 // import Comment from './ratingSubComponent/Comment';
 
 
 const App = () => {
+
+  // const location = useLocation();
+  // const service = location.state;
+
+  const { vendorID } = useParams();
 
   const [newComment, setNewComment] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -25,7 +32,7 @@ const App = () => {
   useEffect(() => {
     const fetchRatingReviewData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/rating/getRating');
+        const response = await axios.get(`http://localhost:3001/rating/getRating/${vendorID}`);
         setRatingReviewData(response.data); // Extract the data from the response object
         console.log(response.data); // Log the data to verify if it's correct
       } catch (error) {

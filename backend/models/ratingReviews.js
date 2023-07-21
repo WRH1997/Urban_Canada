@@ -1,13 +1,20 @@
 const mongoose = require("mongoose");
 
-const RatingReview= mongoose.model('RatingReview',{
+const RatingReviewSchema = new mongoose.Schema({
+
     name: String,
     comment: String,
     star: Number,
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
+    consumerId: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    vendorId: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: true
+    }
 });
 
-module.exports = RatingReview
+module.exports = mongoose.model("RatingReview",RatingReviewSchema,"ratingreviews")

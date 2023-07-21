@@ -6,6 +6,7 @@ import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';
 import {Link} from 'react-router-dom';
 import { Rating } from "@material-tailwind/react";
+import Star from "../ratingReview/ratingSubComponent/Star"
 
 export default function Services() {
 
@@ -28,6 +29,7 @@ export default function Services() {
     let serviceJson = await data.json();
     let serviceList = serviceJson['services'];
     if(JSON.stringify(services)!=JSON.stringify(serviceList)){
+      console.log(serviceList);
       return setServices(serviceList);
     }
   }
@@ -175,8 +177,8 @@ export default function Services() {
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
                 <div className="flex">
-                <Rating unratedColor="amber" ratedColor="amber" value={4} readonly />
-                <Link to="/profileDetails" className="text-gray-800 mx-2" state={service}>
+                <Star sel_quan={3.7} editable={false} selSize={20}/>
+                <Link to={{pathname: `/rating/${service.vendorID}`}} className="text-gray-800 mx-2" state={service}>
                       View
                     </Link>
                 </div>
