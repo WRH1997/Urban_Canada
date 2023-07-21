@@ -18,28 +18,32 @@ export default function Bookings(props) {
   
   const submitBookinghandler = (e) => {
     e.preventDefault()
-    if(consumer_id && service){
-      const booking = {
-        consumer_id: consumer_id,
-        provider_id: service.vendorID,
-        service_id: service._id,
-        address: address,
-        date: date+" "+time,
-        note: note
+    if(address != "" && date != "" && time != ""){
+      if(consumer_id && service){
+        const booking = {
+          consumer_id: consumer_id,
+          provider_id: service.vendorID,
+          service_id: service._id,
+          address: address,
+          date: date+" "+time,
+          note: note
+        }
+  
+        axios.post("http://localhost:3001/booking/create",booking).then((req,res)=>{
+          // if(res){
+            window.location.href = "/mybookings"
+          // }
+        }).catch((e)=>{
+          console.log(e)
+          alert(e)
+        })
+  
+        // console.log(booking)
+      }else {
+        alert("Error")
       }
-
-      axios.post("http://localhost:3001/booking/create",booking).then((req,res)=>{
-        // if(res){
-          window.location.href = "/mybookings"
-        // }
-      }).catch((e)=>{
-        console.log(e)
-        alert(e)
-      })
-
-      // console.log(booking)
     }else {
-      alert("Error")
+      alert("Address, Date and Time are required.")
     }
   }
 
