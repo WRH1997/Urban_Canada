@@ -99,7 +99,7 @@ export default function Login() {
     <div>
       <Header currentPage="/login" />
 
-      <form className="max-w-sm bg-white pt-10 pb-24 m-auto" method="GET">
+      <form className="max-w-sm bg-white pt-10 pb-32 m-auto" method="GET">
         <div class="mx-8">
           <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
             Login
