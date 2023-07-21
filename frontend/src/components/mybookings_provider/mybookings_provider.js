@@ -1,23 +1,23 @@
 import React, {useState, useEffect} from 'react';
-import Header from '../header/header';
-import Footer from "../footer/footer";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../mybookings/mybookings.css';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { MenuList, Paper } from '@mui/material';
+import { MenuList, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import Header from '../header/header';
+import Footer from "../footer/footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../mybookings/mybookings.css';
 import axios from 'axios';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
+// function of my bookings for service provider.
 export default function MyBookings() {
 
+  // variables
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
   const [isOpen, setIsOpen] = useState(false);
   const [bookings,setBookings] = useState([])
-
   const [openEdit, setOpenEdit] = useState(false)
   const [openCancel, setOpenCancel] = useState(false)
   const [openComplete, setOpenComplete] = useState(false)
@@ -121,7 +121,7 @@ export default function MyBookings() {
 
   return (
     <div>
-      <Header currentPage="/MyBookings" />
+      <Header currentPage="/vendor_bookings" />
       <div class="container">
         <h5 class="my-4">My Bookings</h5>
 
@@ -221,17 +221,17 @@ export default function MyBookings() {
           
           selectedPerson.status=='Pending' &&
               <Paper>
-                <MenuList className='mybooking-action-menu'>
-                  <MenuItem onClick={()=>openModel(selectedPerson)}>Approve</MenuItem>
-                  <MenuItem onClick={()=>openModelCancel(selectedPerson)}>Reject</MenuItem>
+                <MenuList className='p-0 mybooking-action-menu'>
+                  <MenuItem onClick={()=>openModel(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Approve</p></MenuItem>
+                  <MenuItem onClick={()=>openModelCancel(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Reject</p></MenuItem>
                 </MenuList>
               </Paper>
         }
         {
           selectedPerson.status=='Approved' &&
             <Paper>
-              <MenuList className='mybooking-action-menu'>
-                <MenuItem onClick={()=>openModelComplete(selectedPerson)}>Complete</MenuItem>
+              <MenuList className='p-0 mybooking-action-menu'>
+                <MenuItem onClick={()=>openModelComplete(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Complete</p></MenuItem>
               </MenuList>
             </Paper>
         }
@@ -243,25 +243,40 @@ export default function MyBookings() {
           aria-describedby="alert-dialog-description"
       >
           <DialogTitle id="alert-dialog-title">
-            Approve Booking
+            <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Booking Approval</p>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent className='pb-2'>
             {
               selectedBooking != "" && 
               <DialogContentText id="alert-dialog-description">
-                Booking id: {selectedBooking._id} <br/>
-                Customer: {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
-                Category: {selectedBooking.service_id.category} <br/>
-                Service: {selectedBooking.service_id.serviceName} <br/>
+                <p className='m-0 p-0 text-black text-sm'>
+                  <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
+                  <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                  <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+                  <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
+                  <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
+                </p>
               </DialogContentText>
             }
             
           </DialogContent>
-          <DialogActions>
-          <Button className='admin-cancel-btn' onClick={closeModel}>Cancel</Button>
+
+          <DialogActions className='pt-0 self-center'>
+          {/* <Button className='admin-cancel-btn' onClick={closeModel}>Cancel</Button>
           <Button className='admin-confirm-btn' variant='contained' onClick={approveBookingHandler} autoFocus>
             Approve
-          </Button>
+          </Button> */}
+          <a href="#" onClick={closeModel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
+            Cancel
+          </a>
+
+          <button
+            type="submit"
+            className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={approveBookingHandler}
+          >
+            Approve
+          </button>
           </DialogActions>
       </Dialog>
       <Dialog
@@ -271,24 +286,38 @@ export default function MyBookings() {
             aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            Cancelation confirmation
+          <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Reject Booking</p>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent className='pb-2'>
             {
               selectedBooking != "" && 
               <DialogContentText id="alert-dialog-description">
-                Booking id: {selectedBooking._id} <br/>
-                Customer: {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
-                Category: {selectedBooking.service_id.category} <br/>
-                Service: {selectedBooking.service_id.serviceName} <br/>
+                <p className='m-0 p-0 text-black text-sm'>
+                  <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
+                  <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                  <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+                  <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
+                  <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
+                </p>
               </DialogContentText>
             }
             </DialogContent>
-            <DialogActions>
-              <Button className='admin-cancel-btn' onClick={closeModelCancel}>Cancel</Button>
+            <DialogActions className='pt-0 self-center'>
+              {/* <Button className='admin-cancel-btn' onClick={closeModelCancel}>Cancel</Button>
               <Button className='admin-confirm-btn' variant='contained' onClick={cancelBookingHandler} autoFocus>
                 Confirm
-              </Button>
+              </Button> */}
+              <a href="#" onClick={closeModelCancel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
+            Cancel
+          </a>
+
+          <button
+            type="submit"
+            className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={cancelBookingHandler}
+          >
+            Confirm
+          </button>
             </DialogActions>
         </Dialog>
         <Dialog
@@ -298,24 +327,38 @@ export default function MyBookings() {
             aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            Complete booking
+            <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Service Complete</p>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent className='pb-2'>
             {
               selectedBooking != "" && 
               <DialogContentText id="alert-dialog-description">
-                Booking id: {selectedBooking._id} <br/>
-                Customer: {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
-                Category: {selectedBooking.service_id.category} <br/>
-                Service: {selectedBooking.service_id.serviceName} <br/>
+                <p className='m-0 p-0 text-black text-sm'>
+                  <b>Customer:</b> {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
+                  <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                  <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+                  <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
+                  <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
+                </p>
               </DialogContentText>
             }
             </DialogContent>
-            <DialogActions>
-              <Button className='admin-cancel-btn' onClick={closeModelComplete}>Cancel</Button>
+            <DialogActions className='pt-0 self-center'>
+              {/* <Button className='admin-cancel-btn' onClick={closeModelComplete}>Cancel</Button>
               <Button className='admin-confirm-btn' variant='contained' onClick={completeBookingHandler} autoFocus>
                 Complete
-              </Button>
+              </Button> */}
+              <a href="#" onClick={closeModelComplete} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
+            Cancel
+          </a>
+
+          <button
+            type="submit"
+            className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={completeBookingHandler}
+          >
+            Complete
+          </button>
             </DialogActions>
         </Dialog>
       <Footer/>

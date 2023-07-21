@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
-import Header from "../header/header";
-import Footer from "../footer/footer";
+import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
-import { Box } from "@mui/material";
-import Modal from "@mui/material/Modal";
-
+import Header from "../header/header";
+import Footer from "../footer/footer";
 import axios from "axios";
 
 export default function Login() {
