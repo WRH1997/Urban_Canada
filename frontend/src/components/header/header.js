@@ -5,11 +5,13 @@ import logo from "../../assets/logo.png";
 import icon from "../../assets/icon.jpg";
 import { useNavigate } from "react-router-dom";
 
+// navigation menu for guest.
 const guestNavigation = [
   { name: "Home", href: "/" },
   { name: "Login/SignUp", href: "/login" },
 ];
 
+// navigation menu for service provider.
 const providerNavigation = [
   { name: "Home", href: "/" },
   { name: "Service Posting", href: "#" },
@@ -17,6 +19,7 @@ const providerNavigation = [
   { name: "My Ratings", href: "#" },
 ];
 
+// navigation menu for service consumer.
 const consumerNavigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/Services" },
@@ -27,15 +30,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+// function for header
 export default function Header(props) {
   const navigate = useNavigate();
   const [loggedInUser,setLoggedInUser] = useState("guest")
-
   const { currentPage } = props;
-  const { isLoggedIn } = props;
 
   useEffect(()=>{
     const loggedin_user = localStorage.getItem("userData")
+
     if(loggedin_user){
       const user_object = JSON.parse(loggedin_user)
       setLoggedInUser(user_object.role)
@@ -44,11 +47,13 @@ export default function Header(props) {
 
   console.log(loggedInUser)
 
+  // set navigation according to user.
   var navigation = guestNavigation;
 
   if(loggedInUser == "service-consumer"){
      navigation = consumerNavigation;
   }
+
   if (loggedInUser == "service-provider") {
      navigation = providerNavigation;
   }
@@ -57,16 +62,21 @@ export default function Header(props) {
     if (item.href === currentPage) {
       return { ...item, current: true };
     }
+
     return { ...item, current: false };
   });
+
+  //signout function
   const handleSignOut = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("authToken");
-    navigate("/login");
+    navigate("/");
   };
+
   const handleProfileNavigation = () => {
     navigate("/profile");
   };
+  
   return (
     <div className="sticky top-0 bg-gray-800 z-50">
       <Disclosure as="nav" className="bg-gray-800">
@@ -144,6 +154,7 @@ export default function Header(props) {
                         <Menu.Item>
                           {({ active }) => (
                             <a
+                              href="#"
                               onClick={handleProfileNavigation}
                               className={classNames(
                                 active ? "bg-gray-200" : "",

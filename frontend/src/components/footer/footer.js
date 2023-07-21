@@ -11,6 +11,7 @@ export default function Header() {
                     <img src={logo} class="h-7 mr-3" alt="Logo" />
                     <span class="self-center text-lg font-semibold whitespace-nowrap text-gray-800">Urban Canada</span>
                 </div>
+                
                 <ul class="flex absolute right-2 flex-wrap items-center mb-6 text-sm font-medium text-gray-800 sm:mb-0 dark:text-gray-400">
                     <li>
                         <a href="#" class="mr-1 no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">About</a>

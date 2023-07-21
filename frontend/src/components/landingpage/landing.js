@@ -1,22 +1,23 @@
 import React from "react";
 import Header from "../header/header";
-import Footer from "../footer/footer";
 import logo from '../../assets/logo2.png';
 import illustration from '../../assets/landingpage_illustration.svg';
 import './landing.css';
 
-  const stats = [
-    { name: 'Service Provides', value: '200+' },
-    { name: 'Satisfied Customers', value: '1300+' },
-    { name: 'Cities', value: '40' },
-    { name: 'Services', value: '15' },
-  ]
+const stats = [
+  { name: 'Service Provides', value: '256+' },
+  { name: 'Satisfied Customers', value: '1372+' },
+  { name: 'Cities', value: '37' },
+  { name: 'Services', value: '23' },
+]
 
+// landing page function
 export default function Landing() {
 
   return (
     <div>
       <Header currentPage="/"/>
+
       <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32">
         <div
           className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
