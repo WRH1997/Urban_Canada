@@ -76,12 +76,15 @@ export default function MyBookings() {
     setIsOpen(!isOpen);
   };
 
+  const [selectedPerson,setSelectedPerson] = useState("")
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = (event,person) => {
+    setSelectedPerson(person)
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setSelectedPerson("")
     setAnchorEl(null);
   };
 
@@ -98,7 +101,18 @@ export default function MyBookings() {
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/MyBookings"
+      window.location.href="/vendor_bookings"
+    }).catch((e)=>{
+      alert(e)
+    })
+    closeModel()
+  }
+
+  const completeBookingHandler = () => {
+    const booking_id = selectedBooking._id
+    console.log(booking_id)
+    axios.put(`http://localhost:3001/booking/complete/${booking_id}`).then((res)=>{
+      window.location.href="/vendor_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -180,37 +194,8 @@ export default function MyBookings() {
                           <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick} />
+                            onClick={(e)=>handleClick(e,person)} />
                         }
-                        <Menu
-                          id="basic-menu"
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                          }}
-                          className='mybooking-action-menu'
-                        >
-                          {
-                            
-                              person.status=='Pending' &&
-                                <Paper>
-                                  <MenuList className='mybooking-action-menu'>
-                                    <MenuItem onClick={()=>openModel(person)}>Approve</MenuItem>
-                                    <MenuItem onClick={()=>openModelCancel(person)}>Reject</MenuItem>
-                                  </MenuList>
-                                </Paper>
-                          }
-                          {
-                            person.status=='Approved' &&
-                              <Paper>
-                                <MenuList className='mybooking-action-menu'>
-                                  <MenuItem onClick={()=>openModelComplete(person)}>Complete</MenuItem>
-                                </MenuList>
-                              </Paper>
-                          }
-                        </Menu>
                         </td>
                       </tr>
                     ))}
@@ -222,6 +207,35 @@ export default function MyBookings() {
         </div>
       </div>
       
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        className='mybooking-action-menu'
+      >
+        {
+          
+          selectedPerson.status=='Pending' &&
+              <Paper>
+                <MenuList className='mybooking-action-menu'>
+                  <MenuItem onClick={()=>openModel(selectedPerson)}>Approve</MenuItem>
+                  <MenuItem onClick={()=>openModelCancel(selectedPerson)}>Reject</MenuItem>
+                </MenuList>
+              </Paper>
+        }
+        {
+          selectedPerson.status=='Approved' &&
+            <Paper>
+              <MenuList className='mybooking-action-menu'>
+                <MenuItem onClick={()=>openModelComplete(selectedPerson)}>Complete</MenuItem>
+              </MenuList>
+            </Paper>
+        }
+      </Menu>
       <Dialog
           open={openEdit}
           onClose={closeModel}
@@ -264,7 +278,7 @@ export default function MyBookings() {
               selectedBooking != "" && 
               <DialogContentText id="alert-dialog-description">
                 Booking id: {selectedBooking._id} <br/>
-                Vendor: {selectedBooking.service_id.vendorName} <br/>
+                Customer: {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
                 Category: {selectedBooking.service_id.category} <br/>
                 Service: {selectedBooking.service_id.serviceName} <br/>
               </DialogContentText>
@@ -274,6 +288,33 @@ export default function MyBookings() {
               <Button className='admin-cancel-btn' onClick={closeModelCancel}>Cancel</Button>
               <Button className='admin-confirm-btn' variant='contained' onClick={cancelBookingHandler} autoFocus>
                 Confirm
+              </Button>
+            </DialogActions>
+        </Dialog>
+        <Dialog
+            open={openComplete}
+            onClose={closeModelComplete}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Complete booking
+          </DialogTitle>
+          <DialogContent>
+            {
+              selectedBooking != "" && 
+              <DialogContentText id="alert-dialog-description">
+                Booking id: {selectedBooking._id} <br/>
+                Customer: {selectedBooking.consumer_id.firstName} {selectedBooking.consumer_id.lastName}<br/>
+                Category: {selectedBooking.service_id.category} <br/>
+                Service: {selectedBooking.service_id.serviceName} <br/>
+              </DialogContentText>
+            }
+            </DialogContent>
+            <DialogActions>
+              <Button className='admin-cancel-btn' onClick={closeModelComplete}>Cancel</Button>
+              <Button className='admin-confirm-btn' variant='contained' onClick={completeBookingHandler} autoFocus>
+                Complete
               </Button>
             </DialogActions>
         </Dialog>

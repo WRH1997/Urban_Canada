@@ -64,12 +64,15 @@ export default function MyBookings() {
     setIsOpen(!isOpen);
   };
 
+  const [selectedPerson,setSelectedPerson] = useState("")
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = (event,person) => {
+    setSelectedPerson(person)
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setSelectedPerson("")
     setAnchorEl(null);
   };
 
@@ -106,7 +109,7 @@ export default function MyBookings() {
           <div class="col-12 mb-3 mb-lg-5">
             <div class="mb-32 overflow-hidden card table-nowrap table-card">
               <div class="card-header d-flex align-items-center">
-                <h6 class="mb-0" className="items-start">Jimmy Anderson</h6>
+                <h6 class="mb-0" className="items-start">{JSON.parse(user).firstName} {JSON.parse(user).lastName}</h6>
               </div>
 
               <div class="table-responsive">
@@ -171,59 +174,8 @@ export default function MyBookings() {
                           <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick} />
+                            onClick={(e) => handleClick(e,person)} />
                         }
-                        <Menu
-                          id="basic-menu"
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                          }}
-                          className='mybooking-action-menu'
-                        >
-                          {
-                            person.isCanceled==true ?
-                              <Paper>
-                                
-                              </Paper>
-                            : 
-                              person.status=='Pending' ?
-                                <Paper>
-                                  <MenuList className='mybooking-action-menu'>
-                                    <MenuItem onClick={()=>openModel(person)}>Reschedule</MenuItem>
-                                    <MenuItem onClick={()=>openModelCancel(person)}>Cancel Booking</MenuItem>
-                                  </MenuList>
-                                </Paper>
-                              :
-                                person.status=='Completed' ?
-                                  <Paper>
-                                    <MenuList className='mybooking-action-menu'>
-                                      <MenuItem onClick={handleClose}>Feedback</MenuItem>
-                                    </MenuList>
-                                  </Paper>
-                                  :
-                                  person.status=='Approved' &&
-                                    <Paper>
-                                
-                                    </Paper>
-                          }
-                            {/* {person.status=='Completed' ?
-                              <Paper>
-                              <MenuList className='mybooking-action-menu'>
-                              <MenuItem onClick={handleClose}>Feedback</MenuItem>
-                              </MenuList>
-                            </Paper>                
-                            :
-                            <Paper>
-                            <MenuList className='mybooking-action-menu'>
-                              <MenuItem onClick={handleClose}>Reschedule</MenuItem>
-                              <MenuItem onClick={handleClose}>Cancel</MenuItem>
-                             </MenuList>
-                          </Paper>
-                          } */}
-                        </Menu>
                         </td>
                       </tr>
                     ))}
@@ -234,7 +186,57 @@ export default function MyBookings() {
           </div>
         </div>
       </div>
-      
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        className='mybooking-action-menu'
+      >
+        {
+          selectedPerson.isCanceled==true ?
+            <Paper>
+              
+            </Paper>
+          : 
+          selectedPerson.status=='Pending' ?
+              <Paper>
+                <MenuList className='mybooking-action-menu'>
+                  <MenuItem onClick={()=>openModel(selectedPerson)}>Reschedule</MenuItem>
+                  <MenuItem onClick={()=>openModelCancel(selectedPerson)}>Cancel Booking</MenuItem>
+                </MenuList>
+              </Paper>
+            :
+            selectedPerson.status=='Completed' ?
+                <Paper>
+                  <MenuList className='mybooking-action-menu'>
+                    <MenuItem onClick={handleClose}>Feedback</MenuItem>
+                  </MenuList>
+                </Paper>
+                :
+                selectedPerson.status=='Approved' &&
+                  <Paper>
+              
+                  </Paper>
+        }
+          {/* {person.status=='Completed' ?
+            <Paper>
+            <MenuList className='mybooking-action-menu'>
+            <MenuItem onClick={handleClose}>Feedback</MenuItem>
+            </MenuList>
+          </Paper>                
+          :
+          <Paper>
+          <MenuList className='mybooking-action-menu'>
+            <MenuItem onClick={handleClose}>Reschedule</MenuItem>
+            <MenuItem onClick={handleClose}>Cancel</MenuItem>
+            </MenuList>
+        </Paper>
+        } */}
+      </Menu>
       <Dialog
           open={openEdit}
           onClose={closeModel}
