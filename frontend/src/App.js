@@ -120,8 +120,8 @@ function App() {
         {/* Admin routes end */}
 
         {/* Rating and Review start */}
-        <Route path="/ratings" Component={Container} />
-        <Route path="/profileDetails" Component={RatingComment} />
+        <Route path="/ratings" element={<Container />} />
+        <Route path="/profileDetails" element={<RatingComment />} />
         {/* Rating and Review end*/}
       </Routes>
     </BrowserRouter>
