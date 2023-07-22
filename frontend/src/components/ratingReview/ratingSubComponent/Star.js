@@ -91,6 +91,5 @@ Star.defaultProps = {
   fillQuan: "0",
   editable:true,
   border:"1px solid black"
-
 }
 

@@ -30,19 +30,21 @@ const App = () => {
   const [ratingReviewData, setRatingReviewData] = useState([]);
   const [selectedStar, setSelectedStar] = useState(0);
   const [isReviewed, setIsReviwed] = useState(false);
+  const [providerName,setProviderName] = useState('');
+  const [servicesName,setServicesName] = useState([]);
+  const [serviceLocations,setServiceLocations] = useState([]);
+  const [serviceImg,setServiceImg] = useState([]);
 
 
-
-  const commentorsStar = [1, 2, 3];
-  const userName = 'Robert Guilbert';
+  const userName = '';
 
   useEffect(() => {
     const fetchRatingReviewData = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/rating/getRating/${vendorId}`);
-        console.log(response.data)
+        // console.log(response.data)
         setRatingReviewData(response.data); // Extract the data from the response object
-        console.log(response.data); // Log the data to verify if it's correct
+        // console.log(response.data); // Log the data to verify if it's correct
       } catch (error) {
         console.error('Error fetching rating review data:', error);
       }
@@ -60,9 +62,13 @@ const App = () => {
 
     const loadProviderDetails = async () => {
       try {
-        const response = await axios.post(`http://localhost:3001/rating/getVendorInfo/`, { vendorId});
-        setIsSubmitted(response.data.isReviewed);
-        setIsReviwed(response.data.isReviewed)
+        const response = await axios.post(`http://localhost:3001/rating/getVendorInfo/`, { vendorId });
+
+        const vendor = response.data.vendor.firstName +" "+ response.data.vendor.lastName;
+
+        setProviderName(vendor);
+        setServicesName(response.data.services);
+        setServiceLocations(response.data.locations);
       } catch (error) {
         console.error('Error checking if reviewed:', error);
       }
@@ -204,15 +210,15 @@ const chartData = {
           <Grid item xs={12} md={4}>
             <Paper>
               <Box p={2} display="flex" flexDirection="column" alignItems="center">
-                <Avatar alt="User Avatar" src={getRandomImage()} sx={{ width: 200, height: 200 }} />
+                <Avatar alt="User Avatar" src={serviceImg[0]} sx={{ width: 200, height: 200 }} />
                 <Typography variant="h6" mt={2}>
-                  {userName}
+                  {providerName}
                 </Typography>
-                <Typography variant="body1" mt={1}>
+                {/* <Typography variant="body1" mt={1}>
                   Age: 30
-                </Typography>
-                <Typography variant="body1">Location: New York</Typography>
-                <Typography variant="body1">Occupation: Engineer</Typography>
+                </Typography> */}
+                <Typography variant="body1">Location: {serviceLocations}</Typography>
+                <Typography variant="body1">Services: {servicesName}</Typography>
               </Box>
             </Paper>
           </Grid>
