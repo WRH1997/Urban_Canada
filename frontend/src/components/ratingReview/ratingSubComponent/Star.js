@@ -9,6 +9,9 @@ export default function Star(props)
   const [rating,setRating] = useState(props.sel_quan);
    const handleRating = (value) => {
     setRating(value);
+    if (props.onStarChange) {
+      props.onStarChange(value);
+    }
   };
   const data = [];
   let flag = false;
@@ -74,7 +77,8 @@ Star.propTypes={
   sel_quan: PropTypes.number,
   bgColor:PropTypes.string,
   fillQuan: PropTypes.string,
-  editable: PropTypes.bool
+  editable: PropTypes.bool,
+  border:PropTypes.string
 }
 Star.defaultProps = {
   selSize:"40",
@@ -85,7 +89,8 @@ Star.defaultProps = {
   sel_quan:0,
   bgcolor: "white",
   fillQuan: "0",
-  editable:true
+  editable:true,
+  border:"1px solid black"
 
 }
 
