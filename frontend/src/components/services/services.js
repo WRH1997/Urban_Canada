@@ -134,31 +134,36 @@ export default function Services() {
                   <br></br>
                   <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
                   <br></br><br></br>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </BrowserView>
-
-          <MobileView>
-            <div className='filters-mobile'>
-              <Accordion className='fltrs-dropdown'>
-                <AccordionItem header="Filters" className='accFltrs'>
-                  <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
-                  <br></br>
-                  <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
-                  <br></br>
-                  <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
-                  <br></br>
-                  <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
-                  <br></br>
-                  <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
-                  <br></br>
-                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
-                  <br></br><br></br>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </MobileView>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </BrowserView>
+            <MobileView>
+              <div className='filters-mobile'>
+                <Accordion className='fltrs-dropdown'>
+                  <AccordionItem header="Filters" className='accFltrs'>
+                  <div className='floatFix'>
+                  <div className='l-div'>
+                    <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+                    <br></br>
+                    <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+                    <br></br>
+                    <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+                    <br></br>
+                  </div>
+                    <div className='r-div'>
+                    <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+                    <br></br>
+                    <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+                    <br></br>
+                    <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+                    <br></br>
+                  </div>
+                  </div>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </MobileView>
 
         </center>
 
