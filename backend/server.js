@@ -11,6 +11,8 @@
 // const PORT = 3001;
 // app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 const express = require("express");
+var logger = require("morgan");
+
 const cors = require("cors");
 const app = express();
 
@@ -29,6 +31,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
+app.use(logger("dev"));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/", serviceRoutes);

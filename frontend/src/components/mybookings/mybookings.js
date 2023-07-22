@@ -16,6 +16,7 @@ export default function MyBookings() {
   // variables
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
+  const provider_id = JSON.parse(user)._id
   const [isOpen, setIsOpen] = useState(false);
   const [bookings,setBookings] = useState([])
   const [openEdit, setOpenEdit] = useState(false)
@@ -55,6 +56,7 @@ export default function MyBookings() {
   // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
+      console.log(res);
       setBookings(res.data)
     }).catch((e)=>{
       alert(e)
