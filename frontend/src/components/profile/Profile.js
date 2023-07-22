@@ -326,25 +326,6 @@ function Profile() {
             </div>
           </div>
 
-          <div className="sm:col-span-4 w-full">
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Phone Number
-            </label>
-            <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
-              <input
-                label="Phone Number (Format: +XX XXXXXXXX)"
-                name="phoneNumber"
-                value={user.phoneNumber}
-                onChange={handleInputChange}
-                type="text"
-                className="block flex-1 border-0 bg-transparent py-1.5 w-80 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
           <div className="sm:col-span-4">
               <label
                 htmlFor="username"
