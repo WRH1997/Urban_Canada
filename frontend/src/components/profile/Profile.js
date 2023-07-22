@@ -125,7 +125,7 @@ function Profile() {
           <div>Loading...</div>
         ) : (
 
-    <form className="max-w-sm bg-white pt-10 pb-32 m-auto" onSubmit={handleUpdateProfile}>
+    <form className="max-w-sm bg-white mx-auto mt-10 mb-32" onSubmit={handleUpdateProfile}>
       <div class="mx-8">
         <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
           Profile
@@ -376,7 +376,9 @@ function Profile() {
     </form>
 
         )}
-    <Footer />
+    <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
   </div>
   
  

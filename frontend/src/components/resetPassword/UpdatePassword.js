@@ -105,7 +105,9 @@ function UpdatePassword() {
       </div>
     </div>
 
-    <Footer />
+    <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
   </div>
   );
 }

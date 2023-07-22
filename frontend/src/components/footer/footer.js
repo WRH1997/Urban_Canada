@@ -4,8 +4,8 @@ import logo from '../../assets/logo2.png';
 export default function Footer() {
 
   return (
-    <footer class="fixed bottom-0 bg-gray-200 w-full">
-        <div class="m-4">
+    <footer class="bg-gray-200 w-full">
+        <div class="p-4">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div class="flex items-center sm:mb-0">
                     <img src={logo} class="h-7 mr-3" alt="Logo" />
