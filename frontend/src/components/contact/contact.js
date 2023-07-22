@@ -114,8 +114,9 @@ export default function Contact() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          marginY: 20,
+          marginY: 10,
           marginX: 5,
+          marginBottom: 20,
         }}
       >
         <h1 style={{ color: "#2d3748", fontSize: "35px" }}>Contact us</h1>
@@ -197,7 +198,10 @@ export default function Contact() {
           Submit
         </Button>
       </Box>
-      <Footer />
+      
+      <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }

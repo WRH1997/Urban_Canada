@@ -365,7 +365,9 @@ export default function MyBookings() {
         </DialogActions>
       </Dialog>
 
-      <Footer/>
+      <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
     </div>
   )
 }

@@ -193,7 +193,9 @@ export default function Login() {
           </div>
         </div>
       </form>
-      <Footer />
+      <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }
