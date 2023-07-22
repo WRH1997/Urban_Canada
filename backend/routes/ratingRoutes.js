@@ -4,6 +4,8 @@ var router = express.Router();
 
 
 router.get('/getRating/:vendorId', ratingController.getRating);
-router.post('/addRating',ratingController.postRating);
+router.post('/postRating',ratingController.postRating);
+router.post('/isReviewed',ratingController.isReviewed);
+router.post('/getVendorInfo',ratingController.vendorInfo);
 
 module.exports = router;
