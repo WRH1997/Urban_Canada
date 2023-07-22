@@ -4,6 +4,9 @@ import Footer from "../footer/footer";
 import '../services/services.css';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';
+import {Link} from 'react-router-dom';
+import { Rating } from "@material-tailwind/react";
+import Star from "../ratingReview/ratingSubComponent/Star"
 
 export default function Services() {
 
@@ -26,6 +29,7 @@ export default function Services() {
     let serviceJson = await data.json();
     let serviceList = serviceJson['services'];
     if(JSON.stringify(services)!=JSON.stringify(serviceList)){
+      console.log(serviceList);
       return setServices(serviceList);
     }
   }
@@ -94,7 +98,8 @@ export default function Services() {
 
   return (
     <div>  
-      <Header currentPage="/services"  />
+      <Header currentPage="/Services" />
+
       <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
 
       <div className="bg-white">
@@ -114,9 +119,9 @@ export default function Services() {
           </div>
 
           <BrowserView>
-              <div className='filters-desktop'>
-                <Accordion className='fltrs-dropdown'>
-                  <AccordionItem header="Filters" className='accFltrs'>
+            <div className='filters-desktop'>
+              <Accordion className='fltrs-dropdown'>
+                <AccordionItem header="Filters" className='accFltrs'>
                   <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
                   <br></br>
                   <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
@@ -167,6 +172,7 @@ export default function Services() {
             {services?.map((service) => (
               <div className="service_card group p-2 decoration-white no-underline">
                 <p style={{color: "inherit"}} className="mt-1 text-l font-medium text-gray-900">{service.serviceName}</p>
+
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                   <img
                     style={{color: "inherit"}}
@@ -175,19 +181,33 @@ export default function Services() {
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                 </div>
+
                 <h3 style={{color: "inherit"}} className="mt-4 text-sm text-gray-700">Vendor: {service.vendorName}</h3>
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
+
+                <div className="flex">
+                  <Rating unratedColor="amber" ratedColor="amber" value={4} readonly />
+
+                  <Link to={{pathname: `/rating/${service.vendorID}`}} className="text-gray-800 font-medium text-sm mx-2" state={service}>
+                    View
+                  </Link>
+                </div>
+
                 <p style={{color: "inherit"}} className="mb-2 text-lg font-medium text-gray-900">Rate: ${service.pricePerHour}/hr.</p>
+                
                 <div className="mb-2">
                   <button
                     type="submit"
                     variant="contained"
                     className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Book
+                    <Link to="/booking" className="text-white no-underline" state={service}>
+                      Book
+                    </Link>
                   </button>
                 </div>
+                
                 <p className="mb-0 text-sm">{service.serviceDesc}</p>
               </div>
             ))}

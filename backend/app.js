@@ -3,8 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var connectDB = require("./utils/database");
-var indexRouter = require("./routes/index");
+// var connectDB = require("./utils/database");
 var ratingRouter = require("./routes/rating");
 var cors = require("cors");
 
@@ -20,10 +19,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-connectDB();
+// connectDB();
 
 app.use("/", userRoutes);
 app.use("/", indexRouter);
+app.use("/", serviceRoutes);
 app.use("/rating", ratingRouter);
 
 app.use((req, res, next) => {

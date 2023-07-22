@@ -3,7 +3,7 @@ var ratingController = require('../controllers/ratingController')
 var router = express.Router();
 
 
-router.get('/getRating', ratingController.getRating);
-router.post('/addRating',ratingController.addRating);
+router.get('/getRating/:vendorId', ratingController.getRating);
+router.post('/addRating',ratingController.postRating);
 
 module.exports = router;

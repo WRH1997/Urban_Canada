@@ -3,7 +3,7 @@
 **This application is a modern service marketplace to empower vendors and satisfy clients. It serves as an online portal for vendors, tradesmen, service providers and other entrepreneurs or small business owners to market their services to a wider customer in one convenient location. For the persons or entities providing services (vendors), and for the persons purchasing or subscribing to these services (consumers) the application will provide a convenient interface. This service is important because it will seek to improve upon existing marketplaces to provide a more seamless interaction between vendors and consumers aggregating the pros and eradicating the cons associated with other popular platforms.**
 
 * *Date Created*: 18 JUN 2023
-* *Last Modification Date*: 20 JUN 2023
+* *Last Modification Date*: 24 JUL 2023
 * *Project URL*: <https://main--brilliant-pixie-8bba9e.netlify.app/>
 * *Git URL*: <https://git.cs.dal.ca/kathiria/csci-5709-grp-13/>
 
@@ -27,135 +27,258 @@ Initially, we imported existing project of front-end environment on netlify from
 ## Built With
 
 * [React](https://legacy.reactjs.org/docs/getting-started.html/) - The Web framework used.
-* [npm](https://docs.npmjs.com//) - Dependency Management.
+* [npm](https://docs.npmjs.com) - Dependency Management.
 * [Node](https://nodejs.org/en/docs) - Enviorment Support.
+* [Express](https://expressjs.com) - The web framework used.
+* [MongoDB](https://www.mongodb.com/docs) - The database used.
 
 ## Sources Used
 
 ### header.js
 
-*Lines 40 - 157*
+*Lines 8 - 247*
 
 ```
-<Disclosure as="nav" className="bg-gray-800">
-  {({ open }) => (
-    <>
-      <div className="mx-auto max-w-full">
-        <div className="relative flex h-24 items-center justify-between mx-3">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+// navigation menu for guest.
+const guestNavigation = [
+  { name: "Home", href: "/" },
+  { name: "Login/SignUp", href: "/login" },
+];
 
-            <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-              <span className="sr-only">Open main menu</span>
-              {open ? (
-                <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-              )}
-            </Disclosure.Button>
-          </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              <img
-                className="hidden h-12 w-18 lg:block"
-                src={logo}
-              />
+// navigation menu for service provider.
+const providerNavigation = [
+  { name: "Home", href: "/" },
+  { name: "Service Posting", href: "#" },
+  { name: "My Bookings", href: "/vendor_bookings" },
+  { name: "My Ratings", href: "#" },
+];
+
+// navigation menu for service consumer.
+const consumerNavigation = [
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/Services" },
+  { name: "My Bookings", href: "/MyBookings" },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+// function for header
+export default function Header(props) {
+
+  const [user, setUser] = useState({}); // User state
+  const [loading, setLoading] = useState(true); // Loading state
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("userData");
+
+    if (userDataString) {
+      try {
+        const userData = JSON.parse(userDataString);
+        setUser(userData);
+        setLoading(false);
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+      }
+    } else {
+      console.error("No user data in local storage.");
+    }
+  }, []);
+
+  const navigate = useNavigate();
+  const [loggedInUser,setLoggedInUser] = useState("guest")
+  const { currentPage } = props;
+
+  useEffect(()=>{
+    const loggedin_user = localStorage.getItem("userData")
+
+    if(loggedin_user){
+      const user_object = JSON.parse(loggedin_user)
+      setLoggedInUser(user_object.role)
+    }
+  },[])
+
+  console.log(loggedInUser)
+
+  // set navigation according to user.
+  var navigation = guestNavigation;
+
+  if(loggedInUser == "service-consumer"){
+     navigation = consumerNavigation;
+  }
+
+  if (loggedInUser == "service-provider") {
+     navigation = providerNavigation;
+  }
+
+  const updatedNavigation = navigation.map((item) => {
+    if (item.href === currentPage) {
+      return { ...item, current: true };
+    }
+
+    return { ...item, current: false };
+  });
+
+  //signout function
+  const handleSignOut = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("authToken");
+    window.location.href = "/";
+  };
+
+  const handleProfileNavigation = () => {
+    window.location.href = "/profile";
+  };
+  
+  return (
+    <div className="sticky top-0 bg-gray-800 z-50">
+      <Disclosure as="nav" className="bg-gray-800">
+        {({ open }) => (
+          <>
+            <div className="mx-auto max-w-full">
+              <div className="relative flex h-24 items-center justify-between mx-3">
+                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <span className="sr-only">Open main menu</span>
+                    {open ? (
+                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    ) : (
+                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    )}
+                  </Disclosure.Button>
+                </div>
+
+                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  <div className="flex flex-shrink-0 items-center">
+                    <img className="hidden h-12 w-18 lg:block" src={logo} />
+                  </div>
+
+                  <div className="hidden sm:ml-6 mt-2 sm:block">
+                    <div className="flex space-x-1 ">
+                      {updatedNavigation.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 no-underline text-white"
+                              : "text-gray-300 no-underline hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
+                          )}
+                        >
+                          {item.name}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>                
+
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                    <div className="text-white font-medium text-lg ml-12 mr-3">
+                      Welcome&nbsp;{user.firstName}&nbsp;{user.lastName}!
+                    </div> :
+
+                    <div className="text-white font-medium text-lg ml-12 mr-3">
+                      Welcome to Urban Canada
+                    </div>
+                  }
+                  
+                  <button
+                    type="button"
+                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+
+                  <Menu as="div" className="relative ml-3">
+                    <div>
+                      <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="h-9 w-9 rounded-full"
+                          src={icon}
+                          alt=""
+                        />
+                      </Menu.Button>
+                    </div>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              onClick={handleProfileNavigation}
+                              className={classNames(
+                                active ? "bg-gray-200" : "",
+                                "block no-underline px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Your Profile
+                            </a>
+                          )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              onClick={handleSignOut}
+                              className={classNames(
+                                active ? "bg-gray-200" : "",
+                                "block no-underline px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Sign out
+                            </a>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                </div>
+              </div>
             </div>
-            <div className="hidden sm:ml-6 mt-2 sm:block">
-              <div className="flex space-x-1 ">
-                {updatedNavigation.map((item) => (
-                  <a
+
+            <Disclosure.Panel className="sm:hidden">
+              <div className="space-y-1 px-2 pb-3 pt-2">
+                {navigation.map((item) => (
+                  <Disclosure.Button
                     key={item.name}
+                    as="a"
                     href={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-900 no-underline text-white' : 'text-gray-300 no-underline hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium'
+                      item.current
+                        ? "bg-gray-900 no-underline text-white"
+                        : "text-gray-300 no-underline hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
                     )}
-                    // aria-current={item.current ? 'page' : undefined}
+                    aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
-                  </a>
+                  </Disclosure.Button>
                 ))}
               </div>
-            </div>
-          </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <span className="sr-only">View notifications</span>
-              <BellIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-9 w-9 rounded-full"
-                    src={icon}
-                    alt=""
-                  />
-                </Menu.Button>
-              </div>
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                      >
-                        Your Profile
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                      >
-                        Sign out
-                      </a>
-                    )}
-                  </Menu.Item>
-                </Menu.Items>
-              </Transition>
-            </Menu>
-          </div>
-        </div>
-      </div>
-
-      <Disclosure.Panel className="sm:hidden">
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          {navigation.map((item) => (
-            <Disclosure.Button
-              key={item.name}
-              as="a"
-              href={item.href}
-              className={classNames(
-                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium'
-              )}
-              aria-current={item.current ? 'page' : undefined}
-            >
-              {item.name}
-            </Disclosure.Button>
-          ))}
-        </div>
-      </Disclosure.Panel>
-    </>
-  )}
-</Disclosure>
-
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </div>
+  );
+}
 ```
 
 The code above was created by adapting the code in [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars) as shown below: 
@@ -316,7 +439,6 @@ export default function Example() {
     </Disclosure>
   )
 }
-
 ```
 
 - The code in [Navbars - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/navigation/navbars) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
@@ -325,63 +447,62 @@ export default function Example() {
 
 ### footer.js
 
-*Lines 8 - 28*
+*Lines 7 - 28*
 
 ```
 <footer class="fixed bottom-0 bg-gray-200 w-full">
-    <div class="m-4">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <div class="flex items-center sm:mb-0">
-                <img src={logo} class="h-7 mr-3" alt="Logo" />
-                <span class="self-center text-lg font-semibold whitespace-nowrap text-gray-800">Urban Canada</span>
-            </div>
-            <ul class="flex absolute right-2 flex-wrap items-center mb-6 text-sm font-medium text-gray-800 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <a href="#" class="mr-1 no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">About</a>
-                </li>
-                <li>
-                    <a href="/faq" class="mr-1 no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">FAQ</a>
-                </li>
-                <li>
-                    <a href="/contact" class="no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">Contact Us</a>
-                </li>
-            </ul>
-        </div>
+  <div class="m-4">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <div class="flex items-center sm:mb-0">
+        <img src={logo} class="h-7 mr-3" alt="Logo" />
+        <span class="self-center text-lg font-semibold whitespace-nowrap text-gray-800">Urban Canada</span>
+      </div>
+      
+      <ul class="flex absolute right-2 flex-wrap items-center mb-6 text-sm font-medium text-gray-800 sm:mb-0 dark:text-gray-400">
+        <li>
+          <a href="#" class="mr-1 no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">About</a>
+        </li>
+        <li>
+          <a href="/faq" class="mr-1 no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">FAQ</a>
+        </li>
+        <li>
+          <a href="/contact" class="no-underline text-gray-800 hover:bg-gray-800 hover:text-gray-100 py-2 px-4 rounded">Contact Us</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </footer>
-
 ```
 
 The code above was created by adapting the code in [Tailwind CSS Footer - Flowbite](https://flowbite.com/docs/components/footer/) as shown below: 
 
 ```
 <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+  <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0">
+        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+      </a>
+      <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+        <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+        </li>
+        <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+        </li>
+        <li>
+          <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+        </li>
+        <li>
+          <a href="#" class="hover:underline">Contact</a>
+        </li>
+      </ul>
     </div>
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+  </div>
 </footer>
-
 ```
 
 - The code in [Tailwind CSS Footer - Flowbite](https://flowbite.com/docs/components/footer/) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
@@ -390,54 +511,56 @@ The code above was created by adapting the code in [Tailwind CSS Footer - Flowbi
 
 ### landing.js
 
-*Lines 27 - 70*
+*Lines 21 - 67*
 
 ```
 <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32">
+  <div
+    className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+    aria-hidden="true"
+  >
     <div
-        className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
-        aria-hidden="true"
-    >
-        <div
-        className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
-        style={{
-            clipPath:
-            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-        }}
-        />
-    </div>
-    <div
-        className="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
-        aria-hidden="true"
-    >
-        <div
-        className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
-        style={{
-            clipPath:
-            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-        }}
-        />
-    </div>
-    <div className="mx-auto max-w-7xl px-6 lg:px-8 d-flex flex-column justify-content-center align-items-center">
-        <div className="col-9 mx-auto lg:mx-0 md:py-4">
-        <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Urban Canada</h2>
-        <p className="mt-6 text-lg leading-8 text-gray-300">
-        A modern service marketplace to empower vendors and satisfy clients.
-        </p>
-        </div>
-        <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none justify-content-center col-9">
-        <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4" style={{backgroundColor: "#fff",  padding: "2rem", opacity: 0.7, borderRadius: "5px"}}>
-            {stats.map((stat) => (
-            <div key={stat.name} className="flex flex-col-reverse justify-content-center align-items-center">
-                <dt className="text-base leading-7 text-gray-800">{stat.name}</dt>
-                <dd className="text-2xl font-bold leading-9 tracking-tight text-gray" style={{alignContent: "center"}}>{stat.value}</dd>
-            </div>
-            ))}
-        </dl> 
-        </div>
-    </div>
-</div>
+      className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+      style={{
+        clipPath:
+          'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+      }}
+    />
+  </div>
 
+  <div
+    className="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
+    aria-hidden="true"
+  >
+    <div
+      className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+      style={{
+        clipPath:
+          'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+      }}
+    />
+  </div>
+
+  <div className="mx-auto max-w-7xl px-6 lg:px-8 d-flex flex-column justify-content-center align-items-center">
+    <div className="col-9 mx-auto lg:mx-0">
+      <h2 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">Urban Canada</h2>
+      <p className="mt-6 text-lg leading-8 text-gray-300">
+      A modern service marketplace to empower vendors and satisfy clients.
+      </p>
+    </div>
+
+    <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none justify-content-center col-9">
+      <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4" style={{backgroundColor: "#fff",  padding: "2rem", opacity: 0.7, borderRadius: "5px"}}>
+        {stats.map((stat) => (
+          <div key={stat.name} className="flex flex-col-reverse justify-content-center align-items-center">
+            <dt className="text-base leading-7 text-gray-800">{stat.name}</dt>
+            <dd className="text-2xl font-bold leading-9 tracking-tight text-gray" style={{alignContent: "center"}}>{stat.value}</dd>
+          </div>
+        ))}
+      </dl> 
+    </div>
+  </div>
+</div>
 ```
 The code above was created by adapting the code in [Header Sections - Official Tailwind CSS UI Components](https://tailwindui.com/components/marketing/sections/header) as shown below: 
 
@@ -516,7 +639,6 @@ export default function Example() {
     </div>
   )
 }
-
 ```
 
 - The code in [Header Sections - Official Tailwind CSS UI Components](https://tailwindui.com/components/marketing/sections/header) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
@@ -525,26 +647,25 @@ export default function Example() {
 
 ### contact.js
 
-*Lines 35 - 36*
-*Lines 82 - 93*
+*Lines 37 - 38*
+*Lines 84 - 95*
 
 ```
 var emailValidRegex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 if (!inputEmailValue.match(emailValidRegex)) {
-    if (!inputEmailValue.match(emailValidRegex)) {
+  if (!inputEmailValue.match(emailValidRegex)) {
     flag = true;
     setEmailError("Email is invalid");
-    } else if (
+  } else if (
     !inputEmailValue.match(emailValidRegex) &&
     inputEmailValue != ""
-    ) {
+  ) {
     flag = true;
     setEmailError("Email is invalid");
-    }
-} 
-
+  }
+}
 ```
 
 The code above was created by adapting the code in [How can I validate an email address in JavaScript? - Stack Overflow](https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript) as shown below: 
@@ -561,27 +682,25 @@ const re =
 
 ### contact.js
 
-*Lines 166 - 182*
+*Lines 172 - 187*
 
 ```
-        <FormLabel>What can we do for you?</FormLabel>
-            <TextField
-            multiline
-            rows={3}
-            fullwidth
-            error={queryError && queryError.length ? true : false}
-            required
-            placeholder="Enter your query here"
-            // minRows={3}
-            helperText={queryError}
-            onChange={handleQueryChange}
-            />
-            <FormHelperText>
-            Please specify the details in the above box.
-            </FormHelperText>
-    </FormControl>
-</Box> 
-
+<FormLabel>What can we do for you?</FormLabel>
+<TextField
+  multiline
+  rows={3}
+  fullWidth
+  color="grey"
+  error={queryError && queryError.length ? true : false}
+  required
+  placeholder="Enter your query here"
+  // minRows={3}
+  helperText={queryError}
+  onChange={handleQueryChange}
+/>
+<FormHelperText>
+  Please specify the details in the above box.
+</FormHelperText>
 ```
 
 The code above was created by adapting the code in [MaterialUI](https://mui.com/material-ui/react-text-field/) as shown below: 
@@ -595,161 +714,147 @@ The code above was created by adapting the code in [MaterialUI](https://mui.com/
 - <!---Why---> [MaterialUI](https://mui.com/material-ui/react-text-field/)'s Code was used because Material UI helped me with faster development and in having a consistent look for the application.
 - <!---How---> [MaterialUI](https://mui.com/material-ui/react-text-field/)'s Code was modified by introducing various other elements in the tag as required.
 
-### contact.js
-
-*Line 38*
-*Lines 48 - 64*
-
-```
-var containsNumbersRegex = /^[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/;
-
-if (!inputFirstNameValue || !inputFirstNameValue.length) {
-setFirstNameError("First Name is required");
-flag = true;
-} else {
-    if (inputFirstNameValue.match(containsNumbersRegex)) {
-    setFirstNameError("First Name must have letters only");
-    flag = true;
-    } else {
-    setFirstNameError("");
-    }
-}
-
-if (!inputLastNameValue || !inputLastNameValue.length) {
-    setLastNameError("Last Name is required");
-    flag = true;
-} else {
-    if (inputLastNameValue.match(containsNumbersRegex)) {
-    setLastNameError("Last Name must have letters only");
-    flag = true;
-    } else {
-    setLastNameError("");
-    }
-} 
-
-```
-
-The code above was created by adapting the code in [<Source>](Link) as shown below:
-
-```
-//Enter code that you are refrencing here
-
-```
-
-- <!---How---> The code in [<Source>](<Link>)  was implemented along with various other things, however, my motive was to just get some insights of the regular expression.
-- <!---Why---> [<Source>](<Link>)'s because it helped me in validating if the text feild had only characters and helped me in restricting the user from entering numbers and special characters in first name and last name columns.
-- <!---How---> [<Source>](<Link>)'s Code was modified by removing the unwanted stuff from the referenced code and by only understanding regex.
-
 ### booking.js
 
-*Lines 9 - 112*
+*Lines 73 - 208*
 
 ```
 <form
-    className="max-w-sm bg-white py-10 m-auto"
-    action="/MyBookings"
-    method="GET"
-    >
-    <div class="mx-8">
-        <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
-        Service Booking
-        </h2>
-        <p className="mt-2 text-m leading-6 text-gray-600">Electrician</p>
+  className="max-w-sm bg-white pt-10 pb-24 m-auto"
+>
+  <div class="mx-8">
+    <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
+      Service Booking
+    </h2>
 
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-max">
-        <div className="sm:col-span-4 ">
-            <label
-            htmlFor="username"
-            className="block text-sm font-medium leading-6 text-gray-900"
-            >
-            Name
-            </label>
-            <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
-                <input
-                type="text"
-                name="username"
-                id="username"
-                autoComplete="username"
-                className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                value={"John Anderson"}
-                disabled
-                />
-            </div>
-        </div>
+    <p className="mt-2 text-m leading-6 text-gray-600">{service.serviceName}</p>
 
-        <div className="sm:col-span-2 sm:col-start-1">
-            <label
-            htmlFor="date"
-            className="block text-sm font-medium leading-6 text-gray-900"
-            >
-            Date
-            </label>
-            <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
-            <input
-                type="date"
-                name="date"
-                id="date"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                required
-            />
-            </div>
-        </div>
-
-        <div className="sm:col-span-2">
-            <label
-            htmlFor="time"
-            className="block text-sm font-medium leading-6 text-gray-900"
-            >
-            Time
-            </label>
-            <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
-            <input
-                type="time"
-                name="time"
-                id="time"
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
-            </div>
-        </div>
-
-        <div className="sm:col-span-4">
-            <label
-            htmlFor="username"
-            className="block text-sm font-medium leading-6 text-gray-900"
-            >
-            Notes
-            </label>
-            <div className="mt-2">
-            <div className="flex rounded-md ring-1 ring-gray-300">
-                <textarea
-                type="textarea"
-                name="notes"
-                id="notes"
-                className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                />
-            </div>
-            </div>
-        </div>
-        </div>
-
-        <div className="mt-6 flex items-center justify-center gap-x-6">
-        <button
-            type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
+    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-max">
+      <div className="sm:col-span-4 ">
+        <label
+          htmlFor="username"
+          className="block text-sm font-medium leading-6 text-gray-900"
         >
-            Cancel
-        </button>
-        <button
-            type="submit"
-            className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-            Confirm
-        </button>
+          Name
+        </label>
+
+        <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+          <input
+            type="text"
+            name="username"
+            id="username"
+            autoComplete="username"
+            className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+            value={service.vendorName}
+            disabled
+          />
         </div>
+      </div>
+
+      <div className="sm:col-span-2 sm:col-start-1">
+        <label
+          htmlFor="date"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Date
+        </label>
+
+        <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+          <input
+            type="date"
+            min={minDate}
+            name="date"
+            id="date"
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            required
+            value={date}
+            onChange={(e)=>{setDate(e.target.value)}}
+          />
+        </div>
+      </div>
+
+      <div className="sm:col-span-2">
+        <label
+          htmlFor="time"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Time
+        </label>
+
+        <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+          <input
+            type="time"
+            name="time"
+            id="time"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            value={time}
+            onChange={(e)=>{setTime(e.target.value)}}
+          />
+        </div>
+      </div>
+
+      <div className="sm:col-span-4">
+        <label
+          htmlFor="username"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Address
+        </label>
+
+        <div className="mt-2">
+          <div className="flex rounded-md ring-1 ring-gray-300">
+            <textarea
+              type="textarea"
+              name="address"
+              id="notes"
+              className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+              value={address}
+              onChange={(e)=>{setAddress(e.target.value)}}
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="sm:col-span-4">
+        <label
+          htmlFor="username"
+          className="block text-sm font-medium leading-6 text-gray-900"
+        >
+          Notes
+        </label>
+
+        <div className="mt-2">
+          <div className="flex rounded-md ring-1 ring-gray-300">
+            <textarea
+              type="textarea"
+              name="notes"
+              id="notes"
+              className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+              value={note}
+              onChange={(e)=>{setNote(e.target.value)}}
+            />
+          </div>
+        </div>
+      </div>
     </div>
-</form>
 
+    <div className="mt-6 flex items-center justify-center gap-x-6">
+      <a href="/services" className="text-sm font-semibold leading-6 text-gray-900 no-underline">
+        Cancel
+      </a>
+      
+      <button
+        type="submit"
+        className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        onClick={submitBookinghandler}
+      >
+        Book
+      </button>
+    </div>
+  </div>
+</form>
 ```
 
 The code above was created by adapting the code in [Form Layouts - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/forms/form-layouts) as shown below: 
@@ -954,7 +1059,6 @@ The code above was created by adapting the code in [Form Layouts - Official Tail
     <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
   </div>
 </form>
-
 ```
 
 - The code in [Form Layouts - Official Tailwind CSS UI Components](https://tailwindui.com/components/application-ui/forms/form-layouts) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
@@ -963,85 +1067,91 @@ The code above was created by adapting the code in [Form Layouts - Official Tail
 
 ### mybookings.js
 
-*Lines 69 - 143*
+*Lines 131 - 212*
 
 ```
 <div class="container">
-    <h5 class="mt-5 mb-4">My Bookings</h5>
+  <h5 class="my-4">My Bookings</h5>
 
-    <div class="row">
-        <div class="col-12 mb-3 mb-lg-5">
-        <div class="overflow-hidden card table-nowrap table-card">
-            <div class="card-header d-flex align-items-center">
-            <h6 class="mb-0" className="items-start">Jimmy Anderson</h6>
-            </div>
+  <div class="row">
+    <div class="col-12 mb-3 mb-lg-5">
+      <div class="mb-32 overflow-hidden card table-nowrap table-card">
+        <div class="card-header d-flex align-items-center">
+          <h6 class="mb-0" className="items-start">{JSON.parse(user).firstName} {JSON.parse(user).lastName}</h6>
+        </div>
 
-            <div class="table-responsive">
-            <table class="table mb-0">
-                <thead class="small text-uppercase bg-body text-muted">
-                <tr>
-                    <th>No.</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                    <th>Cancel</th>
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="small text-uppercase bg-body text-muted">
+              <tr>
+                <th className='booking-th'>No.</th>
+                <th className='booking-th'>Name</th>
+                <th className='booking-th'>Category</th>
+                <th className='booking-th'>Service</th>
+                <th className='booking-th'>Address</th>
+                <th className='booking-th'>Note</th>
+                <th className='booking-th'>Date</th>
+                <th className='booking-th'>Time</th>
+                <th className='booking-th'>Status</th>
+                <th className='booking-th'>Manage</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {bookings.map((person,index) => (
+                <tr class="align-middle">
+                  <td>{index+1}</td>
+                  <td class="h6 mb-0 lh-1">{person.service_id.vendorName}</td>
+                  <td>{person.service_id.category}</td>
+                  <td>{person.service_id.serviceName}</td>
+                  <td>{person.address}</td>
+                  <td>{person.note != "" ? person.note : "-"}</td>
+                  <td>{person.date.split(" ")[0]}</td>
+                  <td>{person.date.split(" ")[1]}</td>
+
+                  <td>
+                    {
+                      person.isCanceled==true ?
+                        <div class="flex w-full rounded-md py-1 text-sm font-bold text-red-500">
+                          <span>Cancelled</span>
+                        </div> : 
+                      person.status=='Pending' ?
+                        <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
+                          <span>{person.status}</span>
+                        </div> :
+                      person.status=='Completed' ?
+                        <div class="flex w-full rounded-md py-1 text-sm font-bold text-success">
+                          <span>{person.status}</span>
+                        </div> :
+                      person.status=='Approved' &&
+                        <div class="flex w-full rounded-md py-1 text-sm font-bold text-blue-500">
+                          <span>{person.status}</span>
+                        </div>
+                    }
+                  </td>
+
+                  <td>
+                    {person.isCanceled || person.status=="Approved" ? 
+                      <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                      /> :  
+                      <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={(e) => handleClick(e,person)}
+                      />
+                    }
+                  </td>
                 </tr>
-                </thead>
-
-                <tbody>
-                {people.map((person) => (
-                    <tr class="align-middle">
-                    <td>{person.no}</td>
-                    <td class="h6 mb-0 lh-1">{person.name}</td>
-                    <td>{person.role}</td>
-                    <td>{person.date}</td>
-                    <td>{person.time}</td>
-                    <td>
-                        {person.status==false ?
-                        <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-500 py-1 text-sm font-medium text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-                        </svg>
-                        <span>Pending</span>
-                        </button> :
-                        
-                        person.status=='in_progress' ?
-                        <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 py-1 text-sm font-medium text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-                        </svg>
-                        <span>In Progress</span>
-                        </button> :
-
-                        <button class="flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 py-1 text-sm font-medium text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                        </svg>
-                        <span>Completed</span>
-                        </button>}
-                    </td>
-                    <td class="text-end">
-                        <button 
-                        type="submit"           
-                        class="flex w-full items-center justify-center rounded-md border border-transparent bg-red-500 py-1 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        Cancel
-                        </button>
-                    </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            </div>
+              ))}
+            </tbody>
+          </table>       
         </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
-
 ```
 
 The code above was created by adapting the code in [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list) as shown below: 
@@ -1208,7 +1318,6 @@ The code above was created by adapting the code in [Bootstrap snippet. new custo
         </div>
     </div>
 </div>
-
 ```
 
 - The code in [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
@@ -1235,11 +1344,10 @@ The code above was created by adapting the code in [Bootstrap snippet. new custo
     padding: 0.75rem 1.25rem;
     border-bottom-width: 1px;
 }
-table th {
+.booking-th {
     font-weight: 600;
     background-color: #eeecfd !important;
 }
-
 ```
 
 The code above was created by adapting the code in [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list) as shown below: 
@@ -1267,12 +1375,214 @@ table th {
     font-weight: 600;
     background-color: #eeecfd !important;
 }
-
 ```
 
 - The code in [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
 - [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list)'s Code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
 - [Bootstrap snippet. new customer list](https://www.bootdey.com/snippets/view/new-customer-list)'s Code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
+
+### services.js
+
+*Lines 165 - 210*
+
+```
+<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+  <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+    {services?.map((service) => (
+      <div className="service_card group p-2 decoration-white no-underline">
+        <p style={{color: "inherit"}} className="mt-1 text-l font-medium text-gray-900">{service.serviceName}</p>
+
+        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+          <img
+            style={{color: "inherit"}}
+            src={service.serviceImg}
+            alt={service.serviceName}
+            className="h-full w-full object-cover object-center group-hover:opacity-75"
+          />
+        </div>
+
+        <h3 style={{color: "inherit"}} className="mt-4 text-sm text-gray-700">Vendor: {service.vendorName}</h3>
+        <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
+        <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
+
+        <div className="flex">
+          <Rating unratedColor="amber" ratedColor="amber" value={4} readonly />
+
+          <Link to={{pathname: `/rating/${service.vendorID}`}} className="text-gray-800 font-medium text-sm mx-2" state={service}>
+            View
+          </Link>
+        </div>
+
+        <p style={{color: "inherit"}} className="mb-2 text-lg font-medium text-gray-900">Rate: ${service.pricePerHour}/hr.</p>
+        
+        <div className="mb-2">
+          <button
+            type="submit"
+            variant="contained"
+            className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <Link to="/booking" className="text-white no-underline" state={service}>
+              Book
+            </Link>
+          </button>
+        </div>
+        
+        <p className="mb-0 text-sm">{service.serviceDesc}</p>
+      </div>
+    ))}
+  </div>
+</div>
+```
+
+The code above was created by adapting the code in [Product Lists - Official Tailwind CSS UI Components](https://tailwindui.com/components/ecommerce/components/product-lists) as shown below: 
+
+```
+const products = [
+  {
+    id: 1,
+    name: 'Earthen Bottle',
+    href: '#',
+    price: '$48',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+    imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
+  },
+  {
+    id: 2,
+    name: 'Nomad Tumbler',
+    href: '#',
+    price: '$35',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
+    imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
+  },
+  {
+    id: 3,
+    name: 'Focus Paper Refill',
+    href: '#',
+    price: '$89',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
+    imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
+  },
+  {
+    id: 4,
+    name: 'Machined Mechanical Pencil',
+    href: '#',
+    price: '$35',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg',
+    imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
+  },
+  // More products...
+]
+
+export default function Example() {
+  return (
+    <div className="bg-white">
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <h2 className="sr-only">Products</h2>
+
+        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          {products.map((product) => (
+            <a key={product.id} href={product.href} className="group">
+              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                <img
+                  src={product.imageSrc}
+                  alt={product.imageAlt}
+                  className="h-full w-full object-cover object-center group-hover:opacity-75"
+                />
+              </div>
+              <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+              <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+- The code in [Product Lists - Official Tailwind CSS UI Components](https://tailwindui.com/components/ecommerce/components/product-lists) was implemented by thoroughly studying the original source and understanding its functionality and logic. Then, I adapted the code to suit the requirements of my assignment.
+- [Product Lists - Official Tailwind CSS UI Components](https://tailwindui.com/components/ecommerce/components/product-lists)'s Code was used because I believed it would be a helpful reference for the starting point for my assignment. The original code served as a valuable resource in understanding the problem domain, exploring different approaches, and learning specific techniques. I aimed to gain insights into specific techniques, algorithms, and design patterns that could be relevant to the assignment. It was my belief that incorporating well-implemented code from external sources would expedite the development process and help me achieve the desired functionality and efficiency.
+- [Product Lists - Official Tailwind CSS UI Components](https://tailwindui.com/components/ecommerce/components/product-lists)'s Code was modified by altering it according to the need of component with major changes in code like adjusting variable names and integrating it with other components. Also the content was modified based on requirement of the module.
+
+### services.js
+
+*Lines 121 - 161*
+
+```
+<BrowserView>
+  <div className='filters-desktop'>
+    <Accordion className='fltrs-dropdown'>
+      <AccordionItem header="Filters" className='accFltrs'>
+        <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+        <br></br>
+        <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+        <br></br>
+        <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+        <br></br>
+        <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+        <br></br>
+        <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+        <br></br>
+        <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+        <br></br><br></br>
+      </AccordionItem>
+    </Accordion>
+  </div>
+</BrowserView>
+
+<MobileView>
+  <div className='filters-mobile'>
+    <Accordion className='fltrs-dropdown'>
+      <AccordionItem header="Filters" className='accFltrs'>
+        <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+        <br></br>
+        <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+        <br></br>
+        <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+        <br></br>
+        <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+        <br></br>
+        <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+        <br></br>
+        <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+        <br></br><br></br>
+      </AccordionItem>
+    </Accordion>
+  </div>
+</MobileView>
+```
+
+The code above was created by adapting the code in [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion) as shown below: 
+
+```
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+
+export default function Example() {
+  return (
+    <Accordion>
+      <AccordionItem header="What is Lorem Ipsum?">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </AccordionItem>
+
+      <AccordionItem header="Where does it come from?">
+        Quisque eget luctus mi, vehicula mollis lorem. Proin fringilla
+        vel erat quis sodales. Nam ex enim, eleifend venenatis lectus
+        vitae, accumsan auctor mi.
+      </AccordionItem>
+
+      <AccordionItem header="Why do we use it?">
+        Suspendisse massa risus, pretium id interdum in, dictum sit
+        amet ante. Fusce vulputate purus sed tempus feugiat.
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+- The code in [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion) was implemented by Zheng Song (Github Handle: @ szhsin).
+- [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion)'s Code was used for the filter drop down menu in the services dashboard page. This accordion package was used specifically because it is un-stylized; allowing us full customization over its design.
+- [szhsin.github.io/react-accordion](https://github.com/szhsin/react-accordion)'s Code was modified to display our filter checkboxes once expanded.
 
 ## Acknowledgments
 

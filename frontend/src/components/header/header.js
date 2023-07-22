@@ -5,38 +5,60 @@ import logo from "../../assets/logo.png";
 import icon from "../../assets/icon.jpg";
 import { useNavigate } from "react-router-dom";
 
+// navigation menu for guest.
 const guestNavigation = [
   { name: "Home", href: "/" },
   { name: "Login/SignUp", href: "/login" },
 ];
 
+// navigation menu for service provider.
 const providerNavigation = [
   { name: "Home", href: "/" },
   { name: "Service Posting", href: "#" },
-  { name: "My Bookings", href: "/MyBookings" },
-  { name: "Ratings", href: "#" },
+  { name: "My Bookings", href: "/vendor_bookings" },
+  { name: "My Ratings", href: "#" },
 ];
 
+// navigation menu for service consumer.
 const consumerNavigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/Services" },
   { name: "My Bookings", href: "/MyBookings" },
-  { name: "Ratings", href: "#" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+// function for header
 export default function Header(props) {
+
+  const [user, setUser] = useState({}); // User state
+  const [loading, setLoading] = useState(true); // Loading state
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("userData");
+
+    if (userDataString) {
+      try {
+        const userData = JSON.parse(userDataString);
+        setUser(userData);
+        setLoading(false);
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+      }
+    } else {
+      console.error("No user data in local storage.");
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [loggedInUser,setLoggedInUser] = useState("guest")
-
   const { currentPage } = props;
-  const { isLoggedIn } = props;
 
   useEffect(()=>{
     const loggedin_user = localStorage.getItem("userData")
+
     if(loggedin_user){
       const user_object = JSON.parse(loggedin_user)
       setLoggedInUser(user_object.role)
@@ -45,11 +67,13 @@ export default function Header(props) {
 
   console.log(loggedInUser)
 
+  // set navigation according to user.
   var navigation = guestNavigation;
 
   if(loggedInUser == "service-consumer"){
      navigation = consumerNavigation;
   }
+
   if (loggedInUser == "service-provider") {
      navigation = providerNavigation;
   }
@@ -58,16 +82,21 @@ export default function Header(props) {
     if (item.href === currentPage) {
       return { ...item, current: true };
     }
+
     return { ...item, current: false };
   });
+
+  //signout function
   const handleSignOut = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("authToken");
-    navigate("/login");
+    window.location.href = "/";
   };
+
   const handleProfileNavigation = () => {
-    navigate("/profile");
+    window.location.href = "/profile";
   };
+  
   return (
     <div className="sticky top-0 bg-gray-800 z-50">
       <Disclosure as="nav" className="bg-gray-800">
@@ -84,6 +113,18 @@ export default function Header(props) {
                       <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                     )}
                   </Disclosure.Button>
+
+                  {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                    <div className="text-white font-medium text-base ml-2 mr-20">
+                      Welcome {user.firstName} {user.lastName}!
+                    </div> :
+
+                    <div className="text-white font-medium text-base ml-2 mr-20">
+                      Welcome to Urban Canada
+                    </div>
+                  }
                 </div>
 
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -109,9 +150,21 @@ export default function Header(props) {
                       ))}
                     </div>
                   </div>
-                </div>
+                </div>                
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                    <div className="hidden sm:block text-white font-medium text-lg mr-3">
+                      Welcome {user.firstName} {user.lastName}!
+                    </div> :
+
+                    <div className="hidden sm:block text-white font-medium text-lg mr-3">
+                      Welcome to Urban Canada
+                    </div>
+                  }
+                  
                   <button
                     type="button"
                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"

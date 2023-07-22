@@ -125,10 +125,20 @@ exports.resetPasswordRequest = async (req, res) => {
 
   const resetPasswordExpires = Date.now() + 300000; // token expires in 5 mins
 
-  user.resetPasswordToken = hashedResetPasswordToken;
-  user.resetPasswordExpires = resetPasswordExpires;
+  // user.resetPasswordToken = hashedResetPasswordToken;
+  // user.resetPasswordExpires = resetPasswordExpires;
 
-  await user.save();
+  // await user.save();
+  await User.updateOne(
+    { email: req.body.email },
+    {
+      $set: {
+        resetPasswordToken: hashedResetPasswordToken,
+        resetPasswordExpires: resetPasswordExpires,
+      },
+    },
+    { runValidators: false }
+  );
   // Define transporter for sending emails
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -218,12 +228,22 @@ exports.updatePassword = async (req, res) => {
       .json({ message: "Password does not meet the requirements" });
   }
   const salt = await bcrypt.genSalt(10);
-  // const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
   // user.password = hashedPassword;
-  user.password = req.body.password;
-  user.resetPasswordToken = undefined; // Clear the resetPasswordToken field
-  user.resetPasswordExpires = undefined; // Clear the resetPasswordExpires field
-
+  // user.password = req.body.password;
+  // user.resetPasswordToken = undefined; // Clear the resetPasswordToken field
+  // user.resetPasswordExpires = undefined; // Clear the resetPasswordExpires field
+ await User.updateOne(
+    { email: req.body.email },
+    {
+      $set: {
+        password: hashedPassword,
+        resetPasswordToken: undefined, // Clear the resetPasswordToken field
+        resetPasswordExpires: undefined, // Clear the resetPasswordExpires field
+      },
+    },
+    { runValidators: false }
+  );
   await user.save();
 
   res.status(200).json({ message: "Password updated successfully" });
