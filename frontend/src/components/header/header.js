@@ -113,6 +113,18 @@ export default function Header(props) {
                       <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                     )}
                   </Disclosure.Button>
+
+                  {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                    <div className="text-white font-medium text-base ml-2 mr-20">
+                      Welcome {user.firstName} {user.lastName}!
+                    </div> :
+
+                    <div className="text-white font-medium text-base ml-2 mr-20">
+                      Welcome to Urban Canada
+                    </div>
+                  }
                 </div>
 
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -144,11 +156,11 @@ export default function Header(props) {
                   {
                     loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
 
-                    <div className="text-white font-medium text-lg ml-12 mr-3">
-                      Welcome&nbsp;{user.firstName}&nbsp;{user.lastName}!
+                    <div className="hidden sm:block text-white font-medium text-lg mr-3">
+                      Welcome {user.firstName} {user.lastName}!
                     </div> :
 
-                    <div className="text-white font-medium text-lg ml-12 mr-3">
+                    <div className="hidden sm:block text-white font-medium text-lg mr-3">
                       Welcome to Urban Canada
                     </div>
                   }

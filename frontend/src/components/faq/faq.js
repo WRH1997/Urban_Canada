@@ -81,11 +81,11 @@ const FaqPage = () => {
 
   return (
     <div>
-      <Header currentPage="/faq"  />
-        <div className="container mx-auto py-8">
+      <Header currentPage="/faq"/>
+        <div className="container mx-auto mt-8 mb-16">
           <div className="max-w-2xl mx-auto">
-            <h1 className="text-2xl font-bold mb-4">Frequently Asked Questions</h1>
-            <h2 className="text-xl font-bold">Consumer</h2>
+            <h1 className="text-2xl font-medium mb-4">Frequently Asked Questions</h1>
+            <h2 className="text-lg font-medium mb-3">Consumer</h2>
 
             {consumerData.map((faq) => (
               <div key={faq.id} className="mb-4">
@@ -93,7 +93,7 @@ const FaqPage = () => {
                   className="flex justify-between w-full px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
                   onClick={() => toggleExpand(faq.id)}
                 >
-                  <span className="font-bold">{faq.question}</span>
+                  <span className="font-medium">{faq.question}</span>
                   <span>{expandedId === faq.id ? '-' : '+'}</span>
                 </button>
 
@@ -105,7 +105,7 @@ const FaqPage = () => {
               </div>
             ))}
 
-            <h2 className="text-xl font-bold">Service Provider</h2>
+            <h2 className="text-lg mt-8 font-medium mb-3">Service Provider</h2>
 
             {providerData.map((faq) => (
               <div key={faq.id} className="mb-4">
@@ -113,7 +113,7 @@ const FaqPage = () => {
                   className="flex justify-between w-full px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
                   onClick={() => toggleExpand(faq.id)}
                 >
-                  <span className="font-bold">{faq.option}</span>
+                  <span className="font-medium">{faq.option}</span>
                   <span>{expandedId === faq.id ? '-' : '+'}</span>
                 </button>
 
@@ -125,7 +125,6 @@ const FaqPage = () => {
               </div>
             ))}
 
-            <h1><br/></h1>
           </div>
         </div>
       <Footer/>
