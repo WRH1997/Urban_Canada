@@ -5,6 +5,10 @@ import logo from "../../assets/logo.png";
 import icon from "../../assets/icon.jpg";
 import { useNavigate } from "react-router-dom";
 
+
+const userData = JSON.parse(localStorage.getItem("userData"));
+
+
 // navigation menu for guest.
 const guestNavigation = [
   { name: "Home", href: "/" },
@@ -16,7 +20,7 @@ const providerNavigation = [
   { name: "Home", href: "/" },
   { name: "Service Posting", href: "#" },
   { name: "My Bookings", href: "/vendor_bookings" },
-  { name: "My Ratings", href: "#" },
+  { name: "My Ratings", href: `/rating/${userData._id}` },
 ];
 
 // navigation menu for service consumer.
