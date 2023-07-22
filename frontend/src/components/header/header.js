@@ -32,6 +32,26 @@ function classNames(...classes) {
 
 // function for header
 export default function Header(props) {
+
+  const [user, setUser] = useState({}); // User state
+  const [loading, setLoading] = useState(true); // Loading state
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("userData");
+
+    if (userDataString) {
+      try {
+        const userData = JSON.parse(userDataString);
+        setUser(userData);
+        setLoading(false);
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+      }
+    } else {
+      console.error("No user data in local storage.");
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [loggedInUser,setLoggedInUser] = useState("guest")
   const { currentPage } = props;
@@ -118,9 +138,21 @@ export default function Header(props) {
                       ))}
                     </div>
                   </div>
-                </div>
+                </div>                
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                    <div className="text-white font-medium text-lg ml-12 mr-3">
+                      Welcome&nbsp;{user.firstName}&nbsp;{user.lastName}!
+                    </div> :
+
+                    <div className="text-white font-medium text-lg ml-12 mr-3">
+                      Welcome to Urban Canada
+                    </div>
+                  }
+                  
                   <button
                     type="button"
                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"

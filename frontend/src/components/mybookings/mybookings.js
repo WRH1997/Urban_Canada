@@ -79,6 +79,7 @@ export default function MyBookings() {
 
   //function to reschedule booking.
   const rescheduleBookingHandler = () => {
+    if (date != "" && time != "") {
     const data = {
       date: date+" "+time
     }
@@ -89,6 +90,12 @@ export default function MyBookings() {
       alert(e)
     })
     closeModel()
+  }
+    
+  // validation for mandatory date and time.
+  else {
+    alert("Date and Time are required.")
+  }
   }
 
    //function to cancel booking.
@@ -101,6 +108,21 @@ export default function MyBookings() {
     })
     closeModel()
   }
+
+    // function to allow only current and upcoming dates to reschedule.
+    const getCurrentDate = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      let day = today.getDate();
+  
+      month = month < 10 ? '0' + month : month;
+      day = day < 10 ? '0' + day : day;
+  
+      return `${year}-${month}-${day}`;
+    };
+  
+    const [minDate, setMinDate] = useState(getCurrentDate());  
 
   return (
     <div>
@@ -254,6 +276,7 @@ export default function MyBookings() {
                     type="date"
                     name="date"
                     id="date"
+                    min={minDate}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required
                     value={date}
@@ -334,7 +357,7 @@ export default function MyBookings() {
 
           <button
             type="submit"
-            className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={cancelBookingHandler}
           >
             Confirm

@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/logo2.png';
 
-export default function Header() {
+export default function Footer() {
 
   return (
     <footer class="fixed bottom-0 bg-gray-200 w-full">
