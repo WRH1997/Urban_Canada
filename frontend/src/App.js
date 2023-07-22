@@ -121,6 +121,7 @@ function App() {
 
         {/* Rating and Review start */}
         <Route path="/rating/:vendorId" element={<RatingComment />} />
+        <Route path="/rating/:vendorId/:bookingId" element={<RatingComment />} />
         {/* Rating and Review end*/}
       </Routes>
     </BrowserRouter>
