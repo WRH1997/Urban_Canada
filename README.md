@@ -3,7 +3,7 @@
 **This application is a modern service marketplace to empower vendors and satisfy clients. It serves as an online portal for vendors, tradesmen, service providers and other entrepreneurs or small business owners to market their services to a wider customer in one convenient location. For the persons or entities providing services (vendors), and for the persons purchasing or subscribing to these services (consumers) the application will provide a convenient interface. This service is important because it will seek to improve upon existing marketplaces to provide a more seamless interaction between vendors and consumers aggregating the pros and eradicating the cons associated with other popular platforms.**
 
 * *Date Created*: 18 JUN 2023
-* *Last Modification Date*: 24 JUN 2023
+* *Last Modification Date*: 24 JUL 2023
 * *Project URL*: <https://main--brilliant-pixie-8bba9e.netlify.app/>
 * *Git URL*: <https://git.cs.dal.ca/kathiria/csci-5709-grp-13/>
 
@@ -36,7 +36,7 @@ Initially, we imported existing project of front-end environment on netlify from
 
 ### header.js
 
-*Lines 8 - 215*
+*Lines 8 - 247*
 
 ```
 // navigation menu for guest.
@@ -66,6 +66,26 @@ function classNames(...classes) {
 
 // function for header
 export default function Header(props) {
+
+  const [user, setUser] = useState({}); // User state
+  const [loading, setLoading] = useState(true); // Loading state
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("userData");
+
+    if (userDataString) {
+      try {
+        const userData = JSON.parse(userDataString);
+        setUser(userData);
+        setLoading(false);
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+      }
+    } else {
+      console.error("No user data in local storage.");
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [loggedInUser,setLoggedInUser] = useState("guest")
   const { currentPage } = props;
@@ -152,9 +172,21 @@ export default function Header(props) {
                       ))}
                     </div>
                   </div>
-                </div>
+                </div>                
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                    <div className="text-white font-medium text-lg ml-12 mr-3">
+                      Welcome&nbsp;{user.firstName}&nbsp;{user.lastName}!
+                    </div> :
+
+                    <div className="text-white font-medium text-lg ml-12 mr-3">
+                      Welcome to Urban Canada
+                    </div>
+                  }
+                  
                   <button
                     type="button"
                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -1035,7 +1067,7 @@ The code above was created by adapting the code in [Form Layouts - Official Tail
 
 ### mybookings.js
 
-*Lines 109 - 190*
+*Lines 131 - 212*
 
 ```
 <div class="container">
