@@ -26,6 +26,10 @@ export default function MyBookings() {
   const [date,setDate] = useState("")
   const [time,setTime] = useState("")
 
+  const handleFeedback = (provider_id,booking_id) => {
+    window.location.href = `/rating/${provider_id}/${booking_id}`;
+  }
+
   const openModel = (booking) => {
     setSelectedBooking(booking)
     console.log(booking)
@@ -236,7 +240,7 @@ export default function MyBookings() {
           selectedPerson.status=='Completed' ?
             <Paper>
               <MenuList className='p-0 mybooking-action-menu'>
-                <MenuItem onClick={handleClose}><p className='m-0 text-gray-800 text-sm'>Feedback</p></MenuItem>
+              <MenuItem onClick={()=>handleFeedback(selectedPerson.provider_id._id, selectedPerson._id)}>Feedback</MenuItem>
               </MenuList>
             </Paper> :
           selectedPerson.status=='Approved' &&
