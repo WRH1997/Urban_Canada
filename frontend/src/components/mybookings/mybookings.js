@@ -1,24 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import Header from '../header/header';
-import Footer from "../footer/footer";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../mybookings/mybookings.css';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { MenuList, Paper } from '@mui/material';
-import axios from 'axios';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import Header from '../header/header';
+import Footer from "../footer/footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../mybookings/mybookings.css';
+import axios from 'axios';
 
+// function of my boookings for service consumer.
 export default function MyBookings() {
 
+  // variables
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
   const provider_id = JSON.parse(user)._id
   const [isOpen, setIsOpen] = useState(false);
   const [bookings,setBookings] = useState([])
-
   const [openEdit, setOpenEdit] = useState(false)
   const [openCancel, setOpenCancel] = useState(false)
   const [selectedBooking,setSelectedBooking] = useState("")
@@ -53,6 +53,7 @@ export default function MyBookings() {
       setSelectedBooking("")
   };
 
+  // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
       console.log(res);
@@ -78,11 +79,9 @@ export default function MyBookings() {
     setAnchorEl(null);
   };
 
-  const handleFeedback = (provider_id,booking_id) => {
-    window.location.href = `/rating/${provider_id}/${booking_id}`;
-  }
-
+  //function to reschedule booking.
   const rescheduleBookingHandler = () => {
+    if (date != "" && time != "") {
     const data = {
       date: date+" "+time
     }
@@ -94,7 +93,14 @@ export default function MyBookings() {
     })
     closeModel()
   }
+    
+  // validation for mandatory date and time.
+  else {
+    alert("Date and Time are required.")
+  }
+  }
 
+   //function to cancel booking.
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
@@ -105,9 +111,25 @@ export default function MyBookings() {
     closeModel()
   }
 
+    // function to allow only current and upcoming dates to reschedule.
+    const getCurrentDate = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      let day = today.getDate();
+  
+      month = month < 10 ? '0' + month : month;
+      day = day < 10 ? '0' + day : day;
+  
+      return `${year}-${month}-${day}`;
+    };
+  
+    const [minDate, setMinDate] = useState(getCurrentDate());  
+
   return (
     <div>
       <Header currentPage="/MyBookings" />
+      
       <div class="container">
         <h5 class="my-4">My Bookings</h5>
 
@@ -150,23 +172,21 @@ export default function MyBookings() {
                         <td>
                           {
                             person.isCanceled==true ?
-                            <div class="flex w-full rounded-md py-1 text-sm font-bold text-red-500">
-                              <span>Cancelled</span>
-                            </div> : 
-                              person.status=='Pending' ?
-                                <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
-                                  <span>{person.status}</span>
-                                </div> 
-                              :
-                                person.status=='Completed' ?
-                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-success">
-                                    <span>{person.status}</span>
-                                  </div> 
-                                  :
-                                  person.status=='Approved' &&
-                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-blue-500">
-                                    <span>{person.status}</span>
-                                  </div> 
+                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-red-500">
+                                <span>Cancelled</span>
+                              </div> : 
+                            person.status=='Pending' ?
+                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
+                                <span>{person.status}</span>
+                              </div> :
+                            person.status=='Completed' ?
+                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-success">
+                                <span>{person.status}</span>
+                              </div> :
+                            person.status=='Approved' &&
+                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-blue-500">
+                                <span>{person.status}</span>
+                              </div>
                           }
                         </td>
 
@@ -175,13 +195,13 @@ export default function MyBookings() {
                             <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
                               aria-haspopup="true"
                               aria-expanded={open ? 'true' : undefined}
+                            /> :  
+                            <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                              aria-haspopup="true"
+                              aria-expanded={open ? 'true' : undefined}
+                              onClick={(e) => handleClick(e,person)}
                             />
-                          :  
-                          <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={(e) => handleClick(e,person)} />
-                        }
+                          }
                         </td>
                       </tr>
                     ))}
@@ -192,6 +212,7 @@ export default function MyBookings() {
           </div>
         </div>
       </div>
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -204,142 +225,151 @@ export default function MyBookings() {
       >
         {
           selectedPerson.isCanceled==true ?
-            <Paper>
-              
-            </Paper>
-          : 
+            <Paper></Paper> : 
           selectedPerson.status=='Pending' ?
-              <Paper>
-                <MenuList className='mybooking-action-menu'>
-                  <MenuItem onClick={()=>openModel(selectedPerson)}>Reschedule</MenuItem>
-                  <MenuItem onClick={()=>openModelCancel(selectedPerson)}>Cancel Booking</MenuItem>
-                </MenuList>
-              </Paper>
-            :
-            selectedPerson.status=='Completed' ?
-                <Paper>
-                  <MenuList className='mybooking-action-menu'>
-                    <MenuItem onClick={handleFeedback(selectedPerson.provider_id._id, selectedPerson._id)}>Feedback</MenuItem>
-                  </MenuList>
-                </Paper>
-                :
-                selectedPerson.status=='Approved' &&
-                  <Paper>
-            
-                  </Paper>
-        }
-          {/* {person.status=='Completed' ?
             <Paper>
-            <MenuList className='mybooking-action-menu'>
-            <MenuItem onClick={handleClose}>Feedback</MenuItem>
-            </MenuList>
-          </Paper>                
-          :
-          <Paper>
-          <MenuList className='mybooking-action-menu'>
-            <MenuItem onClick={handleClose}>Reschedule</MenuItem>
-            <MenuItem onClick={handleClose}>Cancel</MenuItem>
-            </MenuList>
-        </Paper>
-        } */}
+              <MenuList className='p-0 mybooking-action-menu'>
+                <MenuItem onClick={()=>openModel(selectedPerson)} ><p className='m-0 text-gray-800 text-sm'>Reschedule</p></MenuItem>
+                <MenuItem onClick={()=>openModelCancel(selectedPerson)}><p className='m-0 text-gray-800 text-sm'>Cancel</p></MenuItem>
+              </MenuList>
+            </Paper> :
+          selectedPerson.status=='Completed' ?
+            <Paper>
+              <MenuList className='p-0 mybooking-action-menu'>
+                <MenuItem onClick={handleClose}><p className='m-0 text-gray-800 text-sm'>Feedback</p></MenuItem>
+              </MenuList>
+            </Paper> :
+          selectedPerson.status=='Approved' &&
+            <Paper></Paper>
+        }
       </Menu>
+
       <Dialog
-          open={openEdit}
-          onClose={closeModel}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+        open={openEdit}
+        onClose={closeModel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-          <DialogTitle id="alert-dialog-title">
-            Reschedule Booking
-          </DialogTitle>
-          <DialogContent>
-            {
-              selectedBooking != "" && 
-              <DialogContentText id="alert-dialog-description">
-                Booking id: {selectedBooking._id} <br/>
-                Vendor: {selectedBooking.service_id.vendorName} <br/>
-                Category: {selectedBooking.service_id.category} <br/>
-                Service: {selectedBooking.service_id.serviceName} <br/>
+        <DialogTitle id="alert-dialog-title">
+          <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Reschedule</p>
+        </DialogTitle>
 
-                <div className="sm:col-span-2 sm:col-start-1">
-                  <label
-                    htmlFor="date"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Date
-                  </label>
-                  <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
-                    <input
-                      type="date"
-                      name="date"
-                      id="date"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      required
-                      value={date}
-                      onChange={(e)=>{setDate(e.target.value)}}
-                    />
-                  </div>
+        <DialogContent className='pb-2'>
+          {
+            selectedBooking != "" &&
+
+            <DialogContentText id="alert-dialog-description">
+              <p className='m-0 p-0 text-black text-sm'>
+                <b>Vendor:</b> {selectedBooking.service_id.vendorName} <br/>
+                <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+              </p>
+
+              <div className="sm:col-span-2 sm:col-start-1 mt-3">
+                <label
+                  htmlFor="date"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Date
+                </label>
+
+                <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                  <input
+                    type="date"
+                    name="date"
+                    id="date"
+                    min={minDate}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    required
+                    value={date}
+                    onChange={(e)=>{setDate(e.target.value)}}
+                  />
                 </div>
+              </div>
 
-                <div className="sm:col-span-2 mt-2">
-                  <label
-                    htmlFor="time"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Time
-                  </label>
-                  <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
-                    <input
-                      type="time"
-                      name="time"
-                      id="time"
-                      required
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={time}
-                      onChange={(e)=>{setTime(e.target.value)}}
-                    />
-                  </div>
+              <div className="sm:col-span-2 mt-2">
+                <label
+                  htmlFor="time"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Time
+                </label>
+
+                <div className="mt-2 flex rounded-md ring-1 ring-gray-300">
+                  <input
+                    type="time"
+                    name="time"
+                    id="time"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={time}
+                    onChange={(e)=>{setTime(e.target.value)}}
+                  />
                 </div>
+              </div>
+            </DialogContentText>
+          }
+        </DialogContent>
 
-              </DialogContentText>
-            }
-            
-          </DialogContent>
-          <DialogActions>
-          <Button className='admin-cancel-btn' onClick={closeModel}>Cancel</Button>
-          <Button className='admin-confirm-btn' variant='contained' onClick={rescheduleBookingHandler} autoFocus>
-            Reschedule
-          </Button>
-          </DialogActions>
+        <DialogActions className='py-3 px-5 self-center'>
+          <a href="#" onClick={closeModel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
+            Cancel
+          </a>
+
+          <button
+            type="submit"
+            className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={rescheduleBookingHandler}
+          >
+            Confirm
+          </button>
+        </DialogActions>
       </Dialog>
+
       <Dialog
-            open={openCancel}
-            onClose={closeModelCancel}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            Cancelation confirmation
-          </DialogTitle>
-          <DialogContent>
-            {
-              selectedBooking != "" && 
-              <DialogContentText id="alert-dialog-description">
-                Booking id: {selectedBooking._id} <br/>
-                Vendor: {selectedBooking.service_id.vendorName} <br/>
-                Category: {selectedBooking.service_id.category} <br/>
-                Service: {selectedBooking.service_id.serviceName} <br/>
-              </DialogContentText>
-            }
-            </DialogContent>
-            <DialogActions>
-              <Button className='admin-cancel-btn' onClick={closeModelCancel}>Cancel</Button>
-              <Button className='admin-confirm-btn' variant='contained' onClick={cancelBookingHandler} autoFocus>
-                Confirm
-              </Button>
-            </DialogActions>
-        </Dialog>
-      <Footer/>
+        open={openCancel}
+        onClose={closeModelCancel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <p className='m-0 p-0 text-gray-800 text-lg font-bold'>Cancel Booking</p>
+        </DialogTitle>
+
+        <DialogContent className='pb-2'>
+          {
+            selectedBooking != "" &&
+
+            <DialogContentText id="alert-dialog-description">
+              <p className='m-0 p-0 text-black text-sm'>
+                <b>Vendor:</b> {selectedBooking.service_id.vendorName} <br/>
+                <b>Category:</b> {selectedBooking.service_id.category} <br/>
+                <b>Service:</b> {selectedBooking.service_id.serviceName} <br/>
+                <b>Date:</b> {selectedBooking.date.split(" ")[0]} <br/>
+                <b>Time:</b> {selectedBooking.date.split(" ")[1]} <br/>
+              </p>
+            </DialogContentText>
+          }
+        </DialogContent>
+
+        <DialogActions className='pb-3 mx-4 pt-2 self-center'>
+          <a href="#" onClick={closeModelCancel} className="mr-5 text-sm font-semibold leading-6 text-gray-900 no-underline">
+            Cancel
+          </a>
+
+          <button
+            type="submit"
+            className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={cancelBookingHandler}
+          >
+            Confirm
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
     </div>
   )
 }

@@ -3,12 +3,12 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { grey } from "@mui/material/colors";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import { Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { grey, pink } from "@mui/material/colors";
 
 export default function Signup() {
   const UserRoles = {
@@ -63,22 +63,6 @@ export default function Signup() {
   const [confirmEmailError, setConfirmEmailError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
   const [confirmPasswordError, setConfirmPasswordError] = React.useState("");
-
-  const navigate = useNavigate();
-  const resetForm = () => {
-    setInputFirstNameValue("");
-    setInputLastNameValue("");
-    setInputEmailValue("");
-    setInputConfirmEmailValue("");
-    setInputPasswordValue("");
-    setInputConfirmPasswordValue("");
-    setFirstNameError("");
-    setLastNameError("");
-    setEmailError("");
-    setConfirmEmailError("");
-    setPasswordError("");
-    setConfirmPasswordError("");
-  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -215,11 +199,12 @@ export default function Signup() {
       }
     }
   };
+
   return (
     <div>
       <Header currentPage="/login" />
 
-      <form className="max-w-sm bg-white pt-10 pb-24 m-auto">
+      <form className="max-w-sm bg-white pt-10 pb-12 m-auto">
         <div class="mx-8">
           <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
             Registeration
@@ -433,7 +418,7 @@ export default function Signup() {
                             }}
                           />
                         }
-                        label="Female"
+                        label={<Typography variant="body1" sx={{ fontSize: '15px' }}>Female</Typography>}
                       />
                       <FormControlLabel
                         value="male"
@@ -448,7 +433,7 @@ export default function Signup() {
                             }}
                           />
                         }
-                        label="Male"
+                        label={<Typography variant="body1" sx={{ fontSize: '15px' }}>Male</Typography>}
                       />
                       <FormControlLabel
                         value="other"
@@ -463,7 +448,7 @@ export default function Signup() {
                             }}
                           />
                         }
-                        label="Other"
+                        label={<Typography variant="body1" sx={{ fontSize: '15px' }}>Other</Typography>}
                       />
                     </RadioGroup>
                   </FormControl>{" "}

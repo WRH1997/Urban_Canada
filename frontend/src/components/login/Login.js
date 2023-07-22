@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
-import Header from "../header/header";
-import Footer from "../footer/footer";
+import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
-import { Box } from "@mui/material";
-import Modal from "@mui/material/Modal";
-
+import Header from "../header/header";
+import Footer from "../footer/footer";
 import axios from "axios";
 
 export default function Login() {
@@ -104,7 +99,7 @@ export default function Login() {
     <div>
       <Header currentPage="/login" />
 
-      <form className="max-w-sm bg-white pt-10 pb-24 m-auto" method="GET">
+      <form className="max-w-sm bg-white pt-10 pb-32 m-auto" method="GET">
         <div class="mx-8">
           <h2 className="text-base font-semibold leading-7 text-xl text-gray-900">
             Login
@@ -198,7 +193,9 @@ export default function Login() {
           </div>
         </div>
       </form>
-      <Footer />
+      <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }
