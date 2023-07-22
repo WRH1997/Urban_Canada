@@ -5,11 +5,16 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
+    "@material-tailwind/react": "^2.0.6",
     "@mui/icons-material": "^5.11.16",
     "@mui/joy": "^5.0.0-alpha.84",
-    "@mui/material": "^5.13.5",
+    "@mui/material": "^5.14.0",
+    "@mui/system": "^5.14.0",
+    "@szhsin/react-accordion": "^1.2.3",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -24,15 +29,19 @@
     "react-chartjs-2": "^5.2.0",
     "react-datetime-picker": "^5.2.0",
     "react-day-time-picker": "^1.0.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-simple-maps": "^3.0.0",
     "react-slick": "^0.29.0",
     "react-tailwindcss-datepicker": "^1.6.1",
+    "sass": "^1.63.6",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -62,5 +71,9 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "tailwindcss": "^3.3.2"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "tailwind.config.js",
+  "author": "",
+  "license": "ISC"
 }

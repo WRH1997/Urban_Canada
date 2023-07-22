@@ -1,37 +1,49 @@
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Alert } from 'react-bootstrap'
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import DataTable from '../components/DataTable'
 import Header from '../components/Header'
 import SidebarNav from '../components/SidebarNav'
 import { ProSidebarProvider } from 'react-pro-sidebar'
 import '../admin.css'
+import axios from "axios"
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const VendorRequestPage = () => {
+    const [loading,setLoading] = useState(true)
+    const [rowData,setRowData] = useState([])
+
     const headerData = [
         {
-          id: 'name',
+            id: 'id',
+            numeric: true,
+            disablePadding: true,
+            label: 'Id'
+        },
+        {
+          id: 'fname',
           numeric: false,
           disablePadding: true,
-          label: 'Name'
+          label: 'First Name'
+        },
+        {
+            id: 'lname',
+            numeric: false,
+            disablePadding: true,
+            label: 'Last Name'
+        },
+        {
+            id: 'gender',
+            numeric: false,
+            disablePadding: true,
+            label: 'Gender'
         },
         {
             id: 'email',
             numeric: false,
             disablePadding: true,
             label: 'Email'
-        },
-        {
-            id: 'city',
-            numeric: false,
-            disablePadding: true,
-            label: 'City'
-        },
-        {
-            id: 'service',
-            numeric: false,
-            disablePadding: true,
-            label: 'Service'
         },
         {
             id: 'action',
@@ -41,31 +53,48 @@ const VendorRequestPage = () => {
         }
     ]
 
-    const rowData = [
-        {
-            name: 'John Wick',
-            email: 'jwick@gmail.com',
-            city: 'New York',
-            service: 'Cleaning'
-        },
-        {
-            name: 'John Mcclane',
-            email: 'mcclanej@gmail.com',
-            city: 'Toronto',
-            service: 'Electrician'
-        }
-    ]
+    useEffect(()=>{
+        const token = localStorage.getItem("authToken")
+        axios.get("http://localhost:3001/admin/unverified-vendors",{headers: {token: "Bearer "+token}}).then((res)=>{
+            const data = []
+            res.data.forEach(vendor => {
+                data.push({id: vendor._id,fname: vendor.firstName, lname: vendor.lastName, gender: vendor.gender, email: vendor.email})
+            });
+            setRowData(data)
+            setLoading(false)
+        }).catch((error)=>{
+            if(error.response.status == 401){
+                window.location.href = "/login"
+            }else{
+                alert(error)
+            }
+        })
+    },[])
+
+    console.log(rowData)
     return (
         <div className='d-flex'>
             <ProSidebarProvider>
                 <Header />
                 <SidebarNav />
                 <main className='d-flex p-3' style={{marginTop: "45px",backgroundColor: "#f6f9ff",width: "100%"}}>
-                    <Container>
-                        <Row className="dashboard-panel p-3">
-                            <DataTable headerData={headerData} rowData={rowData} type={"request"} />
-                        </Row>
-                    </Container>
+                    {loading ? 
+                        <div className='d-flex align-items-center justify-content-center' style={{width: "100%",height: "100vh"}}>
+                            <Stack sx={{ color: 'grey.800' }} spacing={2} direction="row">
+                                <CircularProgress color="inherit" />
+                            </Stack> 
+                        </div> 
+                        : 
+                        <div className='col-12 d-flex justify-content-center'>
+                            <div className='col-11 admin-container' style={{margin: "0px", padding: "0px"}}>
+                        
+                                    <Row className="dashboard-panel p-3">
+                                        <DataTable headerData={headerData} rowData={rowData} type={"request"} />
+                                    </Row>
+                        
+                            </div>
+                        </div>
+                    }
                 </main>
             </ProSidebarProvider>
         </div>
