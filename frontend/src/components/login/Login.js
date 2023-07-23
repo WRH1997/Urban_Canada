@@ -65,7 +65,12 @@ export default function Login() {
                 if (authToken && userData) {
                   setInputEmailValue("");
                   setInputPasswordValue("");
-                  navigate("/");
+                  const loggedin_user = JSON.parse(localStorage.getItem("userData"))
+                  if(loggedin_user != null && loggedin_user.role == "admin"){
+                    navigate("/admin/dashboard")
+                  }else{
+                    navigate("/")
+                  }
                 } else {
                   console.log("Error storing data in local storage");
                 }
