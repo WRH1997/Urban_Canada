@@ -72,7 +72,15 @@ export default function MyBookings() {
   // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-provider/${consumer_id}`).then((res)=>{
-      setBookings(res.data)
+      var data =  []
+      if(res.data && res.data.length > 0){
+        res.data.forEach(element => {
+          if(element.consumer_id && element.service_id && element.provider_id){
+            data.push(element)
+          }
+        });
+      }
+      setBookings(data)
     }).catch((e)=>{
       alert(e)
     })
