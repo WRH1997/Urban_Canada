@@ -121,7 +121,7 @@ export default function Services() {
           <BrowserView>
             <div className='filters-desktop'>
               <Accordion className='fltrs-dropdown'>
-                <AccordionItem header="Filters" className='accFltrs'>
+                <AccordionItem header="Category" className='accFltrs text-base'>
                   <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
                   <br></br>
                   <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
