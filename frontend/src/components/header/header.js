@@ -26,18 +26,31 @@ export default function Header(props) {
     { name: "Login/SignUp", href: "/login" },
   ];
 
-const providerNavigation = [
+
+  // navigation menu for service provider.
+
+var providerNavigation = [
   { name: "Home", href: "/" },
   { name: "Service Posting", href: "/ServicePosting" },
   { name: "My Bookings", href: "/MyBookings" },
   { name: "Ratings", href: `/rating` },
 ];
 
+if(JSON.parse(localStorage.getItem("userData")) != null){
+  providerNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Service Posting", href: "/serviceposting" },
+    { name: "My Bookings", href: "/vendor_bookings" },
+    { name: "My Ratings", href: `/rating/${userData._id}` },
+  ];
+}
+
+
 const consumerNavigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/Services" },
   { name: "My Bookings", href: "/MyBookings" },
-  { name: "Ratings", href: "#" },
+
 ];
 
   useEffect(() => {
