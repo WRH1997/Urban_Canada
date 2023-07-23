@@ -1,13 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import logo from "../../assets/logo.png";
-import icon from "../../assets/icon.jpg";
-import { useNavigate } from "react-router-dom";
-
-// const userData = JSON.parse(localStorage.getItem("userData"));
-
-
+import logo from "../../assets/header_logo.png";
+import icon from "../../assets/profile_icon.jpg";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,39 +15,35 @@ export default function Header(props) {
   const [user, setUser] = useState({}); // User state
   const [loading, setLoading] = useState(true); // Loading state
   const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
-  // console.log(userData)
+
   // navigation menu for guest.
   const guestNavigation = [
     { name: "Home", href: "/" },
     { name: "Login/SignUp", href: "/login" },
   ];
 
-
   // navigation menu for service provider.
-
-var providerNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Service Posting", href: "/ServicePosting" },
-  { name: "My Bookings", href: "/MyBookings" },
-  { name: "Ratings", href: `/rating` },
-];
-
-if(JSON.parse(localStorage.getItem("userData")) != null){
-  providerNavigation = [
+  var providerNavigation = [
     { name: "Home", href: "/" },
-    { name: "Service Posting", href: "/serviceposting" },
-    { name: "My Bookings", href: "/vendor_bookings" },
-    { name: "My Ratings", href: `/rating/${userData._id}` },
+    { name: "Service Posting", href: "/ServicePosting" },
+    { name: "My Bookings", href: "/consumer_bookings" },
+    { name: "Ratings", href: `/rating` },
   ];
-}
 
+  if(JSON.parse(localStorage.getItem("userData")) != null){
+    providerNavigation = [
+      { name: "Home", href: "/" },
+      { name: "Service Posting", href: "/serviceposting" },
+      { name: "My Bookings", href: "/provider_bookings" },
+      { name: "My Ratings", href: `/rating/${userData._id}` },
+    ];
+  }
 
-const consumerNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Services", href: "/Services" },
-  { name: "My Bookings", href: "/MyBookings" },
-
-];
+  const consumerNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Services", href: "/Services" },
+    { name: "My Bookings", href: "/consumer_bookings" },
+  ];
 
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");

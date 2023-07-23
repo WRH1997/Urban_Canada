@@ -92,4 +92,3 @@ Star.defaultProps = {
   editable:true,
   border:"1px solid black"
 }
-

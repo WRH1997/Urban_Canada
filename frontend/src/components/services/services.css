@@ -57,7 +57,6 @@
   padding-bottom:1.5vh;
 }
 
-
 .accFltrs{
   font-size: 11pt;
   cursor: pointer;
@@ -78,7 +77,6 @@
   float: left;
   margin-left: 1vh;
 }
-
 
 .floatFix:after {
   visibility: hidden;

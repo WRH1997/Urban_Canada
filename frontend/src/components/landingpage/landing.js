@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import illustration from '../../assets/landingpage_illustration.svg';
+import illustration from '../../assets/who_are_we.svg';
 import './landing.css';
 
 const stats = [

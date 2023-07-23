@@ -2,7 +2,6 @@ import React from 'react'
 import {ComposableMap,Geographies,Geography,Marker} from "react-simple-maps";
 
 const Map = (props) => {
-  // const geolocation_url = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json"
   const geolocation_url = "https://raw.githubusercontent.com/deldersveld/topojson/master/continents/north-america.json"
   const cityData = props.city_list
 
