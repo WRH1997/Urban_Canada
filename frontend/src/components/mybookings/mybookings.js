@@ -247,7 +247,6 @@ export default function MyBookings() {
             <Paper>
               <MenuList className='p-0 mybooking-action-menu'>
               <MenuItem onClick={()=>handleFeedback(selectedPerson.provider_id._id, selectedPerson._id)}>Feedback</MenuItem>
-              <MenuItem onClick={()=>handleFeedback(selectedPerson.provider_id._id, selectedPerson._id)}>Feedback</MenuItem>
               </MenuList>
             </Paper> :
           selectedPerson.status=='Approved' &&

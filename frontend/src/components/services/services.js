@@ -197,15 +197,15 @@ export default function Services() {
                 <p style={{color: "inherit"}} className="mb-2 text-lg font-medium text-gray-900">Rate: ${service.pricePerHour}/hr.</p>
                 
                 <div className="mb-2">
-                  <button
-                    type="submit"
-                    variant="contained"
-                    className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    <Link to="/booking" className="text-white no-underline" state={service}>
+                  <Link to="/booking" className="text-white no-underline" state={service}>
+                    <button
+                      type="submit"
+                      variant="contained"
+                      className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
                       Book
-                    </Link>
-                  </button>
+                    </button>
+                  </Link>
                 </div>
                 
                 <p className="mb-0 text-sm">{service.serviceDesc}</p>
