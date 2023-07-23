@@ -16,6 +16,7 @@ export default function MyBookings() {
   // variables
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
+  const provider_id = JSON.parse(user)._id
   const [isOpen, setIsOpen] = useState(false);
   const [bookings,setBookings] = useState([])
   const [openEdit, setOpenEdit] = useState(false)
@@ -24,6 +25,10 @@ export default function MyBookings() {
 
   const [date,setDate] = useState("")
   const [time,setTime] = useState("")
+
+  const handleFeedback = (provider_id,booking_id) => {
+    window.location.href = `/rating/${provider_id}/${booking_id}`;
+  }
 
   const openModel = (booking) => {
     setSelectedBooking(booking)
@@ -55,6 +60,7 @@ export default function MyBookings() {
   // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
+      console.log(res);
       setBookings(res.data)
     }).catch((e)=>{
       alert(e)
@@ -234,7 +240,7 @@ export default function MyBookings() {
           selectedPerson.status=='Completed' ?
             <Paper>
               <MenuList className='p-0 mybooking-action-menu'>
-                <MenuItem onClick={handleClose}><p className='m-0 text-gray-800 text-sm'>Feedback</p></MenuItem>
+              <MenuItem onClick={()=>handleFeedback(selectedPerson.provider_id._id, selectedPerson._id)}>Feedback</MenuItem>
               </MenuList>
             </Paper> :
           selectedPerson.status=='Approved' &&
