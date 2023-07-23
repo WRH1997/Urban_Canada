@@ -49,7 +49,7 @@ const guestNavigation = [
 const providerNavigation = [
   { name: "Home", href: "/" },
   { name: "Service Posting", href: "#" },
-  { name: "My Bookings", href: "/vendor_bookings" },
+  { name: "My Bookings", href: "/provider_bookings" },
   { name: "My Ratings", href: "#" },
 ];
 
@@ -57,7 +57,7 @@ const providerNavigation = [
 const consumerNavigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/Services" },
-  { name: "My Bookings", href: "/MyBookings" },
+  { name: "My Bookings", href: "/consumer_bookings" },
 ];
 
 function classNames(...classes) {

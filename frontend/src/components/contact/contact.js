@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import FormHelperText from "@mui/joy/FormHelperText";
 import { Box } from "@mui/material";
-import { red } from "@mui/material/colors";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-const color = red[500];
 
 export default function Contact() {
   const [inputFirstNameValue, setInputFirstNameValue] = React.useState("");

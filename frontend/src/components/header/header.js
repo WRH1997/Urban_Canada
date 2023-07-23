@@ -1,30 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import logo from "../../assets/logo.png";
-import icon from "../../assets/icon.jpg";
-import { useNavigate } from "react-router-dom";
-
-// navigation menu for guest.
-const guestNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Login/SignUp", href: "/login" },
-];
-
-// navigation menu for service provider.
-const providerNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Service Posting", href: "#" },
-  { name: "My Bookings", href: "/vendor_bookings" },
-  { name: "My Ratings", href: "#" },
-];
-
-// navigation menu for service consumer.
-const consumerNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Services", href: "/Services" },
-  { name: "My Bookings", href: "/MyBookings" },
-];
+import logo from "../../assets/header_logo.png";
+import icon from "../../assets/profile_icon.jpg";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -35,6 +14,36 @@ export default function Header(props) {
 
   const [user, setUser] = useState({}); // User state
   const [loading, setLoading] = useState(true); // Loading state
+  const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
+
+  // navigation menu for guest.
+  const guestNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Login/SignUp", href: "/login" },
+  ];
+
+  // navigation menu for service provider.
+  var providerNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Service Posting", href: "/ServicePosting" },
+    { name: "My Bookings", href: "/consumer_bookings" },
+    { name: "Ratings", href: `/rating` },
+  ];
+
+  if(JSON.parse(localStorage.getItem("userData")) != null){
+    providerNavigation = [
+      { name: "Home", href: "/" },
+      { name: "Service Posting", href: "/serviceposting" },
+      { name: "My Bookings", href: "/provider_bookings" },
+      { name: "My Ratings", href: `/rating/${userData._id}` },
+    ];
+  }
+
+  const consumerNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Services", href: "/Services" },
+    { name: "My Bookings", href: "/consumer_bookings" },
+  ];
 
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");
@@ -194,6 +203,9 @@ export default function Header(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
+                      {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
@@ -225,6 +237,10 @@ export default function Header(props) {
                           )}
                         </Menu.Item>
                       </Menu.Items>
+                      :
+
+                      <div></div>
+                    }
                     </Transition>
                   </Menu>
                 </div>
