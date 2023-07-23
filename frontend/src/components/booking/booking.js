@@ -33,7 +33,7 @@ export default function Bookings(props) {
         
         // api request to post data.
         axios.post("http://localhost:3001/booking/create",booking).then((req,res)=>{
-            window.location.href = "/mybookings"
+            window.location.href = "/consumer_bookings"
         }).catch((e)=>{
           console.log(e)
           alert(e)
@@ -206,7 +206,9 @@ export default function Bookings(props) {
           </div>
         </div>
       </form>
-      <Footer/>
+      <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }

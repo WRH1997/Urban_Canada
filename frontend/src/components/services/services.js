@@ -1,13 +1,11 @@
 import React from "react";
-import Header from "../header/header";
-import Footer from "../footer/footer";
-import '../services/services.css';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';
 import {Link} from 'react-router-dom';
 import { Rating } from "@material-tailwind/react";
-import Star from "../ratingReview/ratingSubComponent/Star"
-
+import Header from "../header/header";
+import Footer from "../footer/footer";
+import '../services/services.css';
 export default function Services() {
 
   const [services, setServices] = React.useState([]);
@@ -15,9 +13,6 @@ export default function Services() {
   const [filters, setFilters] = React.useState([]);
   const [filtered, setFiltered] = React.useState(false);
   const [searched, setSearched] = React.useState(false);
-
-  //cleaning, repair, moving, carpentry, landscaping, other
-  //const [filters, setFilters] = React.useState([]);
 
   const fetchData = async () => {
     let data = await fetch('http://localhost:3001/allServices', {

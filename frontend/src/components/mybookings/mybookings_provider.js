@@ -98,7 +98,7 @@ export default function MyBookings() {
   const approveBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/approve/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -109,7 +109,7 @@ export default function MyBookings() {
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -121,7 +121,7 @@ export default function MyBookings() {
     const booking_id = selectedBooking._id
     console.log(booking_id)
     axios.put(`http://localhost:3001/booking/complete/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -130,7 +130,7 @@ export default function MyBookings() {
 
   return (
     <div>
-      <Header currentPage="/vendor_bookings" />
+      <Header currentPage="/provider_bookings" />
 
       <div class="container">
         <h5 class="my-4">My Bookings</h5>

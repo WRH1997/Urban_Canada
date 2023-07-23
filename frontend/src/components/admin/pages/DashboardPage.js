@@ -1,4 +1,4 @@
-import { Container, Row, Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import React, {useState, useEffect} from 'react'
 import DoughnutChart from '../components/DoughnutChart'
 import Map from '../components/Map'
@@ -29,7 +29,6 @@ export const DashboardPage = () => {
             data.push({id: vendor._id,fname: vendor.firstName, lname: vendor.lastName, gender: vendor.gender, email: vendor.email, role: vendor.role})
         });
         setActiveVendors(data.length)
-        // setLoading(false)
     }).catch((error)=>{
       if(error.response.status == 401){
         window.location.href = "/login"
@@ -44,7 +43,6 @@ export const DashboardPage = () => {
             data.push({id: consumer._id,fname: consumer.firstName, lname: consumer.lastName, gender: consumer.gender, email: consumer.email, role: consumer.role})
         });
         setActiveConsumers(data.length)
-        // setLoading(false)
     }).catch((error)=>{
       if(error.response.status == 401){
         window.location.href = "/login"
