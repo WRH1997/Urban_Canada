@@ -2,8 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { MenuList, Paper } from '@mui/material';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { MenuList, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Header from '../header/header';
 import Footer from "../footer/footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -91,7 +90,7 @@ export default function MyBookings() {
     }
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/reschedule/${booking_id}`,data).then((res)=>{
-      window.location.href="/MyBookings"
+      window.location.href="/consumer_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -108,31 +107,31 @@ export default function MyBookings() {
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/MyBookings"
+      window.location.href="/consumer_bookings"
     }).catch((e)=>{
       alert(e)
     })
     closeModel()
   }
 
-    // function to allow only current and upcoming dates to reschedule.
-    const getCurrentDate = () => {
-      const today = new Date();
-      const year = today.getFullYear();
-      let month = today.getMonth() + 1;
-      let day = today.getDate();
+  // function to allow only current and upcoming dates to reschedule.
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+
+    return `${year}-${month}-${day}`;
+  };
   
-      month = month < 10 ? '0' + month : month;
-      day = day < 10 ? '0' + day : day;
-  
-      return `${year}-${month}-${day}`;
-    };
-  
-    const [minDate, setMinDate] = useState(getCurrentDate());  
+  const [minDate, setMinDate] = useState(getCurrentDate());  
 
   return (
     <div>
-      <Header currentPage="/MyBookings" />
+      <Header currentPage="/consumer_bookings" />
       
       <div class="container">
         <h5 class="my-4">My Bookings</h5>

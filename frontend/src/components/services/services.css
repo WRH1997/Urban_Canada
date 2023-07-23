@@ -19,7 +19,7 @@
 }
 
 .filters-desktop{
-  width: 15vh;
+  width: 20vh;
   float: left;
   box-shadow: 0px 2px 15px #d1d5db;
   border-radius: 10px;
@@ -27,6 +27,7 @@
   margin-right: 4vh;
   margin-top: 5vh;
   padding-left: 1vh;
+  padding-right: 2vh;
   padding-top: 2pt;
   padding-bottom: 0%;
   background-color: #ffffff;
@@ -40,7 +41,7 @@
   margin-right: 4vh;
   margin-top: 5vh;
   padding-left: 1vh;
-  background-color: #d8dce4
+  background-color: #ffffff;
 }
 
 .fltrs-dropdown{
@@ -55,7 +56,6 @@
   padding-right: 2.5vh;
   padding-bottom:1.5vh;
 }
-
 
 .accFltrs{
   font-size: 11pt;
@@ -77,7 +77,6 @@
   float: left;
   margin-left: 1vh;
 }
-
 
 .floatFix:after {
   visibility: hidden;
