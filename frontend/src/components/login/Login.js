@@ -147,7 +147,6 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     onChange={handlePasswordChange}
                     InputProps={{
-                      // <- This is where the toggle button is added
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
