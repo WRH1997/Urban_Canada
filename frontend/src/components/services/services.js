@@ -28,6 +28,23 @@ export default function Services() {
     });
     let serviceJson = await data.json();
     let serviceList = serviceJson['services'];
+    for(let x=0; x<serviceList.length; x++){
+      let rating = 0;
+      let vendorId = serviceList[x]["vendorID"];
+      let data = await fetch('http://localhost:3001/rating/averagerating/'+vendorId, {
+        method: "GET",
+        headers: {
+          "Content-Type": 'application/json'
+        }
+      });
+      let res = await data.json();
+      if('error' in res){
+        serviceList[x]['rating'] = 0;
+      }
+      else{
+        serviceList[x]['rating'] = parseInt(res['averageRating']);
+      }
+    }
     if(JSON.stringify(services)!=JSON.stringify(serviceList)){
       console.log(serviceList);
       return setServices(serviceList);
@@ -187,7 +204,8 @@ export default function Services() {
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
 
                 <div className="flex">
-                  <Rating unratedColor="amber" ratedColor="amber" value={4} readonly />
+
+                  <Rating unratedColor="amber" ratedColor="amber" value={service.rating} readonly />
 
                   <Link to={{pathname: `/rating/${service.vendorID}`}} className="text-gray-800 font-medium text-sm mx-2" state={service}>
                     View
