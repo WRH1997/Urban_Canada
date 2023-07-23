@@ -4,6 +4,9 @@ import LandingPage from "./components/landingpage/landing";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import LoginRedirect from "./components/LoginRedirects/LoginRedirect";
+import ConsumerLogin from "./components/LoginRedirects/LoginRedirect_Consumer";
+import ProviderLogin from "./components/LoginRedirects/LoginRedirect_Provider";
+import AdminLogin from "./components/LoginRedirects/LoginRedirect_Admin";
 import { EmailContext } from "./contexts/EmailContext";
 import ResetPasswordRequest from "./components/resetPassword/ResetPasswordRequest";
 import ResetPasswordConfirm from "./components/resetPassword/ResetPasswordConfirm";
@@ -74,23 +77,23 @@ function App() {
           <Route index element={<Profile />} />
         </Route>
 
-        <Route path="/ServicePosting" element={<LoginRedirect />}>
+        <Route path="/ServicePosting" element={<ProviderLogin />}>
           <Route index element={<ServicePostingPage />} />
         </Route>
 
-        <Route path="/Services" element={<LoginRedirect />}>
+        <Route path="/Services" element={<ConsumerLogin />}>
           <Route index element={<Services />} />
         </Route>
 
-        <Route path="/booking" element={<LoginRedirect />}>
+        <Route path="/booking" element={<ConsumerLogin />}>
           <Route index element={<Booking />} />
         </Route>
 
-        <Route path="/consumer_bookings" element={<LoginRedirect />}>
+        <Route path="/consumer_bookings" element={<ConsumerLogin />}>
           <Route index element={<ConsumerBookings />} />
         </Route>
 
-        <Route path="/provider_bookings" element={<LoginRedirect />}>
+        <Route path="/provider_bookings" element={<ProviderLogin />}>
           <Route index element={<ProviderBookings />} />
         </Route>
 
@@ -102,19 +105,19 @@ function App() {
           <Route index element={<RatingComment />} />
         </Route>  
 
-        <Route path="/admin/dashboard" element={<LoginRedirect />}>
+        <Route path="/admin/dashboard" element={<AdminLogin />}>
           <Route index element={<DashboardPage />} />
         </Route>
 
-        <Route path="/admin/vendor-request" element={<LoginRedirect />}>
+        <Route path="/admin/vendor-request" element={<AdminLogin />}>
           <Route index element={<VendorRequestPage />} />
         </Route>
 
-        <Route path="/admin/vendors" element={<LoginRedirect />}>
+        <Route path="/admin/vendors" element={<AdminLogin />}>
           <Route index element={<VendorsPage />} />
         </Route>
 
-        <Route path="/admin/customers" element={<LoginRedirect />}>
+        <Route path="/admin/customers" element={<AdminLogin />}>
           <Route index element={<CustomersPage />} />
         </Route>
 
@@ -125,4 +128,5 @@ function App() {
     </BrowserRouter>
   );
 }
+
 export default App;
