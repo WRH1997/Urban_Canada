@@ -1,7 +1,9 @@
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Booking from "./components/booking/booking";
 import MyBookings from "./components/mybookings/mybookings";
+import VendorBookings from "./components/mybookings_provider/mybookings_provider";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
 import Contact from "./components/contact/contact";
@@ -9,28 +11,22 @@ import LandingPage from "./components/landingpage/landing";
 import FAQ from "./components/faq/faq";
 import Profile from "./components/profile/Profile";
 import LoginRedirect from "./components/LoginRedirects/LoginRedirect";
-import {
-  ServiceDashboardPage,
-  ServiceDashboardPage2,
-  ServiceDashErr1,
-  ServiceDashErr2,
-  ServiceDashErr3,
-  ServiceDashErr4,
-  ServiceDashErr5,
-} from "./components/servicedashboard/servicedashboard.jsx";
 import Services from "./components/services/services";
-// Admin pages
 import { DashboardPage } from "./components/admin/pages/DashboardPage";
 import VendorRequestPage from "./components/admin/pages/VendorRequestPage";
 import VendorsPage from "./components/admin/pages/VendorsPage";
 import CustomersPage from "./components/admin/pages/CustomersPage";
-
-// Rating Rewview Pages
 import Container from "./components/ratingReview/serviceProvider";
 import RatingComment from "./components/ratingReview/RatingComment";
 import ServicePostingPage from "./components/serviceposting/ServicePostingPage";
+import { EmailContext } from "./contexts/EmailContext";
+
+import ResetPasswordRequest from "./components/resetPassword/ResetPasswordRequest";
+import ResetPasswordConfirm from "./components/resetPassword/ResetPasswordConfirm";
+import UpdatePassword from "./components/resetPassword/UpdatePassword";
 
 function App() {
+  const [email, setEmail] = useState("");
   axios.interceptors.request.use((config) => {
     config.headers["Origin"] = "http://localhost:3000";
     const token = localStorage.getItem("authToken");
@@ -45,10 +41,39 @@ function App() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/reset-password-request"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <ResetPasswordRequest />
+            </EmailContext.Provider>
+          }
+        />
+
+        <Route
+          path="/reset-password-confirm"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <ResetPasswordConfirm />
+            </EmailContext.Provider>
+          }
+        />
+
+        <Route
+          path="/update-password"
+          element={
+            <EmailContext.Provider value={{ email, setEmail }}>
+              <UpdatePassword />
+            </EmailContext.Provider>
+          }
+        />
         {/* <ProtectedRoute path="/MyBookings" element={<MyBookings />} /> */}
         <Route path="/MyBookings" element={<LoginRedirect />}>
           <Route index element={<MyBookings />} />
         </Route>
+
+        <Route path="/vendor_bookings" element={<VendorBookings />} />
+
         <Route path="/signup" element={<Signup />}></Route>
         {/* <ProtectedRoute path="/profile" element={<Profile />} /> */}
         <Route path="/profile" element={<LoginRedirect />}>
@@ -58,44 +83,13 @@ function App() {
         <Route path="/booking" element={<LoginRedirect />}>
           <Route index element={<Booking />} />
         </Route>
+
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/faq" element={<FAQ />}></Route>
-        {/* <ProtectedRoute
-          path="/ServiceDashboardPage"
-          element={<ServiceDashboardPage />}
-        /> */}
-        <Route path="/ServiceDashboardPage" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashboardPage />} />
-        </Route>
-        {/* <ProtectedRoute
-          path="/ServiceDashboardPage2"
-          element={<ServiceDashboardPage2 />}
-        /> */}
-        <Route path="/ServiceDashboardPage2" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashboardPage2 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr1" element={<ServiceDashErr1 />} /> */}
-        <Route path="/ServiceDashErr1" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr1 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr2" element={<ServiceDashErr2 />} /> */}
-        <Route path="/ServiceDashErr2" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr2 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr3" element={<ServiceDashErr3 />} /> */}
-        <Route path="/ServiceDashErr3" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr3 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr4" element={<ServiceDashErr4 />} /> */}
-        <Route path="/ServiceDashErr4" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr4 />} />
-        </Route>
-        {/* <ProtectedRoute path="/ServiceDashErr5" element={<ServiceDashErr5 />} /> */}
-        <Route path="/ServiceDashErr5" element={<LoginRedirect />}>
-          <Route index element={<ServiceDashErr5 />} />
-        </Route>
+
         <Route path="/ServicePosting" element={<ServicePostingPage/>} />
         <Route path="/Services" element={<Services />} />
+
         {/* Admin routes start */}
         {/* <ProtectedRoute
           exact
@@ -128,8 +122,8 @@ function App() {
         {/* Admin routes end */}
 
         {/* Rating and Review start */}
-        <Route path="/ratings" Component={Container} />
-        <Route path="/profileDetails" Component={RatingComment} />
+        <Route path="/rating/:vendorId" element={<RatingComment />} />
+        <Route path="/rating/:vendorId/:bookingId" element={<RatingComment />} />
         {/* Rating and Review end*/}
       </Routes>
     </BrowserRouter>

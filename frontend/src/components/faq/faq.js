@@ -5,19 +5,6 @@ import Footer from "../footer/footer";
 const FaqPage = () => {
   const [expandedId, setExpandedId] = useState(null);
 
-  const basicData = [
-    {
-      id: 1,
-      option: "",
-      answer: "list"
-    },
-    {
-      id: 2,
-      option: "Service Provider",
-      answer: "list abc"
-    }
-  ]
-
   const providerData = [
     {
       id: 11,
@@ -44,9 +31,9 @@ const FaqPage = () => {
       option: "What if you got false feedback without using your service?",
       answer: 'You can contact admin through Contact Us page, it will be reviewed and further action will be taken to resolve the issue.',
     }
-];
+  ];
 
-  const faqData = [
+  const consumerData = [
     {
       id: 1,
       question: 'Who are we?',
@@ -82,8 +69,6 @@ const FaqPage = () => {
       question: "How to cancel approved service?",
       answer: 'In my bookings page, select "Cancel" for whichever service you want to cancel.',
     },
-    
-    // Add more FAQ items as needed
   ];
 
   const toggleExpand = (id) => {
@@ -96,49 +81,53 @@ const FaqPage = () => {
 
   return (
     <div>
-    <Header currentPage="/faq"  />
-    <div className="container mx-auto py-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Frequently Asked Questions</h1>
-        <h2 className="text-xl font-bold">Consumer</h2>
+      <Header currentPage="/faq"/>
+        <div className="container mx-auto mt-8 mb-16">
+          <div className="max-w-2xl mx-auto">
+            <h1 className="text-2xl font-medium mb-4">Frequently Asked Questions</h1>
+            <h2 className="text-lg font-medium mb-3">Consumer</h2>
 
-        {faqData.map((faq) => (
-          <div key={faq.id} className="mb-4">
-            <button
-              className="flex justify-between w-full px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
-              onClick={() => toggleExpand(faq.id)}
-            >
-              <span className="font-bold">{faq.question}</span>
-              <span>{expandedId === faq.id ? '-' : '+'}</span>
-            </button>
-            {expandedId === faq.id && (
-              <div className="mt-2 px-4 py-2 bg-gray-100 rounded-lg">
-                <p>{faq.answer}</p>
+            {consumerData.map((faq) => (
+              <div key={faq.id} className="mb-4">
+                <button
+                  className="flex justify-between w-full px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                  onClick={() => toggleExpand(faq.id)}
+                >
+                  <span className="font-medium">{faq.question}</span>
+                  <span>{expandedId === faq.id ? '-' : '+'}</span>
+                </button>
+
+                {expandedId === faq.id && (
+                  <div className="mt-2 px-4 py-2 bg-gray-100 rounded-lg">
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ))}
-        <h2 className="text-xl font-bold">Service Provider</h2>
-        {providerData.map((faq) => (
-          <div key={faq.id} className="mb-4">
-            <button
-              className="flex justify-between w-full px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
-              onClick={() => toggleExpand(faq.id)}
-            >
-              <span className="font-bold">{faq.option}</span>
-              <span>{expandedId === faq.id ? '-' : '+'}</span>
-            </button>
-            {expandedId === faq.id && (
-              <div className="mt-2 px-4 py-2 bg-gray-100 rounded-lg">
-                <p>{faq.answer}</p>
+            ))}
+
+            <h2 className="text-lg mt-8 font-medium mb-3">Service Provider</h2>
+
+            {providerData.map((faq) => (
+              <div key={faq.id} className="mb-4">
+                <button
+                  className="flex justify-between w-full px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                  onClick={() => toggleExpand(faq.id)}
+                >
+                  <span className="font-medium">{faq.option}</span>
+                  <span>{expandedId === faq.id ? '-' : '+'}</span>
+                </button>
+
+                {expandedId === faq.id && (
+                  <div className="mt-2 px-4 py-2 bg-gray-100 rounded-lg">
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
               </div>
-            )}
+            ))}
+
           </div>
-        ))}
-        <h1><br/></h1>
-      </div>
-    </div>
-    <Footer/>
+        </div>
+      <Footer/>
     </div>
   );
 };
