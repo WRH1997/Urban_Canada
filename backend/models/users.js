@@ -34,6 +34,8 @@ const UserSchema = new mongoose.Schema({
       message: (props) => `${props.value} is not a valid phone number!`,
     },
   },
+  resetPasswordToken: { type: String, required: false },
+  resetPasswordExpires: { type: Date, required: false },
 });
 
 UserSchema.pre("save", async function (next) {

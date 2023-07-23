@@ -14,6 +14,7 @@ exports.getAllServices = async (req, res) => {
 
 exports.searchForServices = async (req, res) => {
     let searchTerm = req.body.searchTerm;
+    searchTerm = searchTerm.toLowerCase();
     if(searchTerm.trim() == ""){
         this.getAllServices();
         return;
@@ -22,7 +23,7 @@ exports.searchForServices = async (req, res) => {
         let servicesCursor = await Service.find().cursor();
         let matchingServices = [];
         for(let service = await servicesCursor.next(); service != null; service = await servicesCursor.next()){
-            if(service.serviceName.includes(searchTerm) || service.serviceDesc.includes(searchTerm)){
+            if(service.serviceName.toLowerCase().includes(searchTerm) || service.serviceDesc.toLowerCase().includes(searchTerm)){
                 matchingServices.push(service)
             }
         }
