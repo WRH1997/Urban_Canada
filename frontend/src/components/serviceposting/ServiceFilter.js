@@ -4,6 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import './ServicePosting.css';
 
 export default function ServiceFilter({ onFilter }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -14,13 +15,13 @@ export default function ServiceFilter({ onFilter }) {
   };
 
   return (
-    <div>
+    <div className="filters" >
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary  expandIcon={<ExpandMoreIcon />} className="fltrs-dropdown">
           <Typography>Filter Services</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <div>
+        <AccordionDetails className='accFltrs'>
+          <div className="fltrs-dropdown">
             <select value={selectedCategory} onChange={handleCategoryChange}>
               <option value="All">All Categories</option>
               <option value="Cleaning">Cleaning</option>
