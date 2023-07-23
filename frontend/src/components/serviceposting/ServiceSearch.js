@@ -3,7 +3,7 @@ import './ServicePosting.css';
 
 export default function ServiceSearch ({ onSearch }) {
     return (
-    <div>
+    <div className = "search-bar-container">
         <center>
         <input
         className='search-bar'

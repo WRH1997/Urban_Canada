@@ -60,14 +60,13 @@ export default function ServiceList({ services }) {
       console.error("Error parsing user data:", e);
     }
       
-  // const [formData, setFormData] = useState({
-  //     vendorID: vendorID,
-  //     serviceName: "",
-  //     serviceDesc: "",
-  //     pricePerHour: "",
-  //     category: "",
-  //     serviceImg: "",
-  // });
+    const [formErrors, setFormErrors] = useState({
+      serviceName: '',
+      serviceDesc: '',
+      pricePerHour: '',
+      category: '',
+      serviceImg: '',
+    });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,8 +75,49 @@ export default function ServiceList({ services }) {
       [name]: value,
     });
   };
+
   //modified to handle both creates and updates for less code
   const handleCreateService = (e) => {
+    setFormErrors({
+      serviceName: '',
+      serviceDesc: '',
+      pricePerHour: '',
+      category: '',
+      serviceImg: '',
+    });
+
+    let errors = {};
+
+    //validation checks
+    if (!selectedService.serviceName) {
+      errors.serviceName = 'Service Name is required';
+    }
+  
+    if (!selectedService.serviceDesc) {
+      errors.serviceDesc = 'Service Description is required';
+    }
+  
+    if (!selectedService.pricePerHour) {
+      errors.pricePerHour = 'Price per hour is required';
+    } else if (isNaN(selectedService.pricePerHour)) {
+      errors.pricePerHour = 'Price per hour must be a valid number';
+    }
+  
+    if (!selectedService.category) {
+      errors.category = 'Service Type is required';
+    }
+  
+    if (!selectedService.serviceImg) {
+      errors.serviceImg = 'Image link is required';
+    } else if (!isValidImageUrl(selectedService.serviceImg)) {
+      errors.serviceImg = 'Please provide a valid image URL';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
     console.log("sending request");
     setOpen(false);
     e.preventDefault();
@@ -103,6 +143,13 @@ export default function ServiceList({ services }) {
       });
   };
 
+  // helper function to check the url provided
+  const isValidImageUrl = (url) => {
+    
+    const imageRegex = /\.(jpeg|jpg|gif|png|svg|webp)$/i;
+    return imageRegex.test(url);
+  };
+
 
 
   const onDelete = (serviceId) => {
@@ -121,7 +168,7 @@ export default function ServiceList({ services }) {
           console.error("Error deleting service:", error);
         });
     } else {
-      //Do nothing?
+      //Do nothing? (close form)
     }
   };
 
@@ -132,7 +179,7 @@ export default function ServiceList({ services }) {
   <div >
     <div>
       <div className="button-container">
-        <Button variant="outlined" onClick={handleClickOpen} classname= "create-service-button">
+        <Button variant="contained" onClick={handleClickOpen} classname= "create-service-button">
             Create Service
         </Button>
       </div>
@@ -153,6 +200,8 @@ export default function ServiceList({ services }) {
               variant="standard"
               value={selectedService.serviceName}
               onChange={handleChange}
+              error={!!formErrors.serviceName} 
+              helperText={formErrors.serviceName}
           />
 
           <TextField
@@ -166,6 +215,8 @@ export default function ServiceList({ services }) {
               variant="standard"
               value={selectedService.serviceDesc}
               onChange={handleChange}
+              error={!!formErrors.serviceDesc}
+              helperText={formErrors.serviceDesc}
           />
 
           <TextField
@@ -179,6 +230,8 @@ export default function ServiceList({ services }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
+              error={!!formErrors.pricePerHour}
+              helperText={formErrors.pricePerHour}
           />
           
 
@@ -192,6 +245,7 @@ export default function ServiceList({ services }) {
           label="Service Type"
           fullWidth
           onChange={handleChange}
+          error={!!formErrors.category}
           >
           <MenuItem value="Cleaning">Cleaning</MenuItem>
           <MenuItem value="Repair">Repair</MenuItem>
@@ -212,13 +266,15 @@ export default function ServiceList({ services }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
+              error={!!formErrors.serviceImg}
+              helperText={formErrors.serviceImg}
           />
 
 
           </DialogContent>
           <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleCreateService}>{isEditing ? "Save" : "Create"}</Button>
+          <Button onClick={handleClose} variant="contained" color="error">Cancel</Button>
+          <Button onClick={handleCreateService} variant="contained">{isEditing ? "Save" : "Create"}</Button>
           </DialogActions>
       </Dialog>
   </div>
@@ -232,7 +288,7 @@ export default function ServiceList({ services }) {
           image={service.serviceImg}
           title={service.serviceName}
           />
-          <CardContent>
+          <CardContent className="card-content">
           <Typography gutterBottom variant="h5" component="div">
               Service: {service.serviceName}
           </Typography>
@@ -246,9 +302,9 @@ export default function ServiceList({ services }) {
               {service.serviceDesc}
           </Typography>
           </CardContent>
-          <CardActions>
-          <Button size="small" onClick={() => handleClickOpen(service)}>Edit</Button>
-          <Button size="small" onClick= {() => onDelete(service._id)}>Delete</Button>
+          <CardActions className = "card-actions">
+          <Button size="small" variant="contained" onClick={() => handleClickOpen(service)}>Edit</Button>
+          <Button size="small" variant="contained" color="error" onClick= {() => onDelete(service._id)}>Delete</Button>
           </CardActions>
       </Card>
       ))}
