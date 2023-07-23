@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Urban Canada",
+  "name": "A modern service marketplace to empower vendors and satisfy clients.",
   "icons": [
     {
       "src": "favicon.ico",

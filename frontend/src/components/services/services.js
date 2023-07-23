@@ -1,13 +1,11 @@
 import React from "react";
-import Header from "../header/header";
-import Footer from "../footer/footer";
-import '../services/services.css';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';
 import {Link} from 'react-router-dom';
 import { Rating } from "@material-tailwind/react";
-import Star from "../ratingReview/ratingSubComponent/Star"
-
+import Header from "../header/header";
+import Footer from "../footer/footer";
+import '../services/services.css';
 export default function Services() {
 
   const [services, setServices] = React.useState([]);
@@ -15,9 +13,6 @@ export default function Services() {
   const [filters, setFilters] = React.useState([]);
   const [filtered, setFiltered] = React.useState(false);
   const [searched, setSearched] = React.useState(false);
-
-  //cleaning, repair, moving, carpentry, landscaping, other
-  //const [filters, setFilters] = React.useState([]);
 
   const fetchData = async () => {
     let data = await fetch('http://localhost:3001/allServices', {
@@ -28,6 +23,23 @@ export default function Services() {
     });
     let serviceJson = await data.json();
     let serviceList = serviceJson['services'];
+    for(let x=0; x<serviceList.length; x++){
+      let rating = 0;
+      let vendorId = serviceList[x]["vendorID"];
+      let data = await fetch('http://localhost:3001/rating/averagerating/'+vendorId, {
+        method: "GET",
+        headers: {
+          "Content-Type": 'application/json'
+        }
+      });
+      let res = await data.json();
+      if('error' in res){
+        serviceList[x]['rating'] = 0;
+      }
+      else{
+        serviceList[x]['rating'] = parseInt(res['averageRating']);
+      }
+    }
     if(JSON.stringify(services)!=JSON.stringify(serviceList)){
       console.log(serviceList);
       return setServices(serviceList);
@@ -121,7 +133,7 @@ export default function Services() {
           <BrowserView>
             <div className='filters-desktop'>
               <Accordion className='fltrs-dropdown'>
-                <AccordionItem header="Filters" className='accFltrs'>
+                <AccordionItem header="Category" className='accFltrs text-base'>
                   <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
                   <br></br>
                   <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
@@ -134,31 +146,36 @@ export default function Services() {
                   <br></br>
                   <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
                   <br></br><br></br>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </BrowserView>
-
-          <MobileView>
-            <div className='filters-mobile'>
-              <Accordion className='fltrs-dropdown'>
-                <AccordionItem header="Filters" className='accFltrs'>
-                  <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
-                  <br></br>
-                  <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
-                  <br></br>
-                  <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
-                  <br></br>
-                  <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
-                  <br></br>
-                  <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
-                  <br></br>
-                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
-                  <br></br><br></br>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </MobileView>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </BrowserView>
+            <MobileView>
+              <div className='filters-mobile'>
+                <Accordion className='fltrs-dropdown'>
+                  <AccordionItem header="Filters" className='accFltrs'>
+                  <div className='floatFix'>
+                  <div className='l-div'>
+                    <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+                    <br></br>
+                    <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+                    <br></br>
+                    <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+                    <br></br>
+                  </div>
+                    <div className='r-div'>
+                    <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+                    <br></br>
+                    <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+                    <br></br>
+                    <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+                    <br></br>
+                  </div>
+                  </div>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </MobileView>
 
         </center>
 
@@ -182,7 +199,8 @@ export default function Services() {
                 <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
 
                 <div className="flex">
-                  <Rating unratedColor="amber" ratedColor="amber" value={4} readonly />
+
+                  <Rating unratedColor="amber" ratedColor="amber" value={service.rating} readonly />
 
                   <Link to={{pathname: `/rating/${service.vendorID}`}} className="text-gray-800 font-medium text-sm mx-2" state={service}>
                     View
@@ -192,15 +210,15 @@ export default function Services() {
                 <p style={{color: "inherit"}} className="mb-2 text-lg font-medium text-gray-900">Rate: ${service.pricePerHour}/hr.</p>
                 
                 <div className="mb-2">
-                  <button
-                    type="submit"
-                    variant="contained"
-                    className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    <Link to="/booking" className="text-white no-underline" state={service}>
+                  <Link to="/booking" className="text-white no-underline" state={service}>
+                    <button
+                      type="submit"
+                      variant="contained"
+                      className="rounded-md bg-gray-800 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
                       Book
-                    </Link>
-                  </button>
+                    </button>
+                  </Link>
                 </div>
                 
                 <p className="mb-0 text-sm">{service.serviceDesc}</p>

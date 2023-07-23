@@ -72,7 +72,15 @@ export default function MyBookings() {
   // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-provider/${consumer_id}`).then((res)=>{
-      setBookings(res.data)
+      var data =  []
+      if(res.data && res.data.length > 0){
+        res.data.forEach(element => {
+          if(element.consumer_id && element.service_id && element.provider_id){
+            data.push(element)
+          }
+        });
+      }
+      setBookings(data)
     }).catch((e)=>{
       alert(e)
     })
@@ -98,7 +106,7 @@ export default function MyBookings() {
   const approveBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/approve/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -109,7 +117,7 @@ export default function MyBookings() {
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -121,7 +129,7 @@ export default function MyBookings() {
     const booking_id = selectedBooking._id
     console.log(booking_id)
     axios.put(`http://localhost:3001/booking/complete/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -130,7 +138,7 @@ export default function MyBookings() {
 
   return (
     <div>
-      <Header currentPage="/vendor_bookings" />
+      <Header currentPage="/provider_bookings" />
 
       <div class="container">
         <h5 class="my-4">My Bookings</h5>
@@ -158,9 +166,9 @@ export default function MyBookings() {
                       <th className='booking-th'>Manage</th>
                     </tr>
                   </thead>
-
                   <tbody>
                     {bookings.map((person,index) => (
+                      person.service_id && person.consumer_id && person.provider_id ?
                       <tr class="align-middle">
                         <td>{index+1}</td>
                         <td class="h6 mb-0 lh-1">{person.consumer_id.firstName} {person.consumer_id.lastName}</td>
@@ -206,6 +214,8 @@ export default function MyBookings() {
                           }
                         </td>
                       </tr>
+                      :
+                      <div></div>
                     ))}
                   </tbody>
                 </table>       
