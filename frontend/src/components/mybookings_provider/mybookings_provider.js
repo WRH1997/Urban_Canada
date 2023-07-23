@@ -158,9 +158,9 @@ export default function MyBookings() {
                       <th className='booking-th'>Manage</th>
                     </tr>
                   </thead>
-
                   <tbody>
                     {bookings.map((person,index) => (
+                      person.service_id && person.consumer_id && person.provider_id ?
                       <tr class="align-middle">
                         <td>{index+1}</td>
                         <td class="h6 mb-0 lh-1">{person.consumer_id.firstName} {person.consumer_id.lastName}</td>
@@ -206,6 +206,8 @@ export default function MyBookings() {
                           }
                         </td>
                       </tr>
+                      :
+                      <div></div>
                     ))}
                   </tbody>
                 </table>       
