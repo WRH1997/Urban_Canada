@@ -3,7 +3,7 @@
   width: 30%;
   border-radius: 15px;
   padding-left:9px;
-  border: 2px solid #000;
+  border: 1px solid #c9c9c9;
   
 }
 .search-bar-container {
@@ -72,6 +72,11 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 20px; 
   padding: 20px;
+}
+@media screen and (max-width: 1023px) {
+  .service-cards-container {
+    grid-template-columns: repeat(2, 1fr); /* Display 2 columns */
+  }
 }
 
 .service-card {
