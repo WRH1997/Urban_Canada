@@ -1,3 +1,7 @@
+/*
+Author(s): 
+- Muskan Vazirani (B00912626)
+*/
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");

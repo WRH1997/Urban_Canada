@@ -1,3 +1,7 @@
+/*
+Author(s): 
+- Muskan Vazirani (B00912626)
+*/
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 

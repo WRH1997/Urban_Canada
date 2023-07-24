@@ -1,3 +1,7 @@
+/*
+Author(s): 
+- Muskan Vazirani (B00912626)
+*/
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const LoginRedirect = () => {

@@ -1,3 +1,7 @@
+/*
+Author(s): 
+- Muskan Vazirani (B00912626)
+*/
 import { useState } from "react";
 
 const useAuth = () => {
