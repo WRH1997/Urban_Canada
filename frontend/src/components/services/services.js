@@ -1,3 +1,5 @@
+// author: Waleed Alhindi
+
 import React from "react";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';

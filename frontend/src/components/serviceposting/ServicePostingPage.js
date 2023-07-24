@@ -1,3 +1,5 @@
+// author: Edwin Adams
+
 import React, { useState, useEffect } from 'react';
 import ServiceList from './ServiceList';
 import ServiceSearch from './ServiceSearch';

@@ -1,3 +1,5 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 const mongoose = require('mongoose');
 
 const BookingSchema = new mongoose.Schema({

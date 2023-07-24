@@ -1,3 +1,5 @@
+// author: Edwin Adams
+
 import React from 'react';
 import './ServicePosting.css';
 
