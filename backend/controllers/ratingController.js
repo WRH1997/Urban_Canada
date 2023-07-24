@@ -1,3 +1,8 @@
+/*
+Author(s): 
+- Darshil P. Patel (B00946528)
+*/
+
 const RatingReview = require('../models/ratingReviews')
 const { ObjectId } = require('mongodb');
 var Booking = require('../models/bookingModel');

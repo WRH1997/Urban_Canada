@@ -1,3 +1,9 @@
+/*
+Author(s): 
+- Darshil P. Patel (B00946528)
+*/
+
+
 var express = require('express');
 var ratingController = require('../controllers/ratingController')
 var router = express.Router();

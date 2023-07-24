@@ -1,3 +1,9 @@
+/*
+Author(s): 
+- Darshil P Patel (B00946528)
+*/
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Star from './ratingSubComponent/Star';

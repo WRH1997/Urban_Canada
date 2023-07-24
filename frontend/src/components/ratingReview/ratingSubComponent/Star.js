@@ -1,3 +1,10 @@
+/*
+Author(s): 
+- Darshil P. Patel (B00946528)
+*/
+
+
+
 import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import { FaStar } from 'react-icons/fa';

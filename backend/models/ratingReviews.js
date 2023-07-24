@@ -1,3 +1,9 @@
+/*
+Author(s): 
+- Darshil P. Patel (B00946528)
+*/
+
+
 const mongoose = require("mongoose");
 
 const RatingReviewSchema = new mongoose.Schema({
