@@ -1,3 +1,9 @@
+/*
+Author(s): 
+- Waleed R. Alhindi (B00919848)
+*/
+
+
 const mongoose = require('mongoose');
 
 //Mongoose auto-gens an ID for the object when none

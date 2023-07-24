@@ -1,3 +1,8 @@
+/*
+Author(s): 
+- Waleed R. Alhindi (B00919848)
+*/
+
 const Service = require('../models/services');
 const mongoose = require("mongoose");
 

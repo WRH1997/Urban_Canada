@@ -1,3 +1,8 @@
+/*
+Author(s): 
+- Waleed R. Alhindi (B00919848)
+*/
+
 import React from "react";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import {BrowserView, MobileView} from 'react-device-detect';
