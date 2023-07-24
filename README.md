@@ -659,8 +659,7 @@ export default function Example() {
 
 ### contact.js
 
-*Lines 37 - 38*
-*Lines 84 - 95*
+*Lines 37 - 38, 84 - 95*
 
 ```
 var emailValidRegex =

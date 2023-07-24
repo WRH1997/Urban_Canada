@@ -18,11 +18,23 @@ export default function ServicePostingPage() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/allServices')
-      .then((response) => setServices(response.data.services))
-      .catch((error) => console.error('Error fetching services:', error));
-  }, []);
+  axios
+    .get('http://localhost:3001/allServices')
+    .then((response) => {
+      const userDataString = localStorage.getItem("userData");
+      let vendorID = "";
+      try {
+        const userData = JSON.parse(userDataString);
+        vendorID = userData._id;
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+      }
+
+      const filteredServices = response.data.services.filter((service) => service.vendorID === vendorID);
+      setServices(filteredServices);
+    })
+    .catch((error) => console.error('Error fetching services:', error));
+}, []);
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm)

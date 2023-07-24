@@ -1,3 +1,5 @@
+// author: Waleed Alhindi, Edwin Adams
+
 const Service = require('../models/services');
 const mongoose = require("mongoose");
 
