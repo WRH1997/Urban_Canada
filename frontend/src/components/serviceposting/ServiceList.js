@@ -178,9 +178,7 @@ export default function ServiceList({ services }) {
     }
   };
 
-  if (!services || services.length === 0) {
-      return <div>No services found.</div>;
-  }
+
   return (
   <div >
     <div>
@@ -285,37 +283,44 @@ export default function ServiceList({ services }) {
       </Dialog>
   </div>
 
-  <div >
-    <div className="service-cards-container">
-      {services.map((service) => (
-      <Card key={service._id} sx={{ maxWidth: 345 }} className="service-card">
-          <CardMedia
-          sx={{ height: 140 }}
-          image={service.serviceImg}
-          title={service.serviceName}
-          />
-          <CardContent className="card-content">
-          <Typography gutterBottom variant="h5" component="div">
-              Service: {service.serviceName}
-          </Typography>
-          <Typography gutterBottom variant="h5" component="div">
-              Category: {service.category}
-          </Typography>
-          <Typography gutterBottom variant="h5" component="div">
-              Hourly Rate: ${service.pricePerHour.toFixed(2)}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-              {service.serviceDesc}
-          </Typography>
-          </CardContent>
-          <CardActions className = "card-actions">
-          <Button size="small" variant="contained" onClick={() => handleClickOpen(service)}>Edit</Button>
-          <Button size="small" variant="contained" color="error" onClick= {() => onDelete(service._id)}>Delete</Button>
-          </CardActions>
-      </Card>
-      ))}
+  <div>
+        {/* render services if they exist */}
+        {services.length > 0 ? (
+          <div className="service-cards-container">
+            {services.map((service) => (
+              <Card key={service._id} sx={{ maxWidth: 345 }} className="service-card">
+                <CardMedia sx={{ height: 140 }} image={service.serviceImg} title={service.serviceName} />
+                <CardContent className="card-content">
+                  <Typography gutterBottom variant="h5" component="div">
+                    Service: {service.serviceName}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Category: {service.category}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Hourly Rate: ${service.pricePerHour.toFixed(2)}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {service.serviceDesc}
+                  </Typography>
+                </CardContent>
+                <CardActions className="card-actions">
+                  <Button size="small" variant="contained" onClick={() => handleClickOpen(service)}>
+                    Edit
+                  </Button>
+                  <Button size="small" variant="contained" color="error" onClick={() => onDelete(service._id)}>
+                    Delete
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="no-services-found">
+            <h2>No services found</h2>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-</div>
-);};
-
+  );
+}
