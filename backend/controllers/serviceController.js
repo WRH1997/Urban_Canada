@@ -1,4 +1,8 @@
-// author: Waleed Alhindi, Edwin Adams
+/*
+Author(s): 
+- Waleed R. Alhindi (B00919848)
+- Edwin Adams (B00917930)
+*/
 
 const Service = require('../models/services');
 const mongoose = require("mongoose");
