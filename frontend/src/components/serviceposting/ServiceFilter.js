@@ -1,3 +1,9 @@
+
+/*
+Author(s): 
+- Edwin Adams (B00917930)
+*/
+
 import React, { useState } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';

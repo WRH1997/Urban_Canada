@@ -1,3 +1,9 @@
+/*
+Author(s): 
+- Edwin Adams (B00917930)
+*/
+
+
 .search-bar{
   margin-top: 25px;
   width: 30%;
@@ -94,4 +100,16 @@
 .card-actions {
   display: flex;
   justify-content: flex-end; 
+}
+
+.no-services-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; 
+}
+
+.no-services-found h2 {
+  font-size: 24px;
+  font-weight: bold;
 }

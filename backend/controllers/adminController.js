@@ -1,3 +1,5 @@
+// author: Nandkumar Kadivar
+
 const User = require("../models/users");
 const Service =  require("../models/services")
 
@@ -204,14 +206,7 @@ exports.getTopServiceStatistics = async (req, res) => {
     try{
 
         const services = await Service.find()
-        // console.log(services)
-        // if(consumer){
-        //     res.status(200)
-        //     res.send("unblocked")
-        // }else {
-        //     res.status(400)
-        //     res.send("user not found")
-        // }
+
         var categories = []
         var category_values = []
         services.forEach((element)=>{
@@ -230,8 +225,6 @@ exports.getTopServiceStatistics = async (req, res) => {
             category_values.push(sum)
         })
 
-        // console.log(categories)
-        // console.log(category_values)
         const data = {
             categories,category_values
         }

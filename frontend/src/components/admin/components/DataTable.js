@@ -1,3 +1,5 @@
+// author: Nandkumar Kadivar
+
 import React, {useState} from 'react'
 import {TableContainer,Table, TableHead, TableRow, TableCell, TableBody, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
@@ -69,7 +71,6 @@ const DataTable = (props) => {
     };
 
     const openUnBlockModelConsumer = (user) => {
-        // setSelectedVendor(user)
         setSelectedBlockedConsumer(user)
         setOpenUnBlockConsumer(true)
     };

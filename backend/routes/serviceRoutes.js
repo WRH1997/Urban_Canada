@@ -1,3 +1,10 @@
+/*
+Author(s): 
+- Waleed R. Alhindi (B00919848)
+- Edwin Adams (B00917930)
+*/
+
+
 const express = require('express');
 const router = express.Router();
 const serviceController = require('../controllers/serviceController');
