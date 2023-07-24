@@ -1,7 +1,5 @@
-/*
-Author(s): 
-- Muskan Vazirani (B00912626)
-*/
+// author: Muskan Vazirani
+
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import axios from "axios";

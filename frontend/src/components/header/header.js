@@ -1,3 +1,5 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -9,20 +11,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-// function for header
 export default function Header(props) {
 
-  const [user, setUser] = useState({}); // User state
-  const [loading, setLoading] = useState(true); // Loading state
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
   const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
 
-  // navigation menu for guest.
   const guestNavigation = [
     { name: "Home", href: "/" },
     { name: "Login/SignUp", href: "/login" },
   ];
 
-  // navigation menu for service provider.
   var providerNavigation = [
     { name: "Home", href: "/" },
     { name: "Service Posting", href: "/ServicePosting" },
@@ -76,7 +75,6 @@ export default function Header(props) {
 
   console.log(loggedInUser)
 
-  // set navigation according to user.
   var navigation = guestNavigation;
 
   if(loggedInUser == "service-consumer"){
@@ -95,7 +93,6 @@ export default function Header(props) {
     return { ...item, current: false };
   });
 
-  //signout function
   const handleSignOut = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("authToken");

@@ -1,8 +1,4 @@
-/*
-Author(s): 
-- Waleed R. Alhindi (B00919848)
-*/
-
+// author: Waleed Alhindi
 
 const mongoose = require('mongoose');
 

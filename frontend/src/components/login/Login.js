@@ -1,7 +1,5 @@
-/*
-Author(s): 
-- Muskan Vazirani (B00912626)
-*/
+// author: Muskan Vazirani
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
