@@ -2149,6 +2149,402 @@ const data = {
 - [Bar Chart | Chart.js](https://www.chartjs.org/docs/latest/charts/bar.html)'s Code was used because it has some great visual effects for showin statistics.
 - [Bar Chart | Chart.js](https://www.chartjs.org/docs/latest/charts/bar.html)'s Code was modified by updating properties according to the need of the feature.
 
+### ServiceList.js
+
+*Lines 179 - 280*
+
+```
+  <div >
+    <div>
+      <div className="button-container">
+        <Button variant="contained" onClick={handleClickOpen} classname= "create-service-button">
+            Create Service
+        </Button>
+      </div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{isEditing ? "Edit Service" : "Create Service"}</DialogTitle>
+          <DialogContent>
+          <DialogContentText>
+              Please fill in the details of your service
+          </DialogContentText>
+          <TextField
+              name = "serviceName"
+              autoFocus
+              margin="dense"
+              id="serviceName"
+              label="Service Name"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={selectedService.serviceName}
+              onChange={handleChange}
+              error={!!formErrors.serviceName} 
+              helperText={formErrors.serviceName}
+          />
+
+          <TextField
+                name = "serviceDesc"
+              autoFocus
+              margin="dense"
+              id="serviceDesc"
+              label="Service Description"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={selectedService.serviceDesc}
+              onChange={handleChange}
+              error={!!formErrors.serviceDesc}
+              helperText={formErrors.serviceDesc}
+          />
+
+          <TextField
+              name = "pricePerHour"
+              autoFocus
+              margin="dense"
+              id="pricePerHour"
+              label="Price per hour"
+              type="text"
+              value={selectedService.pricePerHour}
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              error={!!formErrors.pricePerHour}
+              helperText={formErrors.pricePerHour}
+          />
+          
+
+      <br></br><br></br>
+      <InputLabel id="category">Service Type</InputLabel>
+          <Select
+          name = "category"
+          labelId="category"
+          id="category"
+          value={selectedService.category}
+          label="Service Type"
+          fullWidth
+          onChange={handleChange}
+          error={!!formErrors.category}
+          >
+          <MenuItem value="Cleaning">Cleaning</MenuItem>
+          <MenuItem value="Repair">Repair</MenuItem>
+          <MenuItem value="Moving">Moving</MenuItem>
+          <MenuItem value="Carpentry">Carpentry</MenuItem>
+          <MenuItem value="Landscaping">Landscaping</MenuItem>
+          <MenuItem value="Other">Other</MenuItem>
+          </Select>
+
+          <TextField
+              name = "serviceImg"
+              autoFocus
+              margin="dense"
+              id="serviceImg"
+              label="Image link"
+              type="text"
+              value={selectedService.serviceImg}
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              error={!!formErrors.serviceImg}
+              helperText={formErrors.serviceImg}
+          />
+
+
+          </DialogContent>
+          <DialogActions>
+          <Button onClick={handleClose} variant="contained" color="error">Cancel</Button>
+          <Button onClick={handleCreateService} variant="contained">{isEditing ? "Save" : "Create"}</Button>
+          </DialogActions>
+      </Dialog>
+  </div>
+```
+The code above was created by adapting the code in [material-ui/react-dialog/Form dialogs](https://mui.com/material-ui/react-dialog/) as shown below: 
+
+```
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open form dialog
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We
+            will send updates occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+```
+
+### ServiceList.js
+
+*Lines 282 - 325*
+
+```
+   return (
+  <div >
+    <div>
+      <div className="button-container">
+        <Button variant="contained" onClick={handleClickOpen} classname= "create-service-button">
+            Create Service
+        </Button>
+      </div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{isEditing ? "Edit Service" : "Create Service"}</DialogTitle>
+          <DialogContent>
+          <DialogContentText>
+              Please fill in the details of your service
+          </DialogContentText>
+          <TextField
+              name = "serviceName"
+              autoFocus
+              margin="dense"
+              id="serviceName"
+              label="Service Name"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={selectedService.serviceName}
+              onChange={handleChange}
+              error={!!formErrors.serviceName} 
+              helperText={formErrors.serviceName}
+          />
+
+          <TextField
+                name = "serviceDesc"
+              autoFocus
+              margin="dense"
+              id="serviceDesc"
+              label="Service Description"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={selectedService.serviceDesc}
+              onChange={handleChange}
+              error={!!formErrors.serviceDesc}
+              helperText={formErrors.serviceDesc}
+          />
+
+          <TextField
+              name = "pricePerHour"
+              autoFocus
+              margin="dense"
+              id="pricePerHour"
+              label="Price per hour"
+              type="text"
+              value={selectedService.pricePerHour}
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              error={!!formErrors.pricePerHour}
+              helperText={formErrors.pricePerHour}
+          />
+          
+
+      <br></br><br></br>
+      <InputLabel id="category">Service Type</InputLabel>
+          <Select
+          name = "category"
+          labelId="category"
+          id="category"
+          value={selectedService.category}
+          label="Service Type"
+          fullWidth
+          onChange={handleChange}
+          error={!!formErrors.category}
+          >
+          <MenuItem value="Cleaning">Cleaning</MenuItem>
+          <MenuItem value="Repair">Repair</MenuItem>
+          <MenuItem value="Moving">Moving</MenuItem>
+          <MenuItem value="Carpentry">Carpentry</MenuItem>
+          <MenuItem value="Landscaping">Landscaping</MenuItem>
+          <MenuItem value="Other">Other</MenuItem>
+          </Select>
+
+          <TextField
+              name = "serviceImg"
+              autoFocus
+              margin="dense"
+              id="serviceImg"
+              label="Image link"
+              type="text"
+              value={selectedService.serviceImg}
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              error={!!formErrors.serviceImg}
+              helperText={formErrors.serviceImg}
+          />
+
+
+          </DialogContent>
+          <DialogActions>
+          <Button onClick={handleClose} variant="contained" color="error">Cancel</Button>
+          <Button onClick={handleCreateService} variant="contained">{isEditing ? "Save" : "Create"}</Button>
+          </DialogActions>
+      </Dialog>
+  </div>
+
+  <div>
+        {/* render services if they exist */}
+        {services.length > 0 ? (
+          <div className="service-cards-container">
+            {services.map((service) => (
+              <Card key={service._id} sx={{ maxWidth: 345 }} className="service-card">
+                <CardMedia sx={{ height: 140 }} image={service.serviceImg} title={service.serviceName} />
+                <CardContent className="card-content">
+                  <Typography gutterBottom variant="h5" component="div">
+                    Service: {service.serviceName}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Category: {service.category}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Hourly Rate: ${service.pricePerHour.toFixed(2)}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {service.serviceDesc}
+                  </Typography>
+                </CardContent>
+                <CardActions className="card-actions">
+                  <Button size="small" variant="contained" onClick={() => handleClickOpen(service)}>
+                    Edit
+                  </Button>
+                  <Button size="small" variant="contained" color="error" onClick={() => onDelete(service._id)}>
+                    Delete
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="no-services-found">
+            <h2>No services found</h2>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+```
+The code above was created by adapting the code in [material-ui/react-card/media](https://mui.com/material-ui/react-card/) as shown below: 
+
+```
+export default function MediaCard() {
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="/static/images/cards/contemplative-reptile.jpg"
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Lizard
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Lizards are a widespread group of squamate reptiles, with over 6,000
+          species, ranging across all continents except Antarctica
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+  );
+}
+```
+### ServiceFilter.js
+
+*Lines 17 - 38*
+
+```
+  return (
+    <div className="filters" >
+      <Accordion>
+        <AccordionSummary  expandIcon={<ExpandMoreIcon />} className="fltrs-dropdown">
+          <Typography>Filter Services</Typography>
+        </AccordionSummary>
+        <AccordionDetails className='accFltrs'>
+          <div className="fltrs-dropdown">
+            <select value={selectedCategory} onChange={handleCategoryChange}>
+              <option value="All">All Categories</option>
+              <option value="Cleaning">Cleaning</option>
+              <option value="Repair">Repair</option>
+              <option value="Moving">Moving</option>
+              <option value="Carpentry">Carpentry</option>
+              <option value="Landscaping">Landscaping</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+```
+The code above was created by adapting the code in [material-ui/Accordion/Basic Accordion](https://mui.com/material-ui/react-accordion/) as shown below: 
+
+```
+export default function BasicAccordion() {
+  return (
+    <div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Accordion 1</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>Accordion 2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion disabled>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3a-content"
+          id="panel3a-header"
+        >
+          <Typography>Disabled Accordion</Typography>
+        </AccordionSummary>
+      </Accordion>
+    </div>
+  );
+}
+```
+
 ## Acknowledgments
 
 * The code provided valuable insights and served as a foundation for understanding and learning it's functionality and logic. I am grateful for their work and dedication.
