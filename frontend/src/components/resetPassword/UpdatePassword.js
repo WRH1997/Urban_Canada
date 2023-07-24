@@ -1,7 +1,5 @@
-/*
-Author(s): 
-- Muskan Vazirani (B00912626)
-*/
+// author: Muskan Vazirani
+
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { EmailContext } from "../../contexts/EmailContext";

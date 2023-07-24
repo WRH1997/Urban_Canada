@@ -1,9 +1,4 @@
-/*
-Author(s): 
-- Darshil P. Patel (B00946528)
-*/
-
-
+// author: Darshil Patel
 
 import React,{useState} from 'react';
 import PropTypes from 'prop-types';

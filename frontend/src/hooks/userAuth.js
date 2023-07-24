@@ -1,7 +1,5 @@
-/*
-Author(s): 
-- Muskan Vazirani (B00912626)
-*/
+// author: Muskan Vazirani
+
 import { useState } from "react";
 
 const useAuth = () => {
