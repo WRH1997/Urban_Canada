@@ -1,3 +1,5 @@
+// author: Darshil Patel
+
 const mongoose = require("mongoose");
 
 const RatingReviewSchema = new mongoose.Schema({

@@ -1,3 +1,5 @@
+// author: Darshil Patel
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Star from './ratingSubComponent/Star';
@@ -30,7 +32,7 @@ const App = () => {
     const fetchRatingReviewData = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/rating/getRating/${vendorId}`);
-        setRatingReviewData(response.data); // Extract the data from the response object
+        setRatingReviewData(response.data);
       } catch (error) {
         console.error('Error fetching rating review data:', error);
       }
@@ -76,11 +78,11 @@ const App = () => {
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
-    // You can handle the comment submission here and add it to the comments section
+
     const userName = userData.firstName + " " + userData.lastName
     console.log(userName);
     try {
-      // Make a POST request to store the new comment in the database
+
       await axios.post(`http://localhost:3001/rating/postRating`, {
         name: userName,
         comment: newComment,
@@ -90,8 +92,6 @@ const App = () => {
         bookingId
       });
 
-      // Adjust this value according to your logic
-      // Reset the comment field and set isSubmitted to true after the form is submitted
         setNewComment('');
         setIsSubmitted(true);
       } catch (error) {
@@ -100,8 +100,8 @@ const App = () => {
       
       console.log(selectedStar);
       console.log('New Comment:', newComment);
-      setNewComment(''); // Clear the comment field after submission
-      setIsSubmitted(true); // Set isSubmitted to true after the form is submitted
+      setNewComment('');
+      setIsSubmitted(true);
       
   };
 
@@ -124,7 +124,6 @@ const App = () => {
     };
   };
   
-  // Function to generate a random image URL
   const getRandomImage = () => {
     const images = [
     "https://mui.com/static/images/avatar/1.jpg",
@@ -139,13 +138,11 @@ const App = () => {
     "https://mui.com/static/images/avatar/10.jpg",
   ];
   
-  // Generate a random index to select a random image from the array
   const randomIndex = Math.floor(Math.random() * images.length);
   
   return images[randomIndex];
 };
 
-// eslint-disable-next-line
 const chartData = {
   labels: ['5-Star', '4-Star', '3-Star', '2-Star', '1-Star'],
   datasets: [
@@ -244,8 +241,8 @@ const chartData = {
                       value={newComment}
                       onChange={handleCommentChange}
                       sx={{
-                        width: '100%', // Occupy the full width of the container
-                        resize: 'vertical', // Allow vertical resizing
+                        width: '100%',
+                        resize: 'vertical',
                       }}
                       placeholder="Enter your comment..."
                       />

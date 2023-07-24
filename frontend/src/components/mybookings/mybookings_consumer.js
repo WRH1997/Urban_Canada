@@ -1,3 +1,5 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React, {useState, useEffect} from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,10 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
 import axios from 'axios';
 
-// function of my boookings for service consumer.
 export default function MyBookings() {
 
-  // variables
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
   const provider_id = JSON.parse(user)._id
@@ -56,7 +56,6 @@ export default function MyBookings() {
       setSelectedBooking("")
   };
 
-  // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
       console.log(res);
@@ -90,7 +89,6 @@ export default function MyBookings() {
     setAnchorEl(null);
   };
 
-  //function to reschedule booking.
   const rescheduleBookingHandler = () => {
     if (date != "" && time != "") {
     const data = {
@@ -104,14 +102,12 @@ export default function MyBookings() {
     })
     closeModel()
   }
-    
-  // validation for mandatory date and time.
+
   else {
     alert("Date and Time are required.")
   }
   }
 
-   //function to cancel booking.
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
@@ -122,7 +118,6 @@ export default function MyBookings() {
     closeModel()
   }
 
-  // function to allow only current and upcoming dates to reschedule.
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
