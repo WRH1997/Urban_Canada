@@ -1,3 +1,5 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -11,7 +13,6 @@ const stats = [
   { name: 'Services', value: '23' },
 ]
 
-// landing page function
 export default function Landing() {
 
   return (

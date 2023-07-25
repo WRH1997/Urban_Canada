@@ -1,17 +1,12 @@
-/*
-Author(s): 
-- Darshil P. Patel (B00946528)
-*/
+// author: Darshil Patel
 
 const RatingReview = require('../models/ratingReviews')
 const { ObjectId } = require('mongodb');
 var Booking = require('../models/bookingModel');
-const Service = require('../models//services'); // Assuming you have a Service model defined
+const Service = require('../models//services');
 const User = require("../models/users");
 
 const mongoose = require('mongoose')
-
-
 
 exports.getRating = async (req, res) => {
     try {
@@ -53,7 +48,6 @@ exports.postRating = async (req, res) => {
   }
 };
 
-
 exports.isReviewed = async (req, res) => {
   try{
 
@@ -79,7 +73,6 @@ exports.isReviewed = async (req, res) => {
   }
 }
 
-
 exports.vendorInfo = async (req, res) => {
 
   const vendorId = req.body.vendorId;
@@ -88,7 +81,6 @@ exports.vendorInfo = async (req, res) => {
     const services = await Service.find({ vendorID: vendorId});
     const vendorName = await User.findById(new ObjectId(vendorId), "firstName lastName").lean();
 
-    // const vendorName = services.map((service) => service.vendorName);
     const serviceNames = services.map((service) => service.serviceName);
     const serviceLocations = services.map((service) => service.vendorLocation);
     const serviceImg = services.map((service) => service.serviceImg);
@@ -112,15 +104,7 @@ exports.averageRating = async (req, res) => {
   try {
     const vendorId = req.params.vendorId;
     console.log(vendorId);
-    // Find the service by vendorId
-    // const service = await Service.findOne({ vendorID: vendorId });
-    // console.log(service);
 
-    // if (!service) {
-    //   return res.status(404).json({ error: 'Service not found' });
-    // }
-
-    // Find all the rating reviews for this vendor
     const ratingReviews = await RatingReview.find({ vendorId });
     console.log(ratingReviews);
 
@@ -128,7 +112,6 @@ exports.averageRating = async (req, res) => {
       return res.json({ averageRating: 0, totalReviews: 0 });
     }
 
-    // Calculate the average rating
     const totalRating = ratingReviews.reduce((sum, review) => sum + review.star, 0);
     const averageRating = totalRating / ratingReviews.length;
 
