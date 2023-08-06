@@ -13,6 +13,8 @@ function classNames(...classes) {
 
 export default function Header(props) {
 
+  const items = ["Service booked successfully.", "Service got approved.", "Your service is cancelled.", "Service Posted successfully."];
+
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
@@ -170,14 +172,43 @@ export default function Header(props) {
                       Welcome to Urban Canada
                     </div>
                   }
-                  
-                  <button
-                    type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
+
+                  <Menu as="div">
+                    <div>
+                      <Menu.Button className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                      </Menu.Button>
+                    </div>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                         {items.map((item, index) => (
+                        <Menu.Item>
+                            <p key={index}
+                              className="hover:bg-gray-200 block no-underline px-4 mx-2 my-1 rounded-md border-y-1 py-2 text-sm text-gray-700"
+                            >
+                              {item}
+                            </p>
+                        </Menu.Item>
+                        ))}
+                      </Menu.Items>
+                      :
+                      <div></div>
+                    }
+                    </Transition>
+                  </Menu>
 
                   <Menu as="div" className="relative ml-3">
                     <div>
