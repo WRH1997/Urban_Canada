@@ -1,3 +1,5 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React, {useState, useEffect} from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,10 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
 import axios from 'axios';
 
-// function of my bookings for service provider.
 export default function MyBookings() {
 
-  // variables
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
   const [isOpen, setIsOpen] = useState(false);
@@ -22,11 +22,9 @@ export default function MyBookings() {
   const [openComplete, setOpenComplete] = useState(false)
   const [selectedBooking,setSelectedBooking] = useState("")
 
-  // set date and time
   const [date,setDate] = useState("")
   const [time,setTime] = useState("")
 
-  // open model function
   const openModel = (booking) => {
     setSelectedBooking(booking)
     console.log(booking)
@@ -36,7 +34,6 @@ export default function MyBookings() {
     setOpenEdit(true)
   };
 
-  // close model function
   const closeModel = () => {
       setOpenEdit(false)
       setSelectedBooking("")
@@ -44,35 +41,39 @@ export default function MyBookings() {
       setTime("")
   };
 
-  // open model to reject
   const openModelCancel = (booking) => {
     setSelectedBooking(booking)
     handleClose()
     setOpenCancel(true)
   };
 
-  // close model to reject
   const closeModelCancel = () => {
       setOpenCancel(false)
       setSelectedBooking("")
   };
 
-  // close model to complete
   const openModelComplete = (booking) => {
     setSelectedBooking(booking)
     handleClose()
     setOpenComplete(true)
   };
-  // close model to complete
+
   const closeModelComplete = () => {
       setOpenComplete(false)
       setSelectedBooking("")
   };
 
-  // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-provider/${consumer_id}`).then((res)=>{
-      setBookings(res.data)
+      var data =  []
+      if(res.data && res.data.length > 0){
+        res.data.forEach(element => {
+          if(element.consumer_id && element.service_id && element.provider_id){
+            data.push(element)
+          }
+        });
+      }
+      setBookings(data)
     }).catch((e)=>{
       alert(e)
     })
@@ -94,34 +95,31 @@ export default function MyBookings() {
     setAnchorEl(null);
   };
 
-  // function to approve booking request
   const approveBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/approve/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
     closeModel()
   }
 
-  // function to reject booking request
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
     closeModel()
   }
 
-  // complete booking function
   const completeBookingHandler = () => {
     const booking_id = selectedBooking._id
     console.log(booking_id)
     axios.put(`http://localhost:3001/booking/complete/${booking_id}`).then((res)=>{
-      window.location.href="/vendor_bookings"
+      window.location.href="/provider_bookings"
     }).catch((e)=>{
       alert(e)
     })
@@ -130,7 +128,7 @@ export default function MyBookings() {
 
   return (
     <div>
-      <Header currentPage="/vendor_bookings" />
+      <Header currentPage="/provider_bookings" />
 
       <div class="container">
         <h5 class="my-4">My Bookings</h5>
@@ -158,9 +156,9 @@ export default function MyBookings() {
                       <th className='booking-th'>Manage</th>
                     </tr>
                   </thead>
-
                   <tbody>
                     {bookings.map((person,index) => (
+                      person.service_id && person.consumer_id && person.provider_id ?
                       <tr class="align-middle">
                         <td>{index+1}</td>
                         <td class="h6 mb-0 lh-1">{person.consumer_id.firstName} {person.consumer_id.lastName}</td>
@@ -206,6 +204,8 @@ export default function MyBookings() {
                           }
                         </td>
                       </tr>
+                      :
+                      <div></div>
                     ))}
                   </tbody>
                 </table>       

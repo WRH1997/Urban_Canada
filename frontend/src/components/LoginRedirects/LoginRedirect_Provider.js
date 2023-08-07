@@ -1,11 +1,12 @@
-// author: Muskan Vazirani
+// author: HARSH NARESHBHAI KATHIRIA
 
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const LoginRedirect = () => {
+const ProviderLogin = () => {
   const location = useLocation();
+  const user = JSON.parse(localStorage.getItem("userData"));
   const token = localStorage.getItem("authToken");
-  const isAuthenticated = token != null;
+  const isAuthenticated = token != null && user.role == "service-provider";
 
   return isAuthenticated ? (
     <Outlet />
@@ -14,4 +15,4 @@ const LoginRedirect = () => {
   );
 };
 
-export default LoginRedirect;
+export default ProviderLogin;

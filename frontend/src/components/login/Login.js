@@ -1,3 +1,5 @@
+// author: Muskan Vazirani
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
@@ -65,7 +67,12 @@ export default function Login() {
                 if (authToken && userData) {
                   setInputEmailValue("");
                   setInputPasswordValue("");
-                  navigate("/");
+                  const loggedin_user = JSON.parse(localStorage.getItem("userData"))
+                  if(loggedin_user != null && loggedin_user.role == "admin"){
+                    navigate("/admin/dashboard")
+                  }else{
+                    navigate("/")
+                  }
                 } else {
                   console.log("Error storing data in local storage");
                 }
@@ -142,7 +149,6 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     onChange={handlePasswordChange}
                     InputProps={{
-                      // <- This is where the toggle button is added
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton

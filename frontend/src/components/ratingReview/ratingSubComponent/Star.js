@@ -1,3 +1,5 @@
+// author: Darshil Patel
+
 import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import { FaStar } from 'react-icons/fa';
@@ -92,4 +94,3 @@ Star.defaultProps = {
   editable:true,
   border:"1px solid black"
 }
-

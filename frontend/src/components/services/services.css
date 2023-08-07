@@ -1,3 +1,5 @@
+/* author: Waleed Alhindi */
+
 .service_card:hover {
   border-radius: 5px;
   transform: scale(1.03);
@@ -22,19 +24,15 @@
   width: 20vh;
   float: left;
   box-shadow: 0px 2px 15px #d1d5db;
-  border-radius: 25px;
-  margin-left: 2vh;
+  border-radius: 10px;
+  margin-left: 6vh;
   margin-right: 4vh;
   margin-top: 5vh;
   padding-left: 1vh;
-  background-color: #d8dce4;
-}
-
-
-.filters-desktop:hover{
-  color: white;
-  background-color: #C1D7E8;
-  box-shadow: 0px 2px 15px #F7F1BC;
+  padding-right: 2vh;
+  padding-top: 2pt;
+  padding-bottom: 0%;
+  background-color: #ffffff;
 }
 
 .filters-mobile{
@@ -45,11 +43,12 @@
   margin-right: 4vh;
   margin-top: 5vh;
   padding-left: 1vh;
-  background-color: #d8dce4
+  background-color: #ffffff;
 }
 
 .fltrs-dropdown{
   width: 100%;
+  padding-left: 10px;
 }
 
 .szh-accordion__item-btn{
@@ -59,7 +58,6 @@
   padding-right: 2.5vh;
   padding-bottom:1.5vh;
 }
-
 
 .accFltrs{
   font-size: 11pt;
@@ -81,7 +79,6 @@
   float: left;
   margin-left: 1vh;
 }
-
 
 .floatFix:after {
   visibility: hidden;

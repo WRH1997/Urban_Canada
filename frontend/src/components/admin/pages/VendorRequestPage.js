@@ -1,5 +1,6 @@
-import { Container, Row, Col, Alert } from 'react-bootstrap'
-import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
+// author: Nandkumar Kadivar
+
+import { Row } from 'react-bootstrap'
 import React, {useState,useEffect} from 'react'
 import DataTable from '../components/DataTable'
 import Header from '../components/Header'

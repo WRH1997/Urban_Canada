@@ -1,5 +1,7 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React from 'react';
-import logo from '../../assets/logo2.png';
+import logo from '../../assets/footer_logo.png';
 
 export default function Footer() {
 

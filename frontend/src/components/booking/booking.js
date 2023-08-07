@@ -1,13 +1,13 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React,{useState} from "react";
 import { useLocation } from 'react-router-dom';
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import axios from "axios"
 
-// function to book service.
 export default function Bookings(props) {
 
-  //definition of all variables.
   const location = useLocation();
   const service = location.state;
   const user = localStorage.getItem("userData")
@@ -17,7 +17,6 @@ export default function Bookings(props) {
   const [note,setNote] = useState("")
   const [address,setAddress] = useState("")
   
-  // function to submit the booking data.
   const submitBookinghandler = (e) => {
     e.preventDefault()
     if (address != "" && date != "" && time != "") {
@@ -31,9 +30,8 @@ export default function Bookings(props) {
           note: note
         }
         
-        // api request to post data.
         axios.post("http://localhost:3001/booking/create",booking).then((req,res)=>{
-            window.location.href = "/mybookings"
+            window.location.href = "/consumer_bookings"
         }).catch((e)=>{
           console.log(e)
           alert(e)
@@ -45,13 +43,11 @@ export default function Bookings(props) {
       }
     }
     
-    // validation for mandatory address, date and time.
     else {
       alert("Address, Date and Time are required.")
     }
   }
 
-  // function to allow only current and upcoming dates.
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -206,7 +202,9 @@ export default function Bookings(props) {
           </div>
         </div>
       </form>
-      <Footer/>
+      <div className="fixed bottom-0 bg-gray-200 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }

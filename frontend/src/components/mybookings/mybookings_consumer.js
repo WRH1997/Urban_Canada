@@ -1,19 +1,18 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React, {useState, useEffect} from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { MenuList, Paper } from '@mui/material';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { MenuList, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Header from '../header/header';
 import Footer from "../footer/footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../mybookings/mybookings.css';
 import axios from 'axios';
 
-// function of my boookings for service consumer.
 export default function MyBookings() {
 
-  // variables
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
   const provider_id = JSON.parse(user)._id
@@ -57,11 +56,18 @@ export default function MyBookings() {
       setSelectedBooking("")
   };
 
-  // api call to get data
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
       console.log(res);
-      setBookings(res.data)
+      var data =  []
+      if(res.data && res.data.length > 0){
+        res.data.forEach(element => {
+          if(element.consumer_id && element.service_id && element.provider_id){
+            data.push(element)
+          }
+        });
+      }
+      setBookings(data)
     }).catch((e)=>{
       alert(e)
     })
@@ -83,7 +89,6 @@ export default function MyBookings() {
     setAnchorEl(null);
   };
 
-  //function to reschedule booking.
   const rescheduleBookingHandler = () => {
     if (date != "" && time != "") {
     const data = {
@@ -91,48 +96,45 @@ export default function MyBookings() {
     }
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/reschedule/${booking_id}`,data).then((res)=>{
-      window.location.href="/MyBookings"
+      window.location.href="/consumer_bookings"
     }).catch((e)=>{
       alert(e)
     })
     closeModel()
   }
-    
-  // validation for mandatory date and time.
+
   else {
     alert("Date and Time are required.")
   }
   }
 
-   //function to cancel booking.
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/MyBookings"
+      window.location.href="/consumer_bookings"
     }).catch((e)=>{
       alert(e)
     })
     closeModel()
   }
 
-    // function to allow only current and upcoming dates to reschedule.
-    const getCurrentDate = () => {
-      const today = new Date();
-      const year = today.getFullYear();
-      let month = today.getMonth() + 1;
-      let day = today.getDate();
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+
+    return `${year}-${month}-${day}`;
+  };
   
-      month = month < 10 ? '0' + month : month;
-      day = day < 10 ? '0' + day : day;
-  
-      return `${year}-${month}-${day}`;
-    };
-  
-    const [minDate, setMinDate] = useState(getCurrentDate());  
+  const [minDate, setMinDate] = useState(getCurrentDate());  
 
   return (
     <div>
-      <Header currentPage="/MyBookings" />
+      <Header currentPage="/consumer_bookings" />
       
       <div class="container">
         <h5 class="my-4">My Bookings</h5>
@@ -162,53 +164,59 @@ export default function MyBookings() {
                   </thead>
 
                   <tbody>
-                    {bookings.map((person,index) => (
-                      <tr class="align-middle">
-                        <td>{index+1}</td>
-                        <td class="h6 mb-0 lh-1">{person.service_id.vendorName}</td>
-                        <td>{person.service_id.category}</td>
-                        <td>{person.service_id.serviceName}</td>
-                        <td>{person.address}</td>
-                        <td>{person.note != "" ? person.note : "-"}</td>
-                        <td>{person.date.split(" ")[0]}</td>
-                        <td>{person.date.split(" ")[1]}</td>
-  
-                        <td>
-                          {
-                            person.isCanceled==true ?
-                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-red-500">
-                                <span>Cancelled</span>
-                              </div> : 
-                            person.status=='Pending' ?
-                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
-                                <span>{person.status}</span>
-                              </div> :
-                            person.status=='Completed' ?
-                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-success">
-                                <span>{person.status}</span>
-                              </div> :
-                            person.status=='Approved' &&
-                              <div class="flex w-full rounded-md py-1 text-sm font-bold text-blue-500">
-                                <span>{person.status}</span>
-                              </div>
-                          }
-                        </td>
-
-                        <td>
-                          {person.isCanceled || person.status=="Approved" ? 
-                            <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
-                              aria-haspopup="true"
-                              aria-expanded={open ? 'true' : undefined}
-                            /> :  
-                            <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
-                              aria-haspopup="true"
-                              aria-expanded={open ? 'true' : undefined}
-                              onClick={(e) => handleClick(e,person)}
-                            />
-                          }
-                        </td>
-                      </tr>
-                    ))}
+                    {bookings.map((person,index) => 
+                      {
+                        if(person.consumer_id && person.service_id && person.provider_id){
+                          return (
+                          <tr class="align-middle">
+                            <td>{index+1}</td>
+                            <td class="h6 mb-0 lh-1">{person.service_id.vendorName}</td>
+                            <td>{person.service_id.category}</td>
+                            <td>{person.service_id.serviceName}</td>
+                            <td>{person.address}</td>
+                            <td>{person.note != "" ? person.note : "-"}</td>
+                            <td>{person.date.split(" ")[0]}</td>
+                            <td>{person.date.split(" ")[1]}</td>
+      
+                            <td>
+                              {
+                                person.isCanceled==true ?
+                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-red-500">
+                                    <span>Cancelled</span>
+                                  </div> : 
+                                person.status=='Pending' ?
+                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-gray">
+                                    <span>{person.status}</span>
+                                  </div> :
+                                person.status=='Completed' ?
+                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-success">
+                                    <span>{person.status}</span>
+                                  </div> :
+                                person.status=='Approved' &&
+                                  <div class="flex w-full rounded-md py-1 text-sm font-bold text-blue-500">
+                                    <span>{person.status}</span>
+                                  </div>
+                              }
+                            </td>
+    
+                            <td>
+                              {person.isCanceled || person.status=="Approved" ? 
+                                <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                                  aria-haspopup="true"
+                                  aria-expanded={open ? 'true' : undefined}
+                                /> :  
+                                <MoreVertIcon className='mybooking-action-btn' aria-controls={open ? 'basic-menu' : undefined}
+                                  aria-haspopup="true"
+                                  aria-expanded={open ? 'true' : undefined}
+                                  onClick={(e) => handleClick(e,person)}
+                                />
+                              }
+                            </td>
+                          </tr>
+                          )
+                        }
+                      }
+                    )}
                   </tbody>
                 </table>       
               </div>

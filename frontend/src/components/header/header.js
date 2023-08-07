@@ -1,44 +1,50 @@
+// author: HARSH NARESHBHAI KATHIRIA
+
 import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import logo from "../../assets/logo.png";
-import icon from "../../assets/icon.jpg";
-import { useNavigate } from "react-router-dom";
-
-
-const userData = JSON.parse(localStorage.getItem("userData"));
-
-
-// navigation menu for guest.
-const guestNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Login/SignUp", href: "/login" },
-];
-
-// navigation menu for service provider.
-const providerNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Service Posting", href: "#" },
-  { name: "My Bookings", href: "/vendor_bookings" },
-  { name: "My Ratings", href: `/rating/${userData._id}` },
-];
-
-// navigation menu for service consumer.
-const consumerNavigation = [
-  { name: "Home", href: "/" },
-  { name: "Services", href: "/Services" },
-  { name: "My Bookings", href: "/MyBookings" },
-];
+import logo from "../../assets/header_logo.png";
+import icon from "../../assets/profile_icon.jpg";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-// function for header
 export default function Header(props) {
 
-  const [user, setUser] = useState({}); // User state
-  const [loading, setLoading] = useState(true); // Loading state
+  const items = ["Service booked successfully.", "Service got approved.", "Your service is cancelled.", "Service Posted successfully."];
+
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
+
+  const guestNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Login/SignUp", href: "/login" },
+  ];
+
+  var providerNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Service Posting", href: "/ServicePosting" },
+    { name: "My Bookings", href: "/consumer_bookings" },
+    { name: "Ratings", href: `/rating` },
+  ];
+
+  if(JSON.parse(localStorage.getItem("userData")) != null){
+    providerNavigation = [
+      { name: "Home", href: "/" },
+      { name: "Service Posting", href: "/serviceposting" },
+      { name: "My Bookings", href: "/provider_bookings" },
+      { name: "My Ratings", href: `/rating/${userData._id}` },
+    ];
+  }
+
+  const consumerNavigation = [
+    { name: "Home", href: "/" },
+    { name: "Services", href: "/Services" },
+    { name: "My Bookings", href: "/consumer_bookings" },
+  ];
 
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");
@@ -71,7 +77,6 @@ export default function Header(props) {
 
   console.log(loggedInUser)
 
-  // set navigation according to user.
   var navigation = guestNavigation;
 
   if(loggedInUser == "service-consumer"){
@@ -90,7 +95,6 @@ export default function Header(props) {
     return { ...item, current: false };
   });
 
-  //signout function
   const handleSignOut = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("authToken");
@@ -168,14 +172,43 @@ export default function Header(props) {
                       Welcome to Urban Canada
                     </div>
                   }
-                  
-                  <button
-                    type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
+
+                  <Menu as="div">
+                    <div>
+                      <Menu.Button className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                      </Menu.Button>
+                    </div>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                         {items.map((item, index) => (
+                        <Menu.Item>
+                            <p key={index}
+                              className="hover:bg-gray-200 block no-underline px-4 mx-2 my-1 rounded-md border-y-1 py-2 text-sm text-gray-700"
+                            >
+                              {item}
+                            </p>
+                        </Menu.Item>
+                        ))}
+                      </Menu.Items>
+                      :
+                      <div></div>
+                    }
+                    </Transition>
+                  </Menu>
 
                   <Menu as="div" className="relative ml-3">
                     <div>
@@ -198,6 +231,9 @@ export default function Header(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
+                      {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
@@ -229,6 +265,10 @@ export default function Header(props) {
                           )}
                         </Menu.Item>
                       </Menu.Items>
+                      :
+
+                      <div></div>
+                    }
                     </Transition>
                   </Menu>
                 </div>

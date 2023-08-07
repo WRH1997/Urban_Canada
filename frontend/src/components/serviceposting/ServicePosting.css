@@ -1,0 +1,115 @@
+/*
+Author(s): 
+- Edwin Adams (B00917930)
+*/
+
+
+.search-bar{
+  margin-top: 25px;
+  width: 30%;
+  border-radius: 15px;
+  padding-left:9px;
+  border: 1px solid #c9c9c9;
+  
+}
+.search-bar-container {
+  padding-left:50px;
+}
+.button-container {
+  display: flex; 
+  justify-content: flex-start; 
+  align-items: center; 
+  margin-top: -37px;
+  padding-left:215px;
+
+  @media screen and (min-width: 768px) {
+    padding-left: 75px; 
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding-left: 240px;
+    padding-right: 50px; 
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding-left: 335px;
+  }
+} 
+
+ .create-service-button {
+  position: relative;
+  bottom: 10px; 
+  left: 20px; 
+} 
+
+.filters{
+  width: 31vh;
+  float:left;
+  border-radius: 25px;
+  margin-left: 2vh;
+  margin-right: 1vh;
+  margin-top: 5vh;
+  padding-left: 1vh;
+  
+
+}
+.filters Accordian{
+ border: 1px solid #000;
+  
+
+}
+.fltrs-dropdown{
+
+  width: 100%;
+}
+
+.accFltrs{
+  font-size: 11pt;
+  cursor: pointer;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  color: black;
+}
+
+.service-cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; 
+  padding: 20px;
+}
+@media screen and (max-width: 1023px) {
+  .service-cards-container {
+    grid-template-columns: repeat(2, 1fr); /* Display 2 columns */
+  }
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  flex-grow: 1;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end; 
+}
+
+.no-services-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; 
+}
+
+.no-services-found h2 {
+  font-size: 24px;
+  font-weight: bold;
+}

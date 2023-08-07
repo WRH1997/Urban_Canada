@@ -1,4 +1,6 @@
-import { Container, Row } from 'react-bootstrap'
+// author: Nandkumar Kadivar
+
+import { Row } from 'react-bootstrap'
 import React,{useState,useEffect} from 'react'
 import DataTable from '../components/DataTable'
 import Header from '../components/Header'
@@ -113,8 +115,8 @@ const CustomersPage = () => {
                             <Row className="dashboard-panel p-3">
                                 <AppBar position='static' style={{background: '#fff', boxShadow: 'none', marginBottom: "5px"}}>
                                     <Tabs value={value} onChange={tabChange}>
-                                        <Tab label="Active Service Providors"/>
-                                        <Tab label="Blocked Service Providors"/>
+                                        <Tab label="Active Customers"/>
+                                        <Tab label="Blocked Customers"/>
                                     </Tabs>
                                 </AppBar>
                                 <TabPanel value={value} tabIndex={0} headerData={headerData} rowData={activeConsumers} type={'listing'}>Item 1</TabPanel>

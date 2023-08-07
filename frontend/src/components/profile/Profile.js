@@ -1,9 +1,8 @@
+// author: Muskan Vazirani
+
 import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import axios from "axios";
-import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
@@ -12,12 +11,9 @@ import * as yup from "yup";
 import Header from "../header/header";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/userAuth";
-
-
 import {  Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import Footer from "../footer/footer";
-
 
 function Profile() {
   const [user, setUser] = useState({}); // User state

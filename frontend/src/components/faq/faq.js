@@ -1,37 +1,11 @@
+// author: Darshil Patel
+
 import React, { useState } from 'react';
 import Header from "../header/header";
 import Footer from "../footer/footer";
 
 const FaqPage = () => {
   const [expandedId, setExpandedId] = useState(null);
-
-  const providerData = [
-    {
-      id: 11,
-      option: "How to check my service bookings?",
-      answer: 'Upon successful login, select "Service Request" option from navigation bar at the top. The list of request along with sepecific message will be displayed.',
-    },
-    {
-      id: 12,
-      option: "How to accept requests?",
-      answer: 'In the list of requests, there will be button "Accept" to accept request. After the acceptance, an email will be sent to customer about the acceptance which includes your contact details you mentioned in your profile.',
-    },
-    {
-      id: 13,
-      option: "What's next after approval?",
-      answer: "Customer's contact details will be shared with you and you should send an email to customer for further communication.",
-    },
-    {
-      id: 14,
-      option: "How to cancel approved request?",
-      answer: "In the 'Service Request' tab, a 'Cancel' button is provided alongside the list of request. After the cancellation, an email will be sent to customer about it.",
-    },
-    {
-      id: 15,
-      option: "What if you got false feedback without using your service?",
-      answer: 'You can contact admin through Contact Us page, it will be reviewed and further action will be taken to resolve the issue.',
-    }
-  ];
 
   const consumerData = [
     {
@@ -69,6 +43,34 @@ const FaqPage = () => {
       question: "How to cancel approved service?",
       answer: 'In my bookings page, select "Cancel" for whichever service you want to cancel.',
     },
+  ];
+
+  const providerData = [
+    {
+      id: 11,
+      option: "How to check my service bookings?",
+      answer: 'Upon successful login, select "Service Request" option from navigation bar at the top. The list of request along with sepecific message will be displayed.',
+    },
+    {
+      id: 12,
+      option: "How to accept requests?",
+      answer: 'In the list of requests, there will be button "Accept" to accept request. After the acceptance, an email will be sent to customer about the acceptance which includes your contact details you mentioned in your profile.',
+    },
+    {
+      id: 13,
+      option: "What's next after approval?",
+      answer: "Customer's contact details will be shared with you and you should send an email to customer for further communication.",
+    },
+    {
+      id: 14,
+      option: "How to cancel approved request?",
+      answer: "In the 'Service Request' tab, a 'Cancel' button is provided alongside the list of request. After the cancellation, an email will be sent to customer about it.",
+    },
+    {
+      id: 15,
+      option: "What if you got false feedback without using your service?",
+      answer: 'You can contact admin through Contact Us page, it will be reviewed and further action will be taken to resolve the issue.',
+    }
   ];
 
   const toggleExpand = (id) => {
