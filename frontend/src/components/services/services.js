@@ -164,19 +164,25 @@ export default function Services() {
                   <AccordionItem header="Filters" className='accFltrs'>
                   <div className='floatFix'>
                   <div className='l-div'>
-                    <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+                    <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> 
+                    <label for='cleaning'>Cleaning</label>
                     <br></br>
-                    <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+                    <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> 
+                    <label for='repair'>Repair</label>
                     <br></br>
-                    <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+                    <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> 
+                    <label for='moving'>Moving</label>
                     <br></br>
                   </div>
                     <div className='r-div'>
-                    <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+                    <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> 
+                    <label for='carpentry'>Carpentry</label>
                     <br></br>
-                    <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+                    <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> 
+                    <label for='landscaping'>Landscaping</label>
                     <br></br>
-                    <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+                    <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> 
+                    <label for='other'>Other</label>
                     <br></br>
                   </div>
                   </div>
