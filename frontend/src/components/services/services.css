@@ -89,3 +89,20 @@
   height: 0;
   padding-bottom: 2vh;
 }
+
+.noSrvcsMsg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20pt;
+  margin-top: 5vh;
+  font-style: italic;
+}
+
+.bg-white{
+  min-height: 100vh;
+}
+
+.im{
+  display: block;
+}

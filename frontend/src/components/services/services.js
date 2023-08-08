@@ -136,17 +136,23 @@ export default function Services() {
             <div className='filters-desktop'>
               <Accordion className='fltrs-dropdown'>
                 <AccordionItem header="Category" className='accFltrs text-base'>
-                  <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
+                  <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input>
+                  <label for='cleaning'>&nbsp; Cleaning</label>
                   <br></br>
-                  <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
+                  <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input>
+                  <label for='repair'>&nbsp; Repair</label>
                   <br></br>
-                  <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
+                  <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input>
+                  <label for='moving'>&nbsp; Moving</label>
                   <br></br>
-                  <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
+                  <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input>
+                  <label for='carpentry'>&nbsp; Carpentry</label>
                   <br></br>
-                  <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
+                  <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> 
+                  <label for='landscaping'>&nbsp; Landscaping</label>
                   <br></br>
-                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
+                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> 
+                  <label for='other'>&nbsp; Other</label>
                   <br></br><br></br>
                   </AccordionItem>
                 </Accordion>
@@ -227,6 +233,9 @@ export default function Services() {
               </div>
             ))}
           </div>
+          <div>
+              {services.length==0 && (searched || filtered) ? (<div className='noSrvcsMsg'>No Matching Services Found!</div>) : (<div></div>)}
+            </div>
         </div>
       </div>
     
