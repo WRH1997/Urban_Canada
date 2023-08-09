@@ -108,6 +108,59 @@ export default function Services() {
     // Rest of your existing useEffect code
   }, []);
 
+  const renderWishlistButton = (serviceId) => {
+    if (wishlist.includes(serviceId)) {
+      return (
+        <Button
+          sx={{
+            backgroundColor: "white",
+            borderRadius: 10,
+            height: 50,
+            marginLeft: "100px",
+            position: "absolute",
+          }}
+          color="secondary"
+          onClick={() => removeFromWishlist(serviceId)}
+          className="text-red-600 font-medium text-sm mx-2"
+          disabled={removingFromWishlist}
+        >
+          {/* {removingFromWishlist ? "Removing..." :  */}
+          <FavoriteIcon sx={{ right: 0 }} />
+          {/* } */}
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          sx={{
+            backgroundColor: "white",
+            borderRadius: 10,
+            height: 60,
+          }}
+          style={{
+            marginLeft: "100px",
+          }}
+          color="secondary"
+          className="text-green-600 font-medium text-sm mx-2"
+          disabled={addingToWishlist}
+        >
+          {/* {addingToWishlist ? (
+            "Adding..."
+          ) : ( */}
+            <FavoriteBorderIcon
+              style={{
+                width: "30px", // Set the desired width
+                height: "30px", // Set the desired height
+              }}
+              onClick={() => addToWishlist(serviceId)}
+
+            />
+          {/* )} */}
+        </Button>
+      );
+    }
+  };
+
   const fetchData = async () => {
     let data = await fetch("http://localhost:3001/allServices", {
       method: "GET",
@@ -407,51 +460,7 @@ export default function Services() {
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                   <div>
-                    {wishlist && wishlist.includes(service._id) ? (
-                      <Button
-                        sx={{
-                          backgroundColor: "white",
-                          // width: 30,
-                          borderRadius: 10,
-                          height: 50,
-                          marginLeft: 900,
-                        }}
-                        color="secondary"
-                        onClick={() => removeFromWishlist(service._id)}
-                        className="text-red-600 font-medium text-sm mx-2"
-                        disabled={removingFromWishlist}
-                      >
-                        {removingFromWishlist ? (
-                          "Removing..."
-                        ) : (
-                          <FavoriteIcon />
-                        )}
-                      </Button>
-                    ) : (
-                      <Button
-                        sx={{
-                          backgroundColor: "white",
-                          // width: 30,
-                          borderRadius: 10,
-                          height: 60,
-                        }}
-                        color="secondary"
-                        onClick={() => addToWishlist(service._id)}
-                        className="text-green-600 font-medium text-sm mx-2"
-                        disabled={addingToWishlist}
-                      >
-                        {addingToWishlist ? (
-                          "Adding..."
-                        ) : (
-                          <FavoriteBorderIcon
-                            style={{
-                              width: "30px", // Set the desired width
-                              height: "30px", // Set the desired height
-                            }}
-                          />
-                        )}
-                      </Button>
-                    )}
+                  {renderWishlistButton(service._id)}
                   </div>
                 </div>
 

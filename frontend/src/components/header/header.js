@@ -59,7 +59,7 @@ export default function Header(props) {
           Favorites
         </span>
       ),
-      href: "/marked",
+      href: "/favourites/fav-list",
     },
   ];
 
