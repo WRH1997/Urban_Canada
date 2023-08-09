@@ -26,6 +26,7 @@ export default function ServicePostingPage() {
     .get('http://localhost:3001/allServices')
     .then((response) => {
       const userDataString = localStorage.getItem("userData");
+      console.log(userDataString);
       let vendorID = "";
       try {
         const userData = JSON.parse(userDataString);
