@@ -63,7 +63,7 @@ function FavoriteList() {
 
       if (response.data.success) {
         setWishlist(response.data.user.wishlist);
-        console.log(wishlist);
+        // console.log(wishlist);
       }
       setIsLoading(false);
     } catch (error) {
@@ -106,7 +106,7 @@ function FavoriteList() {
       }
     }
     if (JSON.stringify(services) != JSON.stringify(serviceList)) {
-      console.log(serviceList);
+      // console.log(serviceList);
       return setServices(serviceList);
     }
   };

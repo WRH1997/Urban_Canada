@@ -91,7 +91,7 @@ export default function Services() {
 
       if (response.data.success) {
         setWishlist(response.data.user.wishlist);
-        console.log(wishlist);
+        // console.log(wishlist);
       }
       setIsLoading(false);
     } catch (error) {
@@ -203,7 +203,7 @@ export default function Services() {
       }
     }
     if (JSON.stringify(services) != JSON.stringify(serviceList)) {
-      console.log(serviceList);
+      // console.log(serviceList);
       return setServices(serviceList);
     }
   };
