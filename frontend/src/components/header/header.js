@@ -6,6 +6,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../../assets/header_logo.png";
 import icon from "../../assets/profile_icon.jpg";
+import Button from '@mui/material/Button'
+import ClearIcon from '@mui/icons-material/Clear';
+import axios from "axios"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
@@ -14,18 +17,11 @@ function classNames(...classes) {
 }
 
 export default function Header(props) {
-  const items = [
-    "Service booked successfully.",
-    "Service got approved.",
-    "Your service is cancelled.",
-    "Service Posted successfully.",
-  ];
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("userData"))
-  );
+  const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
+  const [notifications,setNotifications] = useState([])
 
   const guestNavigation = [
     { name: "Home", href: "/" },
@@ -63,6 +59,14 @@ export default function Header(props) {
     },
   ];
 
+  const fetchNotifications = () => {
+    axios.get("http://localhost:3001/notifications/"+userData._id).then((res)=>{
+      if(res.data){
+        setNotifications(res.data.data.reverse())
+      }
+    })
+  }
+
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");
 
@@ -74,6 +78,14 @@ export default function Header(props) {
       } catch (e) {
         console.error("Error parsing user data:", e);
       }
+
+      fetchNotifications();
+
+      const duration = setInterval(fetchNotifications, 2000);
+
+      return () => {
+        clearInterval(duration)
+      };
     } else {
       console.error("No user data in local storage.");
     }
@@ -90,7 +102,7 @@ export default function Header(props) {
       const user_object = JSON.parse(loggedin_user);
       setLoggedInUser(user_object.role);
     }
-  }, []);
+  },[])
 
   var navigation = guestNavigation;
 
@@ -120,6 +132,10 @@ export default function Header(props) {
     window.location.href = "/profile";
   };
 
+  const clearNotification = async (notification_id) => {
+    await axios.delete(`http://localhost:3001/notifications/${notification_id}`)
+  }
+  
   return (
     <div className="sticky top-0 bg-gray-800 z-50">
       <Disclosure as="nav" className="bg-gray-800">
@@ -203,23 +219,34 @@ export default function Header(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      {loggedInUser == "service-consumer" ||
-                      loggedInUser == "service-provider" ? (
-                        <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          {items.map((item, index) => (
-                            <Menu.Item>
-                              <p
-                                key={index}
-                                className="hover:bg-gray-200 block no-underline px-4 mx-2 my-1 rounded-md border-y-1 py-2 text-sm text-gray-700"
+                      {
+                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        {notifications.length > 0 ? notifications.map((item, index) => (
+                        <Menu.Item>
+                            {/* <div className="d-flex flex-row justify-content-between align-items-center"> */}
+                              <div key={index}
+                                className="d-flex flex-row justify-content-between align-items-center hover:bg-gray-200 block no-underline px-4 mx-2 my-1 rounded-md border-y-1 py-2 text-sm text-gray-700"
                               >
-                                {item}
-                              </p>
-                            </Menu.Item>
-                          ))}
-                        </Menu.Items>
-                      ) : (
-                        <div></div>
-                      )}
+                                <div>
+                                {item.message}
+                                </div>
+                                {/* <Button style={{color: "#45489a"}}>
+                                  Clear
+                                </Button> */}
+                                <ClearIcon className="notification-clear-icon" onClick={()=>clearNotification(item._id)} />
+                              </div>
+                            {/* </div> */}
+                        </Menu.Item>
+                        ))
+                        :
+                        <div className="d-flex flex-row justify-content-center align-items-center">Notification box is empty!</div>
+                      }
+                      </Menu.Items>
+                      :
+                      <div></div>
+                    }
                     </Transition>
                   </Menu>
 
