@@ -95,10 +95,23 @@ export default function MyBookings() {
     setAnchorEl(null);
   };
 
+  console.log(selectedBooking)
   const approveBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/approve/${booking_id}`).then((res)=>{
-      window.location.href="/provider_bookings"
+      const notification = {
+        booking_id: booking_id,
+        recipient_id: selectedBooking.consumer_id._id,
+        message: "Booking has been approved",
+        type: "Booking Approved"
+      }
+      axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+        if(res){
+          window.location.href="/provider_bookings"
+        }
+      }).catch((e)=>{
+        alert(e)
+      })
     }).catch((e)=>{
       alert(e)
     })
@@ -108,7 +121,19 @@ export default function MyBookings() {
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/provider_bookings"
+      const notification = {
+        booking_id: booking_id,
+        recipient_id: selectedBooking.consumer_id._id,
+        message: "Booking has been canceled",
+        type: "Booking Canceled"
+      }
+      axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+        if(res){
+          window.location.href="/provider_bookings"
+        }
+      }).catch((e)=>{
+        alert(e)
+      })
     }).catch((e)=>{
       alert(e)
     })
@@ -119,7 +144,19 @@ export default function MyBookings() {
     const booking_id = selectedBooking._id
     console.log(booking_id)
     axios.put(`http://localhost:3001/booking/complete/${booking_id}`).then((res)=>{
-      window.location.href="/provider_bookings"
+      const notification = {
+        booking_id: booking_id,
+        recipient_id: selectedBooking.consumer_id._id,
+        message: "Booking has been completed",
+        type: "Booking Completed"
+      }
+      axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+        if(res){
+          window.location.href="/provider_bookings"
+        }
+      }).catch((e)=>{
+        alert(e)
+      })
     }).catch((e)=>{
       alert(e)
     })

@@ -94,6 +94,19 @@ const App = () => {
 
         setNewComment('');
         setIsSubmitted(true);
+        const notification = {
+          booking_id: bookingId,
+          recipient_id: vendorId,
+          message: "Consumer posted review",
+          type: "Review Added"
+        }
+        axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+          if(res){
+            window.location.href="/provider_bookings"
+          }
+        }).catch((e)=>{
+          alert(e)
+        })
       } catch (error) {
         console.error('Error submitting the comment:', error);
       }

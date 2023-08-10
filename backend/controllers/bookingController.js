@@ -1,8 +1,6 @@
 // author: HARSH NARESHBHAI KATHIRIA
 
-var uuid = require('uuid');
 var Booking = require('../models/bookingModel');
-const Service =  require("../models/services")
 const { ObjectId } = require('mongodb');
 
 exports.creatBooking = async (req, res) => {
@@ -20,7 +18,7 @@ exports.creatBooking = async (req, res) => {
         });
     
         const savedBooking = await newBooking.save();
-    
+        
         res.status(200).json({ message: 'Booking successful!', booking: savedBooking });
       } catch (err) {
         console.error(err);
