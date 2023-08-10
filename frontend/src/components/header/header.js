@@ -6,18 +6,26 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../../assets/header_logo.png";
 import icon from "../../assets/profile_icon.jpg";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Header(props) {
-
-  const items = ["Service booked successfully.", "Service got approved.", "Your service is cancelled.", "Service Posted successfully."];
+  const items = [
+    "Service booked successfully.",
+    "Service got approved.",
+    "Your service is cancelled.",
+    "Service Posted successfully.",
+  ];
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
 
   const guestNavigation = [
     { name: "Home", href: "/" },
@@ -31,7 +39,7 @@ export default function Header(props) {
     { name: "Ratings", href: `/rating` },
   ];
 
-  if(JSON.parse(localStorage.getItem("userData")) != null){
+  if (JSON.parse(localStorage.getItem("userData")) != null) {
     providerNavigation = [
       { name: "Home", href: "/" },
       { name: "Service Posting", href: "/serviceposting" },
@@ -44,6 +52,15 @@ export default function Header(props) {
     { name: "Home", href: "/" },
     { name: "Services", href: "/Services" },
     { name: "My Bookings", href: "/consumer_bookings" },
+    {
+      name: (
+        <span className="flex items-center">
+          <FavoriteIcon className="mr-1" />
+          Favorites
+        </span>
+      ),
+      href: "/favourites/fav-list",
+    },
   ];
 
   useEffect(() => {
@@ -63,28 +80,28 @@ export default function Header(props) {
   }, []);
 
   const navigate = useNavigate();
-  const [loggedInUser,setLoggedInUser] = useState("guest")
+  const [loggedInUser, setLoggedInUser] = useState("guest");
   const { currentPage } = props;
 
-  useEffect(()=>{
-    const loggedin_user = localStorage.getItem("userData")
+  useEffect(() => {
+    const loggedin_user = localStorage.getItem("userData");
 
-    if(loggedin_user){
-      const user_object = JSON.parse(loggedin_user)
-      setLoggedInUser(user_object.role)
+    if (loggedin_user) {
+      const user_object = JSON.parse(loggedin_user);
+      setLoggedInUser(user_object.role);
     }
-  },[])
+  }, []);
 
-  console.log(loggedInUser)
+  console.log(loggedInUser);
 
   var navigation = guestNavigation;
 
-  if(loggedInUser == "service-consumer"){
-     navigation = consumerNavigation;
+  if (loggedInUser == "service-consumer") {
+    navigation = consumerNavigation;
   }
 
   if (loggedInUser == "service-provider") {
-     navigation = providerNavigation;
+    navigation = providerNavigation;
   }
 
   const updatedNavigation = navigation.map((item) => {
@@ -104,7 +121,7 @@ export default function Header(props) {
   const handleProfileNavigation = () => {
     window.location.href = "/profile";
   };
-  
+
   return (
     <div className="sticky top-0 bg-gray-800 z-50">
       <Disclosure as="nav" className="bg-gray-800">
@@ -122,17 +139,16 @@ export default function Header(props) {
                     )}
                   </Disclosure.Button>
 
-                  {
-                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
-
+                  {loggedInUser == "service-consumer" ||
+                  loggedInUser == "service-provider" ? (
                     <div className="text-white font-medium text-base ml-2 mr-20">
                       Welcome {user.firstName} {user.lastName}!
-                    </div> :
-
+                    </div>
+                  ) : (
                     <div className="text-white font-medium text-base ml-2 mr-20">
                       Welcome to Urban Canada
                     </div>
-                  }
+                  )}
                 </div>
 
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -158,26 +174,25 @@ export default function Header(props) {
                       ))}
                     </div>
                   </div>
-                </div>                
+                </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  {
-                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
-
+                  {loggedInUser == "service-consumer" ||
+                  loggedInUser == "service-provider" ? (
                     <div className="hidden sm:block text-white font-medium text-lg mr-3">
                       Welcome {user.firstName} {user.lastName}!
-                    </div> :
-
+                    </div>
+                  ) : (
                     <div className="hidden sm:block text-white font-medium text-lg mr-3">
                       Welcome to Urban Canada
                     </div>
-                  }
+                  )}
 
                   <Menu as="div">
                     <div>
                       <Menu.Button className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                        <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </Menu.Button>
                     </div>
 
@@ -190,23 +205,23 @@ export default function Header(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      {
-                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
-
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                         {items.map((item, index) => (
-                        <Menu.Item>
-                            <p key={index}
-                              className="hover:bg-gray-200 block no-underline px-4 mx-2 my-1 rounded-md border-y-1 py-2 text-sm text-gray-700"
-                            >
-                              {item}
-                            </p>
-                        </Menu.Item>
-                        ))}
-                      </Menu.Items>
-                      :
-                      <div></div>
-                    }
+                      {loggedInUser == "service-consumer" ||
+                      loggedInUser == "service-provider" ? (
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          {items.map((item, index) => (
+                            <Menu.Item>
+                              <p
+                                key={index}
+                                className="hover:bg-gray-200 block no-underline px-4 mx-2 my-1 rounded-md border-y-1 py-2 text-sm text-gray-700"
+                              >
+                                {item}
+                              </p>
+                            </Menu.Item>
+                          ))}
+                        </Menu.Items>
+                      ) : (
+                        <div></div>
+                      )}
                     </Transition>
                   </Menu>
 
@@ -231,44 +246,42 @@ export default function Header(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      {
-                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+                      {loggedInUser == "service-consumer" ||
+                      loggedInUser == "service-provider" ? (
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                onClick={handleProfileNavigation}
+                                className={classNames(
+                                  active ? "bg-gray-200" : "",
+                                  "block no-underline px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Your Profile
+                              </a>
+                            )}
+                          </Menu.Item>
 
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              onClick={handleProfileNavigation}
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block no-underline px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Your Profile
-                            </a>
-                          )}
-                        </Menu.Item>
-
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              onClick={handleSignOut}
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block no-underline px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Sign out
-                            </a>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                      :
-
-                      <div></div>
-                    }
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                onClick={handleSignOut}
+                                className={classNames(
+                                  active ? "bg-gray-200" : "",
+                                  "block no-underline px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Sign out
+                              </a>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      ) : (
+                        <div></div>
+                      )}
                     </Transition>
                   </Menu>
                 </div>

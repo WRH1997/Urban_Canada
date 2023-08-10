@@ -38,6 +38,12 @@ const UserSchema = new mongoose.Schema({
   },
   resetPasswordToken: { type: String, required: false },
   resetPasswordExpires: { type: Date, required: false },
+  wishlist: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Service",
+    },
+  ],
 });
 
 UserSchema.pre("save", async function (next) {
