@@ -33,7 +33,6 @@ export default function Bookings(props) {
         axios.post("http://localhost:3001/booking/create",booking).then((req,res)=>{
             window.location.href = "/consumer_bookings"
         }).catch((e)=>{
-          console.log(e)
           alert(e)
         })
       }

@@ -14,7 +14,6 @@ const App = () => {
 
   const { vendorId, bookingId } = useParams();
   const userData = JSON.parse(localStorage.getItem("userData"));
-  console.log(userData);
 
   const [newComment, setNewComment] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -80,7 +79,6 @@ const App = () => {
     event.preventDefault();
 
     const userName = userData.firstName + " " + userData.lastName
-    console.log(userName);
     try {
 
       await axios.post(`http://localhost:3001/rating/postRating`, {
@@ -98,8 +96,6 @@ const App = () => {
         console.error('Error submitting the comment:', error);
       }
       
-      console.log(selectedStar);
-      console.log('New Comment:', newComment);
       setNewComment('');
       setIsSubmitted(true);
       

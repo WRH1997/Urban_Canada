@@ -76,7 +76,6 @@ export default function Contact() {
       flag = true;
 
       setQueryError("This field cannot be empty.");
-      console.log(setQueryError);
     } else {
       setQueryError("");
     }

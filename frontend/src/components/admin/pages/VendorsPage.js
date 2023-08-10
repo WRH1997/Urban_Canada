@@ -95,8 +95,6 @@ const VendorsPage = () => {
         setValue(val);
       };
 
-    console.log(value)
-
     return (
         <div className='d-flex'>
             <ProSidebarProvider>
