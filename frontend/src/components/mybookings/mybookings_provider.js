@@ -40,6 +40,12 @@ export default function MyBookings() {
       setTime("")
   };
 
+  const [bookingAlert,setBookingAlert] = useState(localStorage.getItem("booking_alert"))
+  setTimeout(() => {
+    localStorage.removeItem("booking_alert")
+    setBookingAlert(null);
+  }, 3000);
+
   const openModelCancel = (booking) => {
     setSelectedBooking(booking)
     handleClose()
@@ -106,6 +112,7 @@ export default function MyBookings() {
       }
       axios.post("http://localhost:3001/notifications",notification).then((res)=>{
         if(res){
+          localStorage.setItem("booking_alert","Booking Approved Successfully")
           window.location.href="/provider_bookings"
         }
       }).catch((e)=>{
@@ -128,6 +135,7 @@ export default function MyBookings() {
       }
       axios.post("http://localhost:3001/notifications",notification).then((res)=>{
         if(res){
+          localStorage.setItem("booking_alert","Booking Rejected Successfully")
           window.location.href="/provider_bookings"
         }
       }).catch((e)=>{
@@ -150,6 +158,7 @@ export default function MyBookings() {
       }
       axios.post("http://localhost:3001/notifications",notification).then((res)=>{
         if(res){
+          localStorage.setItem("booking_alert","Booking Completed Successfully")
           window.location.href="/provider_bookings"
         }
       }).catch((e)=>{
@@ -397,6 +406,12 @@ export default function MyBookings() {
       <div className="fixed bottom-0 bg-gray-200 w-full">
         <Footer />
       </div>
+      {
+        bookingAlert != null &&
+        <div className='booking-alerts p-3'>
+          {bookingAlert}
+        </div>
+      }
     </div>
   )
 }

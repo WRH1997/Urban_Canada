@@ -55,6 +55,12 @@ export default function MyBookings() {
       setSelectedBooking("")
   };
 
+  const [bookingAlert,setBookingAlert] = useState(localStorage.getItem("booking_alert"))
+  setTimeout(() => {
+    localStorage.removeItem("booking_alert")
+    setBookingAlert(null);
+  }, 3000);
+
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
       var data =  []
@@ -86,7 +92,6 @@ export default function MyBookings() {
     setSelectedPerson("")
     setAnchorEl(null);
   };
-  console.log(selectedBooking)
 
   const rescheduleBookingHandler = () => {
     if (date != "" && time != "") {
@@ -104,6 +109,7 @@ export default function MyBookings() {
         }
         axios.post("http://localhost:3001/notifications",notification).then((res)=>{
           if(res){
+            localStorage.setItem("booking_alert","Booking Rescheduled Successfully")
             window.location.href="/consumer_bookings"
           }
         }).catch((e)=>{
@@ -132,6 +138,7 @@ export default function MyBookings() {
       }
       axios.post("http://localhost:3001/notifications",notification).then((res)=>{
         if(res){
+          localStorage.setItem("booking_alert","Booking Canceled Successfully")
           window.location.href="/consumer_bookings"
         }
       }).catch((e)=>{
@@ -403,10 +410,15 @@ export default function MyBookings() {
           </button>
         </DialogActions>
       </Dialog>
-
       <div className="fixed bottom-0 bg-gray-200 w-full">
         <Footer />
       </div>
+      {
+        bookingAlert != null &&
+        <div className='booking-alerts p-3'>
+          {bookingAlert}
+        </div>
+      }
     </div>
   )
 }
