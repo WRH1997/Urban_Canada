@@ -174,7 +174,7 @@ function FavoriteList() {
 
   return (
     <div>
-      <Header currentPage="/Services" />
+      <Header currentPage="/favourites" />
 
       <meta
         name="viewport"
