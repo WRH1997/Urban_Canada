@@ -24,6 +24,7 @@ const serviceRoutes = require("./routes/serviceRoutes");
 const adminRoutes = require("./routes/adminRoutes")
 const bookingRoutes = require("./routes/booking")
 const ratingRoutes = require("./routes/ratingRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 
 const corsOptions = {
@@ -39,6 +40,7 @@ app.use("/", userRoutes);
 app.use("/admin",adminRoutes)
 app.use("/booking",bookingRoutes)
 app.use("/rating", ratingRoutes);
+app.use("/notifications", notificationRoutes);
 
 
 const PORT = 3001;
