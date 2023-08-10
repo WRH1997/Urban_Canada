@@ -24,7 +24,6 @@ import VendorsPage from "./components/admin/pages/VendorsPage";
 import CustomersPage from "./components/admin/pages/CustomersPage";
 import Contact from "./components/contact/contact";
 import FAQ from "./components/faq/faq";
-import Favourites from "./components/favouriteList/Favourites";
 import axios from "axios";
 import FavoriteList from "./components/favouriteList/Favoutite-list";
 

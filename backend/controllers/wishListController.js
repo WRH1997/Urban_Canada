@@ -1,16 +1,13 @@
 const User = require("../models/users");
-const Service = require("../models/services");
 
-async function addToWishlist(req, res) {
+exports.addToWishlist= async (req, res) => {
   const { userId, serviceId } = req.body;
-  // console.log("hello=" + serviceId);
 
   try {
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    // console.log(user);
 
     if (!user.wishlist.includes(serviceId)) {
       user.wishlist.push(serviceId);
@@ -25,7 +22,7 @@ async function addToWishlist(req, res) {
   }
 }
 
-async function removeFromWishlist(req, res) {
+exports.removeFromWishlist = async(req, res) => {
   const { userId, serviceId } = req.body;
 
   try {
@@ -47,7 +44,7 @@ async function removeFromWishlist(req, res) {
   }
 }
 
-async function getUserWishlist(req, res) {
+exports.getUserWishlist= async (req, res) => {
   try {
     const userId = req.params.userId;
     console.log("User id:" + userId);
@@ -64,5 +61,3 @@ async function getUserWishlist(req, res) {
     res.json({ success: false, message: "Error retrieving user data." });
   }
 }
-
-module.exports = { addToWishlist, removeFromWishlist, getUserWishlist };
