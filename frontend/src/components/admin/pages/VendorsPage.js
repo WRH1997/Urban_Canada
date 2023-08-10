@@ -10,13 +10,18 @@ import {Tabs,Tab,AppBar} from '@mui/material'
 import '../admin.css'
 import axios from "axios"
 import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
+import Alert from '@mui/material/Alert'
 
 const VendorsPage = () => {
     const [activeVendors,setActiveVendors] = useState([])
     const [blockVendors,setBlockVendors] = useState([])
     const [loading,setLoading] = useState(true)
-
+    const [alertMessage,setAlertMessage] = useState(localStorage.getItem("alert_message"))
+    setTimeout(() => {
+        localStorage.removeItem("alert_message")
+        setAlertMessage(null);
+    }, 3000);
     const headerData = [
         {
             id: 'id',
@@ -124,8 +129,13 @@ const VendorsPage = () => {
                         </div>
                     </div>
                 }
-                    
                 </main>
+                {
+                    alertMessage != null &&
+                    <Alert className='admin-alerts' variant="outlined" severity="success">
+                        {alertMessage}
+                    </Alert>
+                }
             </ProSidebarProvider>
         </div>
         

@@ -11,11 +11,17 @@ import '../admin.css'
 import axios from 'axios'
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert'
 
 const CustomersPage = () => {
     const [activeConsumers,setActiveConsumers] = useState([])
     const [blockConsumers,setBlockConsumers] = useState([])
     const [loading,setLoading] = useState(true)
+    const [alertMessage,setAlertMessage] = useState(localStorage.getItem("alert_message"))
+    setTimeout(() => {
+        localStorage.removeItem("alert_message")
+        setAlertMessage(null);
+    }, 3000);
 
     const headerData = [
         {
@@ -124,6 +130,12 @@ const CustomersPage = () => {
                     </div>
                 }
             </main>
+            {
+                alertMessage != null &&
+                <Alert className='admin-alerts' variant="outlined" severity="success">
+                    {alertMessage}
+                </Alert>
+            }
         </ProSidebarProvider>
     </div>
         

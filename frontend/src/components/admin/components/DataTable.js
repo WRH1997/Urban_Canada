@@ -85,6 +85,7 @@ const DataTable = (props) => {
         if(action == "approve" && id!=null){
             await axios.post(`http://localhost:3001/admin/approve-vendor/${id}`,{},{headers: {token: "Bearer "+token}}).then((res)=>{
                 if(res.data == 'approved'){
+                    localStorage.setItem("alert_message","Request Approved Successfully")
                     window.location.href = "/admin/vendor-request"
                 }else {
                     alert("Unable to approve vendor")
@@ -97,6 +98,7 @@ const DataTable = (props) => {
         if(action == "reject" && id!=null){
             await axios.post(`http://localhost:3001/admin/reject-vendor/${id}`,{},{headers: {token: "Bearer "+token}}).then((res)=>{
                 if(res.data == 'removed'){
+                    localStorage.setItem("alert_message","Request Rejected Successfully")
                     window.location.href = "/admin/vendor-request"
                 }else {
                     alert("Unable to reject vendor")
@@ -114,6 +116,7 @@ const DataTable = (props) => {
         if(selectedVendor.role == "service-provider"){
             await axios.post(`http://localhost:3001/admin/block-vendor/${id}`,{},{headers: {token: "Bearer "+token}}).then((res)=>{
                 if(res.data == 'blocked'){
+                    localStorage.setItem("alert_message","Vendor blocked Successfully")
                     window.location.href = "/admin/vendors"
                 }else {
                     alert("Unable to block vendor")
@@ -130,6 +133,7 @@ const DataTable = (props) => {
         if(selectedVendor.role == "service-consumer"){
             await axios.post(`http://localhost:3001/admin/block-consumer/${id}`,{},{headers: {token: "Bearer "+token}}).then((res)=>{
                 if(res.data == 'blocked'){
+                    localStorage.setItem("alert_message","Customer blocked Successfully")
                     window.location.href = "/admin/customers"
                 }else {
                     alert("Unable to block customer")
@@ -151,6 +155,7 @@ const DataTable = (props) => {
         if(selectedBlockedVendor.role == "service-provider"){
             await axios.post(`http://localhost:3001/admin/unblock-vendor/${id}`,{},{headers: {token: "Bearer "+token}}).then((res)=>{
                 if(res.data == 'unblocked'){
+                    localStorage.setItem("alert_message","Vendor unblocked Successfully")
                     window.location.href = "/admin/vendors"
                 }else {
                     alert("Unable to unblock vendor")
@@ -167,6 +172,7 @@ const DataTable = (props) => {
         if(selectedBlockedVendor.role == "service-consumer"){
             await axios.post(`http://localhost:3001/admin/unblock-consumer/${id}`,{},{headers: {token: "Bearer "+token}}).then((res)=>{
                 if(res.data == 'unblocked'){
+                    localStorage.setItem("alert_message","Customer unblocked Successfully")
                     window.location.href = "/admin/customers"
                 }else {
                     alert("Unable to unblock customer")
