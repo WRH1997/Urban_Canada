@@ -1,15 +1,14 @@
 // author: Waleed Alhindi
 
 import React from "react";
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
-import {BrowserView, MobileView} from 'react-device-detect';
-import {Link} from 'react-router-dom';
+import { Accordion, AccordionItem } from "@szhsin/react-accordion";
+import { BrowserView, MobileView } from "react-device-detect";
+import { Link } from "react-router-dom";
 import { Rating } from "@material-tailwind/react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import '../services/services.css';
+import "../services/services.css";
 export default function Services() {
-
   const [services, setServices] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [filters, setFilters] = React.useState([]);
@@ -17,104 +16,108 @@ export default function Services() {
   const [searched, setSearched] = React.useState(false);
 
   const fetchData = async () => {
-    let data = await fetch('http://localhost:3001/allServices', {
+    let data = await fetch("http://localhost:3001/allServices", {
       method: "GET",
       headers: {
-        "Content-Type": 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     });
     let serviceJson = await data.json();
-    let serviceList = serviceJson['services'];
-    for(let x=0; x<serviceList.length; x++){
+    let serviceList = serviceJson["services"];
+    for (let x = 0; x < serviceList.length; x++) {
       let rating = 0;
       let vendorId = serviceList[x]["vendorID"];
-      let data = await fetch('http://localhost:3001/rating/averagerating/'+vendorId, {
-        method: "GET",
-        headers: {
-          "Content-Type": 'application/json'
+      let data = await fetch(
+        "http://localhost:3001/rating/averagerating/" + vendorId,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       let res = await data.json();
-      if('error' in res){
-        serviceList[x]['rating'] = 0;
-      }
-      else{
-        serviceList[x]['rating'] = parseInt(res['averageRating']);
+      if ("error" in res) {
+        serviceList[x]["rating"] = 0;
+      } else {
+        serviceList[x]["rating"] = parseInt(res["averageRating"]);
       }
     }
-    if(JSON.stringify(services)!=JSON.stringify(serviceList)){
+    if (JSON.stringify(services) != JSON.stringify(serviceList)) {
       console.log(serviceList);
       return setServices(serviceList);
     }
-  }
+  };
 
   React.useEffect(() => {
-    if(filtered){
+    if (filtered) {
       return;
     }
-    if(searched){
+    if (searched) {
       return;
     }
     fetchData();
-  }, services)
+  }, services);
 
-
-  const searchServices = async (event) =>{
+  const searchServices = async (event) => {
     event.preventDefault();
     setSearched(true);
     let searchTerm = event.target.value;
-    if(searchTerm==""){
+    if (searchTerm == "") {
       setSearched(false);
       fetchData();
       return;
     }
-    let data = await fetch('http://localhost:3001/searchServices', {
-      method: 'POST',
+    let data = await fetch("http://localhost:3001/searchServices", {
+      method: "POST",
       headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({'searchTerm': searchTerm})
+      body: JSON.stringify({ searchTerm: searchTerm }),
     });
     let serviceJson = await data.json();
-    let serviceList = serviceJson['services'];
-    if(JSON.stringify(services)!=JSON.stringify(serviceList)){
+    let serviceList = serviceJson["services"];
+    if (JSON.stringify(services) != JSON.stringify(serviceList)) {
       return setServices(serviceList);
     }
-  }
+  };
 
   const applyFilters = async (e) => {
     let newFilters = [];
-    let elements = document.getElementsByClassName('fltrs');
-    for(let x=0; x<elements.length; x++){
-      if(elements[x].checked){
+    let elements = document.getElementsByClassName("fltrs");
+    for (let x = 0; x < elements.length; x++) {
+      if (elements[x].checked) {
         newFilters.push(elements[x].value);
       }
     }
-    if(newFilters.length==0){
+    if (newFilters.length == 0) {
       setFiltered(false);
       fetchData();
       return;
     }
     setFiltered(true);
-    let data = await fetch('http://localhost:3001/filterServices', {
-      method: 'POST',
+    let data = await fetch("http://localhost:3001/filterServices", {
+      method: "POST",
       headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({'filters': newFilters})
+      body: JSON.stringify({ filters: newFilters }),
     });
     let serviceJson = await data.json();
-    let serviceList = serviceJson['services'];
-    if(JSON.stringify(services)!=JSON.stringify(serviceList)){
+    let serviceList = serviceJson["services"];
+    if (JSON.stringify(services) != JSON.stringify(serviceList)) {
       return setServices(serviceList);
     }
-  }
+  };
 
   return (
-    <div>  
+    <div>
       <Header currentPage="/Services" />
 
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      />
 
       <div className="bg-white">
         <center>
@@ -124,7 +127,7 @@ export default function Services() {
             </label>
 
             <input
-              id='search-bar'
+              id="search-bar"
               variant="outlined"
               onChange={searchServices}
               type="text"
@@ -151,8 +154,7 @@ export default function Services() {
                   <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> 
                   <label for='landscaping'>&nbsp; Landscaping</label>
                   <br></br>
-                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> 
-                  <label for='other'>&nbsp; Other</label>
+                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
                   <br></br><br></br>
                   </AccordionItem>
                 </Accordion>
@@ -164,67 +166,97 @@ export default function Services() {
                   <AccordionItem header="Filters" className='accFltrs'>
                   <div className='floatFix'>
                   <div className='l-div'>
-                    <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> 
-                    <label for='cleaning'>Cleaning</label>
+                    <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
                     <br></br>
-                    <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> 
-                    <label for='repair'>Repair</label>
+                    <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
                     <br></br>
-                    <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> 
-                    <label for='moving'>Moving</label>
+                    <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
                     <br></br>
                   </div>
                     <div className='r-div'>
-                    <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> 
-                    <label for='carpentry'>Carpentry</label>
+                    <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
                     <br></br>
-                    <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> 
-                    <label for='landscaping'>Landscaping</label>
+                    <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
                     <br></br>
-                    <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> 
-                    <label for='other'>Other</label>
+                    <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
                     <br></br>
                   </div>
                   </div>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-            </MobileView>
-
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </MobileView>
         </center>
 
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {services?.map((service) => (
               <div className="service_card group p-2 decoration-white no-underline">
-                <p style={{color: "inherit"}} className="mt-1 text-l font-medium text-gray-900">{service.serviceName}</p>
+                <p
+                  style={{ color: "inherit" }}
+                  className="mt-1 text-l font-medium text-gray-900"
+                >
+                  {service.serviceName}
+                </p>
 
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                   <img
-                    style={{color: "inherit"}}
+                    style={{ color: "inherit" }}
                     src={service.serviceImg}
                     alt={service.serviceName}
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                 </div>
 
-                <h3 style={{color: "inherit"}} className="mt-4 text-sm text-gray-700">Vendor: {service.vendorName}</h3>
-                <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Location: {service.vendorLocation}</h3>
-                <h3 style={{color: "inherit"}} className="text-sm text-gray-700">Category: {service.category}</h3>
+                <h3
+                  style={{ color: "inherit" }}
+                  className="mt-4 text-sm text-gray-700"
+                >
+                  Vendor: {service.vendorName}
+                </h3>
+                <h3
+                  style={{ color: "inherit" }}
+                  className="text-sm text-gray-700"
+                >
+                  Location: {service.vendorLocation}
+                </h3>
+                <h3
+                  style={{ color: "inherit" }}
+                  className="text-sm text-gray-700"
+                >
+                  Category: {service.category}
+                </h3>
 
                 <div className="flex">
+                  <Rating
+                    unratedColor="amber"
+                    ratedColor="amber"
+                    value={service.rating}
+                    readonly
+                  />
 
-                  <Rating unratedColor="amber" ratedColor="amber" value={service.rating} readonly />
-
-                  <Link to={{pathname: `/rating/${service.vendorID}`}} className="text-gray-800 font-medium text-sm mx-2" state={service}>
+                  <Link
+                    to={{ pathname: `/rating/${service.vendorID}` }}
+                    className="text-gray-800 font-medium text-sm mx-2"
+                    state={service}
+                  >
                     View
                   </Link>
                 </div>
 
-                <p style={{color: "inherit"}} className="mb-2 text-lg font-medium text-gray-900">Rate: ${service.pricePerHour}/hr.</p>
-                
+                <p
+                  style={{ color: "inherit" }}
+                  className="mb-2 text-lg font-medium text-gray-900"
+                >
+                  Rate: ${service.pricePerHour}/hr.
+                </p>
+
                 <div className="mb-2">
-                  <Link to="/booking" className="text-white no-underline" state={service}>
+                  <Link
+                    to="/booking"
+                    className="text-white no-underline"
+                    state={service}
+                  >
                     <button
                       type="submit"
                       variant="contained"
@@ -234,7 +266,7 @@ export default function Services() {
                     </button>
                   </Link>
                 </div>
-                
+
                 <p className="mb-0 text-sm">{service.serviceDesc}</p>
               </div>
             ))}
@@ -244,8 +276,8 @@ export default function Services() {
             </div>
         </div>
       </div>
-    
-      <Footer/>
+
+      <Footer />
     </div>
   );
 }
