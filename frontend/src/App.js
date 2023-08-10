@@ -88,8 +88,7 @@ function App() {
         </Route>
 
         <Route path="/favourites" element={<ConsumerLogin />}>
-          <Route index element={<Favourites />} />
-          <Route path="fav-list" element={<FavoriteList />} />
+        <Route index element={<FavoriteList />} />
         </Route>
 
         <Route path="/booking" element={<ConsumerLogin />}>

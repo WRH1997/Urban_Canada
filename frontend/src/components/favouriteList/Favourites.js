@@ -1,4 +1,5 @@
-// author: Waleed Alhindi
+// author: Waleed Alhindi : filter
+// author: Darshil_Patel : Wishlist and Star Rating
 
 import React, { useState, useEffect } from "react";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
@@ -38,13 +39,13 @@ export default function Services() {
         serviceId,
       });
 
-      // const result = await response.json();
-
       if (response.data.success) {
         setWishlist([...wishlist, serviceId]);
       } else {
         setWishlistError(response.data.message);
       }
+      window.location.reload();
+
     } catch (error) {
       console.error(error);
       setWishlistError("Error adding to wishlist.");
@@ -64,14 +65,13 @@ export default function Services() {
         { userId, serviceId }
       );
 
-      // const result = await response.json();
-
       if (response.data.success) {
         const updatedWishlist = wishlist.filter((item) => item !== serviceId);
-        setWishlist(updatedWishlist); // Update wishlist state
+        setWishlist(updatedWishlist); 
       } else {
         setWishlistError(response.data.message);
       }
+      window.location.reload();
     } catch (error) {
       console.error(error);
       setWishlistError("Error removing from wishlist.");
@@ -91,7 +91,6 @@ export default function Services() {
 
       if (response.data.success) {
         setWishlist(response.data.user.wishlist);
-        // console.log(response.data.user.wishlist);
         console.log(wishlist);
       }
       setIsLoading(false);
@@ -103,12 +102,21 @@ export default function Services() {
   };
 
   useEffect(() => {
-    fetchUserWishlist(); // Define this function below
+    fetchUserWishlist(); 
 
-    // Rest of your existing useEffect code
   }, []);
 
   const renderWishlistButton = (serviceId) => {
+    const isServiceInWishlist = wishlist.includes(serviceId);
+
+
+    const heartIconStyle = {
+      width: "25px",
+      height: "25px",
+      transition: "color 0.3s ease-in-out", 
+      color:"red"
+    };
+  
     if (wishlist.includes(serviceId)) {
       return (
         <Button
@@ -118,15 +126,20 @@ export default function Services() {
             height: 50,
             marginLeft: "100px",
             position: "absolute",
+            width: "50px !important",
+            minWidth:"50px",
+            "&.MuiButton-root": {
+              marginLeft: "11rem !important", 
+              marginTop:"0.5rem !important",
+            },
           }}
+          style={{}}
           color="secondary"
           onClick={() => removeFromWishlist(serviceId)}
           className="text-red-600 font-medium text-sm mx-2"
           disabled={removingFromWishlist}
         >
-          {/* {removingFromWishlist ? "Removing..." :  */}
-          <FavoriteIcon sx={{ right: 0 }} />
-          {/* } */}
+          <FavoriteIcon sx={{ right: 0 }} style={heartIconStyle}/>
         </Button>
       );
     } else {
@@ -134,28 +147,28 @@ export default function Services() {
         <Button
           sx={{
             backgroundColor: "white",
-            borderRadius: 10,
-            height: 60,
-          }}
-          style={{
-            marginLeft: "100px",
+            borderRadius: 50,
+            height: 50,
+            minWidth:"50px",
+            "&.MuiButton-root": {
+              marginLeft: "11rem !important", 
+              marginTop:"0.5rem !important",
+            },
+            width: "50px !important",
           }}
           color="secondary"
           className="text-green-600 font-medium text-sm mx-2"
           disabled={addingToWishlist}
+          onClick={() => addToWishlist(serviceId)}
+
         >
-          {/* {addingToWishlist ? (
-            "Adding..."
-          ) : ( */}
             <FavoriteBorderIcon
               style={{
-                width: "30px", // Set the desired width
-                height: "30px", // Set the desired height
+                width: "25px",
+                height: "25px", 
               }}
-              onClick={() => addToWishlist(serviceId)}
-
+              sx={{color:"red" }}
             />
-          {/* )} */}
         </Button>
       );
     }
@@ -421,34 +434,6 @@ export default function Services() {
                   style={{ color: "inherit" }}
                   className="mt-1 text-l font-medium text-gray-900"
                 >
-                  {/* {wishlist && wishlist.includes(service._id) ? (
-                    <Button
-                      color="secondary"
-                      onClick={() => removeFromWishlist(service._id)}
-                      className="text-red-600 font-medium text-sm mx-2"
-                      disabled={removingFromWishlist}
-                    >
-                      {removingFromWishlist ? "Removing..." : <FavoriteIcon />}
-                    </Button>
-                  ) : (
-                    <Button
-                      color="secondary"
-                      onClick={() => addToWishlist(service._id)}
-                      className="text-green-600 font-medium text-sm mx-2"
-                      disabled={addingToWishlist}
-                    >
-                      {addingToWishlist ? (
-                        "Adding..."
-                      ) : (
-                        <FavoriteBorderIcon
-                          style={{
-                            width: "20px", // Set the desired width
-                            height: "20px", // Set the desired height
-                          }}
-                        />
-                      )}
-                    </Button>
-                  )} */}
                   {service.serviceName}
                 </p>
 

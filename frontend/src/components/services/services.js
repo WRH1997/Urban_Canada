@@ -1,19 +1,178 @@
-// author: Waleed Alhindi
+// author: Waleed Alhindi : filter
+// author: Darshil_Patel : Wishlist and Star Rating
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
 import { BrowserView, MobileView } from "react-device-detect";
 import { Link } from "react-router-dom";
 import { Rating } from "@material-tailwind/react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
+import axios from "axios";
+import { Button } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import "../services/services.css";
+
 export default function Services() {
   const [services, setServices] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [filters, setFilters] = React.useState([]);
   const [filtered, setFiltered] = React.useState(false);
   const [searched, setSearched] = React.useState(false);
+
+  const [wishlist, setWishlist] = useState([]); // Track wishlist services
+  const [addingToWishlist, setAddingToWishlist] = useState(false);
+  const [removingFromWishlist, setRemovingFromWishlist] = useState(false);
+  const [wishlistError, setWishlistError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const addToWishlist = async (serviceId) => {
+    try {
+      setAddingToWishlist(true);
+      const user = localStorage.getItem("userData");
+      const userId = JSON.parse(user)._id;
+
+      const response = await axios.post(`http://localhost:3001/wishlist/add`, {
+        userId,
+        serviceId,
+      });
+
+      if (response.data.success) {
+        setWishlist([...wishlist, serviceId]);
+      } else {
+        setWishlistError(response.data.message);
+      }
+      window.location.reload();
+
+    } catch (error) {
+      console.error(error);
+      setWishlistError("Error adding to wishlist.");
+    } finally {
+      setAddingToWishlist(false);
+    }
+  };
+
+  const removeFromWishlist = async (serviceId) => {
+    try {
+      setRemovingFromWishlist(true);
+      const user = localStorage.getItem("userData");
+      const userId = JSON.parse(user)._id;
+
+      const response = await axios.post(
+        `http://localhost:3001/wishlist/remove`,
+        { userId, serviceId }
+      );
+
+      if (response.data.success) {
+        const updatedWishlist = wishlist.filter((item) => item !== serviceId);
+        setWishlist(updatedWishlist); 
+      } else {
+        setWishlistError(response.data.message);
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      setWishlistError("Error removing from wishlist.");
+    } finally {
+      setRemovingFromWishlist(false);
+    }
+  };
+
+  const fetchUserWishlist = async () => {
+    try {
+      const user = localStorage.getItem("userData");
+      const userId = JSON.parse(user)._id;
+
+      const response = await axios.get(
+        `http://localhost:3001/wishlist/getUserWishlist/${userId}`
+      );
+
+      if (response.data.success) {
+        setWishlist(response.data.user.wishlist);
+        console.log(wishlist);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      setError("Error fetching wishlist.");
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserWishlist(); 
+
+  }, []);
+
+  const renderWishlistButton = (serviceId) => {
+    const isServiceInWishlist = wishlist.includes(serviceId);
+
+
+    const heartIconStyle = {
+      width: "25px",
+      height: "25px",
+      transition: "color 0.3s ease-in-out", 
+      color:"red"
+    };
+  
+    if (wishlist.includes(serviceId)) {
+      return (
+        <Button
+          sx={{
+            backgroundColor: "white",
+            borderRadius: 10,
+            height: 50,
+            marginLeft: "100px",
+            position: "absolute",
+            width: "50px !important",
+            minWidth:"50px",
+            "&.MuiButton-root": {
+              marginLeft: "11rem !important", 
+              marginTop:"0.5rem !important",
+            },
+          }}
+          style={{}}
+          color="secondary"
+          onClick={() => removeFromWishlist(serviceId)}
+          className="text-red-600 font-medium text-sm mx-2"
+          disabled={removingFromWishlist}
+        >
+          <FavoriteIcon sx={{ right: 0 }} style={heartIconStyle}/>
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          sx={{
+            backgroundColor: "white",
+            borderRadius: 50,
+            height: 50,
+            minWidth:"50px",
+            "&.MuiButton-root": {
+              marginLeft: "11rem !important", 
+              marginTop:"0.5rem !important",
+            },
+            width: "50px !important",
+          }}
+          color="secondary"
+          className="text-green-600 font-medium text-sm mx-2"
+          disabled={addingToWishlist}
+          onClick={() => addToWishlist(serviceId)}
+
+        >
+            <FavoriteBorderIcon
+              style={{
+                width: "25px",
+                height: "25px", 
+              }}
+              sx={{color:"red" }}
+            />
+        </Button>
+      );
+    }
+  };
 
   const fetchData = async () => {
     let data = await fetch("http://localhost:3001/allServices", {
@@ -136,58 +295,137 @@ export default function Services() {
           </div>
 
           <BrowserView>
-            <div className='filters-desktop'>
-              <Accordion className='fltrs-dropdown'>
-                <AccordionItem header="Category" className='accFltrs text-base'>
-                  <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input>
-                  <label for='cleaning'>&nbsp; Cleaning</label>
+            <div className="filters-desktop">
+              <Accordion className="fltrs-dropdown">
+                <AccordionItem header="Category" className="accFltrs text-base">
+                  <input
+                    type="checkbox"
+                    id="cleaning"
+                    value="Cleaning"
+                    className="fltrs"
+                    onClick={applyFilters}
+                  ></input>{" "}
+                  Cleaning
                   <br></br>
-                  <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input>
-                  <label for='repair'>&nbsp; Repair</label>
+                  <input
+                    type="checkbox"
+                    id="repair"
+                    value="Repair"
+                    className="fltrs"
+                    onClick={applyFilters}
+                  ></input>{" "}
+                  Repair
                   <br></br>
-                  <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input>
-                  <label for='moving'>&nbsp; Moving</label>
+                  <input
+                    type="checkbox"
+                    id="moving"
+                    value="Moving"
+                    className="fltrs"
+                    onClick={applyFilters}
+                  ></input>{" "}
+                  Moving
                   <br></br>
-                  <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input>
-                  <label for='carpentry'>&nbsp; Carpentry</label>
+                  <input
+                    type="checkbox"
+                    id="carpentry"
+                    value="Carpentry"
+                    className="fltrs"
+                    onClick={applyFilters}
+                  ></input>{" "}
+                  Carpentry
                   <br></br>
-                  <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> 
-                  <label for='landscaping'>&nbsp; Landscaping</label>
+                  <input
+                    type="checkbox"
+                    id="landscaping"
+                    value="Landscaping"
+                    className="fltrs"
+                    onClick={applyFilters}
+                  ></input>{" "}
+                  Landscaping
                   <br></br>
-                  <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
-                  <br></br><br></br>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-            </BrowserView>
-            <MobileView>
-              <div className='filters-mobile'>
-                <Accordion className='fltrs-dropdown'>
-                  <AccordionItem header="Filters" className='accFltrs'>
-                  <div className='floatFix'>
-                  <div className='l-div'>
-                    <input type='checkbox' id='cleaning' value='Cleaning' className='fltrs' onClick={applyFilters}></input> Cleaning 
-                    <br></br>
-                    <input type='checkbox' id='repair' value='Repair' className='fltrs' onClick={applyFilters}></input> Repair
-                    <br></br>
-                    <input type='checkbox' id='moving' value='Moving' className='fltrs' onClick={applyFilters}></input> Moving
-                    <br></br>
-                  </div>
-                    <div className='r-div'>
-                    <input type='checkbox' id='carpentry' value='Carpentry' className='fltrs' onClick={applyFilters}></input> Carpentry
-                    <br></br>
-                    <input type='checkbox' id='landscaping' value='Landscaping' className='fltrs' onClick={applyFilters}></input> Landscaping
-                    <br></br>
-                    <input type='checkbox' id='other' value='Other' className='fltrs' onClick={applyFilters}></input> Other
-                    <br></br>
-                  </div>
+                  <input
+                    type="checkbox"
+                    id="other"
+                    value="Other"
+                    className="fltrs"
+                    onClick={applyFilters}
+                  ></input>{" "}
+                  Other
+                  <br></br>
+                  <br></br>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </BrowserView>
+          <MobileView>
+            <div className="filters-mobile">
+              <Accordion className="fltrs-dropdown">
+                <AccordionItem header="Filters" className="accFltrs">
+                  <div className="floatFix">
+                    <div className="l-div">
+                      <input
+                        type="checkbox"
+                        id="cleaning"
+                        value="Cleaning"
+                        className="fltrs"
+                        onClick={applyFilters}
+                      ></input>{" "}
+                      Cleaning
+                      <br></br>
+                      <input
+                        type="checkbox"
+                        id="repair"
+                        value="Repair"
+                        className="fltrs"
+                        onClick={applyFilters}
+                      ></input>{" "}
+                      Repair
+                      <br></br>
+                      <input
+                        type="checkbox"
+                        id="moving"
+                        value="Moving"
+                        className="fltrs"
+                        onClick={applyFilters}
+                      ></input>{" "}
+                      Moving
+                      <br></br>
+                    </div>
+                    <div className="r-div">
+                      <input
+                        type="checkbox"
+                        id="carpentry"
+                        value="Carpentry"
+                        className="fltrs"
+                        onClick={applyFilters}
+                      ></input>{" "}
+                      Carpentry
+                      <br></br>
+                      <input
+                        type="checkbox"
+                        id="landscaping"
+                        value="Landscaping"
+                        className="fltrs"
+                        onClick={applyFilters}
+                      ></input>{" "}
+                      Landscaping
+                      <br></br>
+                      <input
+                        type="checkbox"
+                        id="other"
+                        value="Other"
+                        className="fltrs"
+                        onClick={applyFilters}
+                      ></input>{" "}
+                      Other
+                      <br></br>
+                    </div>
                   </div>
                 </AccordionItem>
               </Accordion>
             </div>
           </MobileView>
         </center>
-
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {services?.map((service) => (
@@ -206,6 +444,9 @@ export default function Services() {
                     alt={service.serviceName}
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
+                  <div>
+                  {renderWishlistButton(service._id)}
+                  </div>
                 </div>
 
                 <h3
@@ -271,9 +512,6 @@ export default function Services() {
               </div>
             ))}
           </div>
-          <div>
-              {services.length==0 && (searched || filtered) ? (<div className='noSrvcsMsg'>No Matching Services Found!</div>) : (<div></div>)}
-            </div>
         </div>
       </div>
 

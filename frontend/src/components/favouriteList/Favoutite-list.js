@@ -1,3 +1,5 @@
+// author: Darshil_Patel : Wishlist and Star Rating
+
 import React, { useState, useEffect } from "react";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -7,8 +9,7 @@ import Header from "../header/header";
 import Footer from "../footer/footer";
 import axios from "axios";
 import { Button } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import "../services/services.css";
 
 function FavoriteList() {
@@ -18,38 +19,12 @@ function FavoriteList() {
   const [filtered, setFiltered] = React.useState(false);
   const [searched, setSearched] = React.useState(false);
 
-  const [wishlist, setWishlist] = useState([]); // Track wishlist services
-  const [addingToWishlist, setAddingToWishlist] = useState(false);
+  const [wishlist, setWishlist] = useState([]);
+
   const [removingFromWishlist, setRemovingFromWishlist] = useState(false);
   const [wishlistError, setWishlistError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const addToWishlist = async (serviceId) => {
-    try {
-      setAddingToWishlist(true);
-      const user = localStorage.getItem("userData");
-      const userId = JSON.parse(user)._id;
-
-      const response = await axios.post(`http://localhost:3001/wishlist/add`, {
-        userId,
-        serviceId,
-      });
-
-      // const result = await response.json();
-
-      if (response.data.success) {
-        setWishlist([...wishlist, serviceId]);
-      } else {
-        setWishlistError(response.data.message);
-      }
-    } catch (error) {
-      console.error(error);
-      setWishlistError("Error adding to wishlist.");
-    } finally {
-      setAddingToWishlist(false);
-    }
-  };
 
   const removeFromWishlist = async (serviceId) => {
     try {
@@ -62,14 +37,13 @@ function FavoriteList() {
         { userId, serviceId }
       );
 
-      // const result = await response.json();
-
       if (response.data.success) {
         const updatedWishlist = wishlist.filter((item) => item !== serviceId);
-        setWishlist(updatedWishlist); // Update wishlist state
+        setWishlist(updatedWishlist); 
       } else {
         setWishlistError(response.data.message);
       }
+      window.location.reload();
     } catch (error) {
       console.error(error);
       setWishlistError("Error removing from wishlist.");
@@ -89,7 +63,6 @@ function FavoriteList() {
 
       if (response.data.success) {
         setWishlist(response.data.user.wishlist);
-        // console.log(response.data.user.wishlist);
         console.log(wishlist);
       }
       setIsLoading(false);
@@ -101,9 +74,7 @@ function FavoriteList() {
   };
 
   useEffect(() => {
-    fetchUserWishlist(); // Define this function below
-
-    // Rest of your existing useEffect code
+    fetchUserWishlist();
   }, []);
 
   const fetchData = async () => {
@@ -364,7 +335,7 @@ function FavoriteList() {
   ) : (
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {services.filter(service => wishlist.includes(service._id)).map((service) => (
-              <div className="service_card group p-2 decoration-white no-underline">
+              <div key={service._id} className="service_card group p-2 decoration-white no-underline">
                 <p
                   style={{ color: "inherit" }}
                   className="mt-1 text-l font-medium text-gray-900"
@@ -380,29 +351,28 @@ function FavoriteList() {
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                   <div>
-                    {wishlist && wishlist.includes(service._id) ? (
                       <Button
-                        sx={{
-                          backgroundColor: "white",
-                          // width: 30,
-                          borderRadius: 10,
-                          height: 50,
-                          marginLeft: 900,
-                        }}
+                      sx={{
+                        backgroundColor: "white",
+                        borderRadius: 10,
+                        height: 50,
+                        marginLeft: "100px",
+                        position: "absolute",
+                        width: "50px !important",
+                        minWidth:"50px",
+                        "&.MuiButton-root": {
+                          marginLeft: "11rem !important", 
+                          marginTop:"0.5rem !important",
+                        },
+                      }}
                         color="secondary"
                         onClick={() => removeFromWishlist(service._id)}
                         className="text-red-600 font-medium text-sm mx-2"
                         disabled={removingFromWishlist}
                       >
-                        {removingFromWishlist ? (
-                          "Removing..."
-                        ) : (
-                          <FavoriteIcon />
-                        )}
+                        <HeartBrokenIcon style={{color:"red"}}/>
                       </Button>
-                    ) : (
-                      <h1></h1>
-                    )}
+
                   </div>
                 </div>
 
