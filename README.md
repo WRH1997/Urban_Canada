@@ -3,7 +3,7 @@
 **This application is a modern service marketplace to empower vendors and satisfy clients. It serves as an online portal for vendors, tradesmen, service providers and other entrepreneurs or small business owners to market their services to a wider customer in one convenient location. For the persons or entities providing services (vendors), and for the persons purchasing or subscribing to these services (consumers) the application will provide a convenient interface. This service is important because it will seek to improve upon existing marketplaces to provide a more seamless interaction between vendors and consumers aggregating the pros and eradicating the cons associated with other popular platforms.**
 
 * *Date Created*: 18 JUN 2023
-* *Last Modification Date*: 24 JUL 2023
+* *Last Modification Date*: 10 AUG 2023
 * *Project URL*: <https://main--brilliant-pixie-8bba9e.netlify.app/>
 * *Git URL*: <https://git.cs.dal.ca/kathiria/csci-5709-grp-13/>
 
@@ -18,7 +18,11 @@
 
 ## Testing
 
-To test the web pages are correctly rendering and responding, the deployed application's landing page was navigated. It was observed that the first page the browser directed us towards was landing page, and it had been rendered as we expected. Further, we tested our Contact Us and FAQ pages by redirecting through the provided buttons on landing page and it works as expected. Then we tried to access the webpages of different user personas from cross user logins, where the access was restricted, which was supposed to be. Then we tested signup, login and sign out followed by password reset. Password reset sent an OTP to the right email and OTP validations, update password works correctly. Then we tested update profile using different user roles and deleting account which also work as expected. Furthermore, we tested service posting, filtering, booking, rescheduling, cancelling, approving, rejecting and completing the service. Rating feature and feedback option was tested and provided positive results. We tested responsivness by switching to tablet and mobile view respectively where it has user friedly display.
+To test the web pages are correctly rendering and responding, the deployed application's landing page was navigated. It was observed that the first page the browser directed us towards was landing page, and it had been rendered as we expected. Further, we tested our Contact Us and FAQ pages by redirecting through the provided buttons on landing page and it works as expected. Then we tried to access the webpages of different user personas from cross user logins, where the access was restricted, which was supposed to be. Then we tested signup, login and sign out followed by password reset. Password reset sent an OTP to the right email and OTP validations, update password works correctly. Then we tested update profile using different user roles and deleting account which also work as expected. Furthermore, we tested service posting, filtering, booking, rescheduling, cancelling, approving, rejecting and completing the service. Rating feature and feedback option was tested and provided positive results. We tested responsivness by switching to tablet and mobile view respectively where it has user friedly display. Moreover, we went thorugh testing process for notifcations and wishlist feature, which also works as expected.
+
+To test service provider and consumer modules, user can signup. Service provider cannot proceed without admin approval, so admin needs to approve request. To test admin panel, credentials are as follows:
+* Email: admin@gmail.com
+* Password: Nand@123
 
 ## Deployment
 
@@ -1524,7 +1528,7 @@ export default function Example() {
 
 ### services.js
 
-*Lines 135 - 180*
+*Lines 137 - 184*
 
 ```
 <BrowserView>

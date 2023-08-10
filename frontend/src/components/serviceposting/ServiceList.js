@@ -33,19 +33,36 @@ export default function ServiceList({ services }) {
 
 
   const handleClickOpen = (service) => {
+    const userDataString = localStorage.getItem("userData");
+    let vendorID = "";
+    let vendorName = "";
+  
+    try {
+      const userData = JSON.parse(userDataString);
+      vendorID = userData._id;
+      vendorName = `${userData.firstName} ${userData.lastName}`;
+    } catch (e) {
+      console.error("Error parsing user data:", e);
+    }
+  
     if (service && service._id) {
       // If editing a service
-      setSelectedService(service);
+      setSelectedService({
+        ...service,
+        vendorName: service.vendorName || vendorName, 
+      });
       setIsEditing(true);
     } else {
       // If creating a service
       setSelectedService({
         vendorID: vendorID,
+        vendorName: vendorName,
         serviceName: "",
         serviceDesc: "",
         pricePerHour: "",
         category: "",
         serviceImg: "",
+        location: "", 
       });
       setIsEditing(false);
     }
@@ -117,6 +134,10 @@ export default function ServiceList({ services }) {
       errors.serviceImg = 'Image link is required';
     } else if (!isValidImageUrl(selectedService.serviceImg)) {
       errors.serviceImg = 'Please provide a valid image URL';
+    }
+
+    if (!selectedService.vendorLocation) {
+      errors.vendorLocation = 'Location is required';
     }
 
     if (Object.keys(errors).length > 0) {
@@ -209,7 +230,7 @@ export default function ServiceList({ services }) {
           />
 
           <TextField
-                name = "serviceDesc"
+              name = "serviceDesc"
               autoFocus
               margin="dense"
               id="serviceDesc"
@@ -274,6 +295,20 @@ export default function ServiceList({ services }) {
               helperText={formErrors.serviceImg}
           />
 
+          <TextField
+            name="vendorLocation"
+            autoFocus
+            margin="dense"
+            id="vendorLocation"
+            label="Location"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={selectedService.vendorLocation}
+            onChange={handleChange}
+            // Add any additional validation or error handling if needed
+          />
+
 
           </DialogContent>
           <DialogActions>
@@ -299,6 +334,9 @@ export default function ServiceList({ services }) {
                   </Typography>
                   <Typography gutterBottom variant="h5" component="div">
                     Hourly Rate: ${service.pricePerHour.toFixed(2)}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Location: {service.vendorLocation}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {service.serviceDesc}

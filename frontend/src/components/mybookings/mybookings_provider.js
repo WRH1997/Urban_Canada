@@ -27,7 +27,6 @@ export default function MyBookings() {
 
   const openModel = (booking) => {
     setSelectedBooking(booking)
-    console.log(booking)
     setDate(booking.date.split(" ")[0])
     setTime(booking.date.split(" ")[1])
     handleClose()
@@ -40,6 +39,12 @@ export default function MyBookings() {
       setDate("")
       setTime("")
   };
+
+  const [bookingAlert,setBookingAlert] = useState(localStorage.getItem("booking_alert"))
+  setTimeout(() => {
+    localStorage.removeItem("booking_alert")
+    setBookingAlert(null);
+  }, 3000);
 
   const openModelCancel = (booking) => {
     setSelectedBooking(booking)
@@ -95,10 +100,24 @@ export default function MyBookings() {
     setAnchorEl(null);
   };
 
+  console.log(selectedBooking)
   const approveBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/approve/${booking_id}`).then((res)=>{
-      window.location.href="/provider_bookings"
+      const notification = {
+        booking_id: booking_id,
+        recipient_id: selectedBooking.consumer_id._id,
+        message: "Booking has been approved",
+        type: "Booking Approved"
+      }
+      axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+        if(res){
+          localStorage.setItem("booking_alert","Booking Approved Successfully")
+          window.location.href="/provider_bookings"
+        }
+      }).catch((e)=>{
+        alert(e)
+      })
     }).catch((e)=>{
       alert(e)
     })
@@ -108,7 +127,20 @@ export default function MyBookings() {
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/provider_bookings"
+      const notification = {
+        booking_id: booking_id,
+        recipient_id: selectedBooking.consumer_id._id,
+        message: "Booking has been canceled",
+        type: "Booking Canceled"
+      }
+      axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+        if(res){
+          localStorage.setItem("booking_alert","Booking Rejected Successfully")
+          window.location.href="/provider_bookings"
+        }
+      }).catch((e)=>{
+        alert(e)
+      })
     }).catch((e)=>{
       alert(e)
     })
@@ -117,9 +149,21 @@ export default function MyBookings() {
 
   const completeBookingHandler = () => {
     const booking_id = selectedBooking._id
-    console.log(booking_id)
     axios.put(`http://localhost:3001/booking/complete/${booking_id}`).then((res)=>{
-      window.location.href="/provider_bookings"
+      const notification = {
+        booking_id: booking_id,
+        recipient_id: selectedBooking.consumer_id._id,
+        message: "Booking has been completed",
+        type: "Booking Completed"
+      }
+      axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+        if(res){
+          localStorage.setItem("booking_alert","Booking Completed Successfully")
+          window.location.href="/provider_bookings"
+        }
+      }).catch((e)=>{
+        alert(e)
+      })
     }).catch((e)=>{
       alert(e)
     })
@@ -362,6 +406,12 @@ export default function MyBookings() {
       <div className="fixed bottom-0 bg-gray-200 w-full">
         <Footer />
       </div>
+      {
+        bookingAlert != null &&
+        <div className='booking-alerts p-3'>
+          {bookingAlert}
+        </div>
+      }
     </div>
   )
 }

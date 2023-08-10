@@ -23,7 +23,6 @@ export const DashboardPage = () => {
   
   useEffect(()=>{
     const token = localStorage.getItem("authToken")
-    console.log(token)
     axios.get("http://localhost:3001/admin/active-vendors",{headers: {token: "Bearer "+token}}).then((res)=>{
       
         const data = []

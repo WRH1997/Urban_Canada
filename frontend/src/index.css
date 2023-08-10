@@ -15,3 +15,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.notification-clear-icon:hover {
+  cursor: pointer;
+}
+
+.booking-alerts {
+  position: absolute;
+  bottom: 35px;
+  right: 40%;
+  z-index: 100;
+  background-color: #fff !important;
+  border-radius: 5px;
+  border: 1px solid #1F2937;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+}
