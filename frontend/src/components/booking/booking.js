@@ -30,21 +30,35 @@ export default function Bookings(props) {
           note: note
         }
         
-        axios.post("http://localhost:3001/booking/create",booking).then((req,res)=>{
-            window.location.href = "/consumer_bookings"
+        axios.post("http://localhost:3001/booking/create",booking).then((res)=>{
+          const notification = {
+            booking_id: res.data.booking._id,
+            recipient_id: service.vendorID,
+            message: "New Booking Request",
+            type: "Booking Created" 
+          }
+          // console.log(notification)
+          
+          axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+            if(res){
+              localStorage.setItem("booking_alert","Booking Created Successfully")
+              window.location.href = "/consumer_bookings"
+            }
+          }).catch((e)=>{
+            setBookingAlert(e)
+          })
         }).catch((e)=>{
-          console.log(e)
-          alert(e)
+          setBookingAlert(e)
         })
       }
       
       else {
-        alert("Error")
+        setBookingAlert(e)
       }
     }
     
     else {
-      alert("Address, Date and Time are required.")
+      setBookingAlert("Address, Date and Time are required.")
     }
   }
 
@@ -59,6 +73,12 @@ export default function Bookings(props) {
 
     return `${year}-${month}-${day}`;
   };
+
+  const [bookingAlert,setBookingAlert] = useState(localStorage.getItem("booking_alert"))
+  setTimeout(() => {
+    // localStorage.removeItem("booking_alert")
+    setBookingAlert(null);
+  }, 3000);
 
   const [minDate, setMinDate] = useState(getCurrentDate());
 
@@ -201,6 +221,12 @@ export default function Bookings(props) {
             </button>
           </div>
         </div>
+      {
+        bookingAlert != null &&
+        <div className='booking-alerts p-3'>
+          {bookingAlert}
+        </div>
+      }
       </form>
       <div className="fixed bottom-0 bg-gray-200 w-full">
         <Footer />

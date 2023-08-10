@@ -25,6 +25,7 @@ import CustomersPage from "./components/admin/pages/CustomersPage";
 import Contact from "./components/contact/contact";
 import FAQ from "./components/faq/faq";
 import axios from "axios";
+import FavoriteList from "./components/favouriteList/Favoutite-list";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -85,6 +86,10 @@ function App() {
           <Route index element={<Services />} />
         </Route>
 
+        <Route path="/favourites" element={<ConsumerLogin />}>
+        <Route index element={<FavoriteList />} />
+        </Route>
+
         <Route path="/booking" element={<ConsumerLogin />}>
           <Route index element={<Booking />} />
         </Route>
@@ -103,7 +108,7 @@ function App() {
 
         <Route path="/rating/:vendorId/:bookingId" element={<LoginRedirect />}>
           <Route index element={<RatingComment />} />
-        </Route>  
+        </Route>
 
         <Route path="/admin/dashboard" element={<AdminLogin />}>
           <Route index element={<DashboardPage />} />

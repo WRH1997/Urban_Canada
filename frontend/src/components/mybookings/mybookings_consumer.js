@@ -31,7 +31,6 @@ export default function MyBookings() {
 
   const openModel = (booking) => {
     setSelectedBooking(booking)
-    console.log(booking)
     setDate(booking.date.split(" ")[0])
     setTime(booking.date.split(" ")[1])
     handleClose()
@@ -56,9 +55,14 @@ export default function MyBookings() {
       setSelectedBooking("")
   };
 
+  const [bookingAlert,setBookingAlert] = useState(localStorage.getItem("booking_alert"))
+  setTimeout(() => {
+    localStorage.removeItem("booking_alert")
+    setBookingAlert(null);
+  }, 3000);
+
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
-      console.log(res);
       var data =  []
       if(res.data && res.data.length > 0){
         res.data.forEach(element => {
@@ -96,7 +100,22 @@ export default function MyBookings() {
     }
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/reschedule/${booking_id}`,data).then((res)=>{
-      window.location.href="/consumer_bookings"
+      if(res.data){
+        const notification = {
+          booking_id: booking_id,
+          recipient_id: selectedBooking.provider_id._id,
+          message: "Booking has been recheduled",
+          type: "Booking Reschedule"
+        }
+        axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+          if(res){
+            localStorage.setItem("booking_alert","Booking Rescheduled Successfully")
+            window.location.href="/consumer_bookings"
+          }
+        }).catch((e)=>{
+          alert(e)
+        })
+      }
     }).catch((e)=>{
       alert(e)
     })
@@ -111,7 +130,20 @@ export default function MyBookings() {
   const cancelBookingHandler = () => {
     const booking_id = selectedBooking._id
     axios.put(`http://localhost:3001/booking/cancel/${booking_id}`).then((res)=>{
-      window.location.href="/consumer_bookings"
+      const notification = {
+        booking_id: booking_id,
+        recipient_id: selectedBooking.provider_id._id,
+        message: "Booking has been canceled",
+        type: "Booking Canceled"
+      }
+      axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+        if(res){
+          localStorage.setItem("booking_alert","Booking Canceled Successfully")
+          window.location.href="/consumer_bookings"
+        }
+      }).catch((e)=>{
+        alert(e)
+      })
     }).catch((e)=>{
       alert(e)
     })
@@ -378,10 +410,15 @@ export default function MyBookings() {
           </button>
         </DialogActions>
       </Dialog>
-
       <div className="fixed bottom-0 bg-gray-200 w-full">
         <Footer />
       </div>
+      {
+        bookingAlert != null &&
+        <div className='booking-alerts p-3'>
+          {bookingAlert}
+        </div>
+      }
     </div>
   )
 }

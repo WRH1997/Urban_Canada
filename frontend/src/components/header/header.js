@@ -6,6 +6,11 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../../assets/header_logo.png";
 import icon from "../../assets/profile_icon.jpg";
+import Button from '@mui/material/Button'
+import ClearIcon from '@mui/icons-material/Clear';
+import axios from "axios"
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -13,9 +18,12 @@ function classNames(...classes) {
 
 export default function Header(props) {
 
+  const [hasNotifications, setHasNotifications] = useState(false);
+  const [redDotClicked, setRedDotClicked] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [userData,setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
+  const [notifications, setNotifications] = useState([])
 
   const guestNavigation = [
     { name: "Home", href: "/" },
@@ -29,7 +37,7 @@ export default function Header(props) {
     { name: "Ratings", href: `/rating` },
   ];
 
-  if(JSON.parse(localStorage.getItem("userData")) != null){
+  if (JSON.parse(localStorage.getItem("userData")) != null) {
     providerNavigation = [
       { name: "Home", href: "/" },
       { name: "Service Posting", href: "/serviceposting" },
@@ -42,7 +50,34 @@ export default function Header(props) {
     { name: "Home", href: "/" },
     { name: "Services", href: "/Services" },
     { name: "My Bookings", href: "/consumer_bookings" },
+    {
+      name: (
+        <span className="flex items-center">
+          <FavoriteIcon className="mr-1" />
+          Favorites
+        </span>
+      ),
+      href: "/favourites",
+    },
   ];
+
+  const fetchNotifications = () => {
+    axios.get("http://localhost:3001/notifications/" + userData._id).then((res) => {
+      if (res.data) {
+        setNotifications(res.data.data.reverse());
+
+        if (res.data.data.length > 0) {
+          setHasNotifications(true);
+
+          if (redDotClicked) {
+            setRedDotClicked(false);
+          }
+        } else {
+          setHasNotifications(false);
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");
@@ -55,34 +90,40 @@ export default function Header(props) {
       } catch (e) {
         console.error("Error parsing user data:", e);
       }
+
+      fetchNotifications();
+
+      const duration = setInterval(fetchNotifications, 2000);
+
+      return () => {
+        clearInterval(duration)
+      };
     } else {
       console.error("No user data in local storage.");
     }
   }, []);
 
   const navigate = useNavigate();
-  const [loggedInUser,setLoggedInUser] = useState("guest")
+  const [loggedInUser, setLoggedInUser] = useState("guest");
   const { currentPage } = props;
 
-  useEffect(()=>{
-    const loggedin_user = localStorage.getItem("userData")
+  useEffect(() => {
+    const loggedin_user = localStorage.getItem("userData");
 
-    if(loggedin_user){
-      const user_object = JSON.parse(loggedin_user)
-      setLoggedInUser(user_object.role)
+    if (loggedin_user) {
+      const user_object = JSON.parse(loggedin_user);
+      setLoggedInUser(user_object.role);
     }
-  },[])
-
-  console.log(loggedInUser)
+  }, [])
 
   var navigation = guestNavigation;
 
-  if(loggedInUser == "service-consumer"){
-     navigation = consumerNavigation;
+  if (loggedInUser == "service-consumer") {
+    navigation = consumerNavigation;
   }
 
   if (loggedInUser == "service-provider") {
-     navigation = providerNavigation;
+    navigation = providerNavigation;
   }
 
   const updatedNavigation = navigation.map((item) => {
@@ -102,7 +143,15 @@ export default function Header(props) {
   const handleProfileNavigation = () => {
     window.location.href = "/profile";
   };
-  
+
+  const clearNotification = async (notification_id) => {
+    await axios.delete(`http://localhost:3001/notifications/${notification_id}`)
+  }
+
+  const handleNotificationClick = () => {
+    setRedDotClicked(true);
+  };
+
   return (
     <div className="sticky top-0 bg-gray-800 z-50">
       <Disclosure as="nav" className="bg-gray-800">
@@ -120,17 +169,16 @@ export default function Header(props) {
                     )}
                   </Disclosure.Button>
 
-                  {
-                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
-
+                  {loggedInUser == "service-consumer" ||
+                    loggedInUser == "service-provider" ? (
                     <div className="text-white font-medium text-base ml-2 mr-20">
                       Welcome {user.firstName} {user.lastName}!
-                    </div> :
-
+                    </div>
+                  ) : (
                     <div className="text-white font-medium text-base ml-2 mr-20">
                       Welcome to Urban Canada
                     </div>
-                  }
+                  )}
                 </div>
 
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -156,28 +204,75 @@ export default function Header(props) {
                       ))}
                     </div>
                   </div>
-                </div>                
+                </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  {
-                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
-
+                  {loggedInUser == "service-consumer" ||
+                    loggedInUser == "service-provider" ? (
                     <div className="hidden sm:block text-white font-medium text-lg mr-3">
                       Welcome {user.firstName} {user.lastName}!
-                    </div> :
-
+                    </div>
+                  ) : (
                     <div className="hidden sm:block text-white font-medium text-lg mr-3">
                       Welcome to Urban Canada
                     </div>
-                  }
-                  
-                  <button
-                    type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                  )}
+
+                  <Menu as="div">
+                    <div>
+                      <Menu.Button
+                        className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        onClick={handleNotificationClick}
+                        style={{position: "relative"}}
+                      >
+                        <span className="sr-only">View notifications</span>
+                        <BellIcon className="h-6 w-6" aria-hidden="true" />
+
+                        {!redDotClicked && hasNotifications && (
+                          <span className="absolute top-0 right-0 block w-3 h-3 bg-red-500 rounded-full"></span>
+                        )}
+                      </Menu.Button>
+                    </div>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      {
+                        loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+
+                          <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" style={{ backgroundColor: "white" }}>
+                            {notifications.length > 0 ? notifications.map((item, index) => (
+                              <Menu.Item>
+                                {/* <div className="d-flex flex-row justify-content-between align-items-center"> */}
+                                <div key={index}
+                                  className="d-flex flex-row justify-content-between align-items-center hover:bg-gray-200 block no-underline px-4 mx-2 my-1 rounded-md border-y-1 py-2 text-sm text-gray-700"
+                                >
+                                  <div>
+                                    {item.message}
+                                  </div>
+                                  {/* <Button style={{color: "#45489a"}}>
+                                  Clear
+                                </Button> */}
+                                  <ClearIcon className="notification-clear-icon" onClick={() => clearNotification(item._id)} />
+                                </div>
+                                {/* </div> */}
+                              </Menu.Item>
+                            ))
+                              :
+                              <div className="d-flex flex-row justify-content-center align-items-center">Notification box is empty!</div>
+                            }
+                          </Menu.Items>
+                          :
+                          <div></div>
+                      }
+                    </Transition>
+                  </Menu>
 
                   <Menu as="div" className="relative ml-3">
                     <div>
@@ -200,44 +295,42 @@ export default function Header(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      {
-                    loggedInUser == "service-consumer" || loggedInUser == "service-provider" ?
+                      {loggedInUser == "service-consumer" ||
+                        loggedInUser == "service-provider" ? (
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" style={{ backgroundColor: "white" }}>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                onClick={handleProfileNavigation}
+                                className={classNames(
+                                  active ? "bg-gray-200" : "",
+                                  "block no-underline px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Your Profile
+                              </a>
+                            )}
+                          </Menu.Item>
 
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              onClick={handleProfileNavigation}
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block no-underline px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Your Profile
-                            </a>
-                          )}
-                        </Menu.Item>
-
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              onClick={handleSignOut}
-                              className={classNames(
-                                active ? "bg-gray-200" : "",
-                                "block no-underline px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Sign out
-                            </a>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                      :
-
-                      <div></div>
-                    }
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                onClick={handleSignOut}
+                                className={classNames(
+                                  active ? "bg-gray-200" : "",
+                                  "block no-underline px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Sign out
+                              </a>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      ) : (
+                        <div></div>
+                      )}
                     </Transition>
                   </Menu>
                 </div>

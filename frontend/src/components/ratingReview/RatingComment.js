@@ -14,7 +14,6 @@ const App = () => {
 
   const { vendorId, bookingId } = useParams();
   const userData = JSON.parse(localStorage.getItem("userData"));
-  console.log(userData);
 
   const [newComment, setNewComment] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -80,7 +79,6 @@ const App = () => {
     event.preventDefault();
 
     const userName = userData.firstName + " " + userData.lastName
-    console.log(userName);
     try {
 
       await axios.post(`http://localhost:3001/rating/postRating`, {
@@ -94,12 +92,23 @@ const App = () => {
 
         setNewComment('');
         setIsSubmitted(true);
+        const notification = {
+          booking_id: bookingId,
+          recipient_id: vendorId,
+          message: "Consumer posted review",
+          type: "Review Added"
+        }
+        axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+          if(res){
+            window.location.href="/provider_bookings"
+          }
+        }).catch((e)=>{
+          alert(e)
+        })
       } catch (error) {
         console.error('Error submitting the comment:', error);
       }
       
-      console.log(selectedStar);
-      console.log('New Comment:', newComment);
       setNewComment('');
       setIsSubmitted(true);
       

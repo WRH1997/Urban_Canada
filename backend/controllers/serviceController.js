@@ -41,7 +41,7 @@ exports.searchForServices = async (req, res) => {
     }
 }
 
-// Delete? Not being used
+
 exports.filterServices = async (req, res) => {
     let filters = req.body.filters;
     try{
@@ -65,14 +65,14 @@ exports.createService = async (req, res) => {
         const {
             serviceName,
             vendorID,
+            vendorName,
+            vendorLocation,
             serviceDesc,
             pricePerHour,
             category,
             serviceImg
         } = req.body;
 
-        const vendorName = "name"
-        const vendorLocation = "Halifax"
 
         const newService = new Service({
             serviceName,

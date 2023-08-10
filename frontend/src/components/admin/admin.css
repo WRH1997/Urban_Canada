@@ -63,3 +63,12 @@
 .css-1aquho2-MuiTabs-indicator{
     background-color: #1F2937 !important;
 }
+
+.admin-alerts {
+    position: absolute;
+    top: 65px;
+    right: 10px;
+    z-index: 100;
+    background-color: #fff !important;
+    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+}
