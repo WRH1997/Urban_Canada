@@ -31,7 +31,6 @@ export default function MyBookings() {
 
   const openModel = (booking) => {
     setSelectedBooking(booking)
-    console.log(booking)
     setDate(booking.date.split(" ")[0])
     setTime(booking.date.split(" ")[1])
     handleClose()
@@ -58,7 +57,6 @@ export default function MyBookings() {
 
   useEffect(()=>{
     axios.get(`http://localhost:3001/booking/service-consumer/${consumer_id}`).then((res)=>{
-      console.log(res);
       var data =  []
       if(res.data && res.data.length > 0){
         res.data.forEach(element => {

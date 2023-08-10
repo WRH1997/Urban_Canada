@@ -235,7 +235,7 @@ exports.updatePassword = async (req, res) => {
   // user.password = req.body.password;
   // user.resetPasswordToken = undefined; // Clear the resetPasswordToken field
   // user.resetPasswordExpires = undefined; // Clear the resetPasswordExpires field
- await User.updateOne(
+  await User.updateOne(
     { email: req.body.email },
     {
       $set: {

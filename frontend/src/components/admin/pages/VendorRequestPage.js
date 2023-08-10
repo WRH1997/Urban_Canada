@@ -72,7 +72,6 @@ const VendorRequestPage = () => {
         })
     },[])
 
-    console.log(rowData)
     return (
         <div className='d-flex'>
             <ProSidebarProvider>

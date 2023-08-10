@@ -1,4 +1,3 @@
-// author: Waleed Alhindi : filter
 // author: Darshil_Patel : Wishlist and Star Rating
 
 import React, { useState, useEffect } from "react";
@@ -10,49 +9,22 @@ import Header from "../header/header";
 import Footer from "../footer/footer";
 import axios from "axios";
 import { Button } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import "../services/services.css";
 
-export default function Services() {
+function FavoriteList() {
   const [services, setServices] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [filters, setFilters] = React.useState([]);
   const [filtered, setFiltered] = React.useState(false);
   const [searched, setSearched] = React.useState(false);
 
-  const [wishlist, setWishlist] = useState([]); // Track wishlist services
-  const [addingToWishlist, setAddingToWishlist] = useState(false);
+  const [wishlist, setWishlist] = useState([]);
+
   const [removingFromWishlist, setRemovingFromWishlist] = useState(false);
   const [wishlistError, setWishlistError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const addToWishlist = async (serviceId) => {
-    try {
-      setAddingToWishlist(true);
-      const user = localStorage.getItem("userData");
-      const userId = JSON.parse(user)._id;
-
-      const response = await axios.post(`http://localhost:3001/wishlist/add`, {
-        userId,
-        serviceId,
-      });
-
-      if (response.data.success) {
-        setWishlist([...wishlist, serviceId]);
-      } else {
-        setWishlistError(response.data.message);
-      }
-      window.location.reload();
-
-    } catch (error) {
-      console.error(error);
-      setWishlistError("Error adding to wishlist.");
-    } finally {
-      setAddingToWishlist(false);
-    }
-  };
 
   const removeFromWishlist = async (serviceId) => {
     try {
@@ -102,77 +74,8 @@ export default function Services() {
   };
 
   useEffect(() => {
-    fetchUserWishlist(); 
-
+    fetchUserWishlist();
   }, []);
-
-  const renderWishlistButton = (serviceId) => {
-    const isServiceInWishlist = wishlist.includes(serviceId);
-
-
-    const heartIconStyle = {
-      width: "25px",
-      height: "25px",
-      transition: "color 0.3s ease-in-out", 
-      color:"red"
-    };
-  
-    if (wishlist.includes(serviceId)) {
-      return (
-        <Button
-          sx={{
-            backgroundColor: "white",
-            borderRadius: 10,
-            height: 50,
-            marginLeft: "100px",
-            position: "absolute",
-            width: "50px !important",
-            minWidth:"50px",
-            "&.MuiButton-root": {
-              marginLeft: "11rem !important", 
-              marginTop:"0.5rem !important",
-            },
-          }}
-          style={{}}
-          color="secondary"
-          onClick={() => removeFromWishlist(serviceId)}
-          className="text-red-600 font-medium text-sm mx-2"
-          disabled={removingFromWishlist}
-        >
-          <FavoriteIcon sx={{ right: 0 }} style={heartIconStyle}/>
-        </Button>
-      );
-    } else {
-      return (
-        <Button
-          sx={{
-            backgroundColor: "white",
-            borderRadius: 50,
-            height: 50,
-            minWidth:"50px",
-            "&.MuiButton-root": {
-              marginLeft: "11rem !important", 
-              marginTop:"0.5rem !important",
-            },
-            width: "50px !important",
-          }}
-          color="secondary"
-          className="text-green-600 font-medium text-sm mx-2"
-          disabled={addingToWishlist}
-          onClick={() => addToWishlist(serviceId)}
-
-        >
-            <FavoriteBorderIcon
-              style={{
-                width: "25px",
-                height: "25px", 
-              }}
-              sx={{color:"red" }}
-            />
-        </Button>
-      );
-    }
-  };
 
   const fetchData = async () => {
     let data = await fetch("http://localhost:3001/allServices", {
@@ -427,9 +330,12 @@ export default function Services() {
           </MobileView>
         </center>
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        {wishlist.length === 0 ? (
+    <p>Your wishlist is empty.</p>
+  ) : (
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {services?.map((service) => (
-              <div className="service_card group p-2 decoration-white no-underline">
+            {services.filter(service => wishlist.includes(service._id)).map((service) => (
+              <div key={service._id} className="service_card group p-2 decoration-white no-underline">
                 <p
                   style={{ color: "inherit" }}
                   className="mt-1 text-l font-medium text-gray-900"
@@ -445,7 +351,28 @@ export default function Services() {
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                   <div>
-                  {renderWishlistButton(service._id)}
+                      <Button
+                      sx={{
+                        backgroundColor: "white",
+                        borderRadius: 10,
+                        height: 50,
+                        marginLeft: "100px",
+                        position: "absolute",
+                        width: "50px !important",
+                        minWidth:"50px",
+                        "&.MuiButton-root": {
+                          marginLeft: "11rem !important", 
+                          marginTop:"0.5rem !important",
+                        },
+                      }}
+                        color="secondary"
+                        onClick={() => removeFromWishlist(service._id)}
+                        className="text-red-600 font-medium text-sm mx-2"
+                        disabled={removingFromWishlist}
+                      >
+                        <HeartBrokenIcon style={{color:"red"}}/>
+                      </Button>
+
                   </div>
                 </div>
 
@@ -512,6 +439,7 @@ export default function Services() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </div>
 
@@ -519,3 +447,5 @@ export default function Services() {
     </div>
   );
 }
+
+export default FavoriteList;
