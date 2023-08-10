@@ -90,7 +90,6 @@ const DataTable = (props) => {
                     alert("Unable to approve vendor")
                 }
             }).catch((error)=>{
-                console.log(error)
                 alert(error)
             })
         }
@@ -103,7 +102,6 @@ const DataTable = (props) => {
                     alert("Unable to reject vendor")
                 }
             }).catch((error)=>{
-                console.log(error)
                 alert(error)
             })
         }

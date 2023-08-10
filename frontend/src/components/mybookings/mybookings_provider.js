@@ -27,7 +27,6 @@ export default function MyBookings() {
 
   const openModel = (booking) => {
     setSelectedBooking(booking)
-    console.log(booking)
     setDate(booking.date.split(" ")[0])
     setTime(booking.date.split(" ")[1])
     handleClose()
@@ -117,7 +116,6 @@ export default function MyBookings() {
 
   const completeBookingHandler = () => {
     const booking_id = selectedBooking._id
-    console.log(booking_id)
     axios.put(`http://localhost:3001/booking/complete/${booking_id}`).then((res)=>{
       window.location.href="/provider_bookings"
     }).catch((e)=>{

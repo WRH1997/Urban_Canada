@@ -92,8 +92,6 @@ export default function Header(props) {
     }
   }, []);
 
-  console.log(loggedInUser);
-
   var navigation = guestNavigation;
 
   if (loggedInUser == "service-consumer") {
