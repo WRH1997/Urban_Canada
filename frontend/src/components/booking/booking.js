@@ -30,8 +30,22 @@ export default function Bookings(props) {
           note: note
         }
         
-        axios.post("http://localhost:3001/booking/create",booking).then((req,res)=>{
-            window.location.href = "/consumer_bookings"
+        axios.post("http://localhost:3001/booking/create",booking).then((res)=>{
+          const notification = {
+            booking_id: res.data.booking._id,
+            recipient_id: service.vendorID,
+            message: "New Booking Request",
+            type: "Booking Created" 
+          }
+          // console.log(notification)
+          
+          axios.post("http://localhost:3001/notifications",notification).then((res)=>{
+            if(res){
+              window.location.href = "/consumer_bookings"
+            }
+          }).catch((e)=>{
+            alert(e)
+          })
         }).catch((e)=>{
           alert(e)
         })
