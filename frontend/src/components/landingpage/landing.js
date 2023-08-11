@@ -17,7 +17,7 @@ export default function Landing() {
 
   return (
     <div>
-      <Header currentPage="/"/>
+      <Header currentPage="/" />
 
       <div className="relative isolate overflow-hidden bg-gray-900 sm:py-32">
         <div
@@ -50,35 +50,35 @@ export default function Landing() {
           <div className="col-9 mx-auto lg:mx-0">
             <h2 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">Urban Canada</h2>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-            A modern service marketplace to empower vendors and satisfy clients.
+              A modern service marketplace to empower vendors and satisfy clients.
             </p>
           </div>
 
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none justify-content-center col-9">
-            <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4" style={{backgroundColor: "#fff",  padding: "2rem", opacity: 0.7, borderRadius: "5px"}}>
+            <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4" style={{ backgroundColor: "#fff", padding: "2rem", opacity: 0.7, borderRadius: "5px" }}>
               {stats.map((stat) => (
                 <div key={stat.name} className="flex flex-col-reverse justify-content-center align-items-center">
                   <dt className="text-base leading-7 text-gray-800">{stat.name}</dt>
-                  <dd className="text-2xl font-bold leading-9 tracking-tight text-gray" style={{alignContent: "center"}}>{stat.value}</dd>
+                  <dd className="text-2xl font-bold leading-9 tracking-tight text-gray" style={{ alignContent: "center" }}>{stat.value}</dd>
                 </div>
               ))}
-            </dl> 
+            </dl>
           </div>
         </div>
       </div>
 
-      <section className="col-12 p-4 flex-wrap" style={{display: "flex", justifyContent: "center", backgroundColor: "#f7f7f7"}}>
-        <div className="col-lg-6 col-12 p-3" style={{display: "flex", justifyContent: "center"}}>
+      <section className="col-12 p-4 flex-wrap" style={{ display: "flex", justifyContent: "center", backgroundColor: "#f7f7f7" }}>
+        <div className="col-lg-6 col-12 p-3" style={{ display: "flex", justifyContent: "center" }}>
           <img src={illustration} atl="Who are we?" />
         </div>
 
-        <div className="col-lg-6 col-12 p-3 my-4" style={{fontSize: "22px"}}>
-            Urban Canada is your portal to a modern service marketplace. Whether you're someone trying to find a service near you or a service vendor looking to attract clients, our platform expedites and simplifies the process of connecting the right clients to the right service vendors!
+        <div className="col-lg-6 col-12 p-3 my-4" style={{ fontSize: "22px" }}>
+          Urban Canada is your portal to a modern service marketplace. Whether you're someone trying to find a service near you or a service vendor looking to attract clients, our platform expedites and simplifies the process of connecting the right clients to the right service vendors!
         </div>
       </section>
 
-      <section className="col-12 p-4 d-flex flex-wrap " style={{backgroundColor: "#fff"}}>
-        <div className="col-12 d-flex align-items-center justify-content-center" style={{fontSize: "30px"}}>
+      <section className="col-12 p-4 d-flex flex-wrap " style={{ backgroundColor: "#fff" }}>
+        <div className="col-12 d-flex align-items-center justify-content-center" style={{ fontSize: "30px" }}>
           Features
         </div>
         <div className="col-12 d-flex flex-wrap flex-row align-items-start">
@@ -103,7 +103,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

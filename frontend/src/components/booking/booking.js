@@ -1,6 +1,6 @@
 // author: HARSH NARESHBHAI KATHIRIA
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -12,11 +12,11 @@ export default function Bookings(props) {
   const service = location.state;
   const user = localStorage.getItem("userData")
   const consumer_id = JSON.parse(user)._id
-  const [date,setDate] = useState("")
-  const [time,setTime] = useState("")
-  const [note,setNote] = useState("")
-  const [address,setAddress] = useState("")
-  
+  const [date, setDate] = useState("")
+  const [time, setTime] = useState("")
+  const [note, setNote] = useState("")
+  const [address, setAddress] = useState("")
+
   const submitBookinghandler = (e) => {
     e.preventDefault()
     if (address != "" && date != "" && time != "") {
@@ -26,37 +26,36 @@ export default function Bookings(props) {
           provider_id: service.vendorID,
           service_id: service._id,
           address: address,
-          date: date+" "+time,
+          date: date + " " + time,
           note: note
         }
-        
-        axios.post("http://localhost:3001/booking/create",booking).then((res)=>{
+
+        axios.post("http://localhost:3001/booking/create", booking).then((res) => {
           const notification = {
             booking_id: res.data.booking._id,
             recipient_id: service.vendorID,
             message: "New Booking Request",
-            type: "Booking Created" 
+            type: "Booking Created"
           }
-          // console.log(notification)
-          
-          axios.post("http://localhost:3001/notifications",notification).then((res)=>{
-            if(res){
-              localStorage.setItem("booking_alert","Booking Created Successfully")
+
+          axios.post("http://localhost:3001/notifications", notification).then((res) => {
+            if (res) {
+              localStorage.setItem("booking_alert", "Booking Created Successfully")
               window.location.href = "/consumer_bookings"
             }
-          }).catch((e)=>{
+          }).catch((e) => {
             setBookingAlert(e)
           })
-        }).catch((e)=>{
+        }).catch((e) => {
           setBookingAlert(e)
         })
       }
-      
+
       else {
         setBookingAlert(e)
       }
     }
-    
+
     else {
       setBookingAlert("Address, Date and Time are required.")
     }
@@ -74,9 +73,8 @@ export default function Bookings(props) {
     return `${year}-${month}-${day}`;
   };
 
-  const [bookingAlert,setBookingAlert] = useState(localStorage.getItem("booking_alert"))
+  const [bookingAlert, setBookingAlert] = useState(localStorage.getItem("booking_alert"))
   setTimeout(() => {
-    // localStorage.removeItem("booking_alert")
     setBookingAlert(null);
   }, 3000);
 
@@ -84,7 +82,7 @@ export default function Bookings(props) {
 
   return (
     <div>
-      <Header currentPage="/booking"/>
+      <Header currentPage="/booking" />
 
       <form
         className="max-w-sm bg-white pt-10 pb-24 m-auto"
@@ -135,7 +133,7 @@ export default function Bookings(props) {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   required
                   value={date}
-                  onChange={(e)=>{setDate(e.target.value)}}
+                  onChange={(e) => { setDate(e.target.value) }}
                 />
               </div>
             </div>
@@ -156,7 +154,7 @@ export default function Bookings(props) {
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={time}
-                  onChange={(e)=>{setTime(e.target.value)}}
+                  onChange={(e) => { setTime(e.target.value) }}
                 />
               </div>
             </div>
@@ -177,7 +175,7 @@ export default function Bookings(props) {
                     id="notes"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     value={address}
-                    onChange={(e)=>{setAddress(e.target.value)}}
+                    onChange={(e) => { setAddress(e.target.value) }}
                     required
                   />
                 </div>
@@ -200,7 +198,7 @@ export default function Bookings(props) {
                     id="notes"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     value={note}
-                    onChange={(e)=>{setNote(e.target.value)}}
+                    onChange={(e) => { setNote(e.target.value) }}
                   />
                 </div>
               </div>
@@ -211,7 +209,7 @@ export default function Bookings(props) {
             <a href="/services" className="text-sm font-semibold leading-6 text-gray-900 no-underline">
               Cancel
             </a>
-            
+
             <button
               type="submit"
               className="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -221,12 +219,12 @@ export default function Bookings(props) {
             </button>
           </div>
         </div>
-      {
-        bookingAlert != null &&
-        <div className='booking-alerts p-3'>
-          {bookingAlert}
-        </div>
-      }
+        {
+          bookingAlert != null &&
+          <div className='booking-alerts p-3'>
+            {bookingAlert}
+          </div>
+        }
       </form>
       <div className="fixed bottom-0 bg-gray-200 w-full">
         <Footer />
