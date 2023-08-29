@@ -4,8 +4,8 @@
 
 * *Date Created*: 18 JUN 2023
 * *Last Modification Date*: 10 AUG 2023
-* *Project URL*: <https://main--brilliant-pixie-8bba9e.netlify.app/>
-* *Git URL*: <https://git.cs.dal.ca/kathiria/csci-5709-grp-13/>
+* *Project URL*: <https://main--brilliant-pixie-8bba9e.netlify.app/> *(No longer online)*
+* *Git URL*: <https://git.cs.dal.ca/kathiria/csci-5709-grp-13/> *(Private Repo.)*
 
 ## Authors
 
