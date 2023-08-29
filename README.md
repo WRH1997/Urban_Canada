@@ -8,12 +8,12 @@
 * *Git URL*: <https://git.cs.dal.ca/kathiria/csci-5709-grp-13/> *(Private Repo.)*
 
 ## Authors
-Waleed R. Alhindi - *(wl392785@dal.ca)*
-Edwin Adams - *(ed743899@dal.ca)* 
-Harsh Nareshbhai Kathiria - *(hr527292@dal.ca)*
-Muskan Vazirani - *(muskan@dal.ca)*
-Nandkumar Kadivar - *(nn521973@dal.ca)* 
-Darshil Patel - *(darshil.patel@dal.ca)*
+* Waleed R. Alhindi - *(wl392785@dal.ca)*
+* Edwin Adams - *(ed743899@dal.ca)* 
+* Harsh Nareshbhai Kathiria - *(hr527292@dal.ca)*
+* Muskan Vazirani - *(muskan@dal.ca)*
+* Nandkumar Kadivar - *(nn521973@dal.ca)* 
+* Darshil Patel - *(darshil.patel@dal.ca)*
 
 ## Testing
 
